@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Algodynamics: Bubble Sort</title>
+  <link href="https://fonts.googleapis.com/css?family=Alata&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="css/bubblesort.css">
+  <script src="js/elm.js"></script>
+</head>
+
+<body>
+  <div class="heading"> Algodynamics: Bubble Sort </div>
+  <div class="toc">
+    <span class="toc-item" onclick="getExperiment(1)">
+      Swap
+    </span>
+    <span class="toc-item" onclick="getExperiment(2)">
+      Ordering
+    </span>
+    <span class="toc-item" onclick="getExperiment(3)">
+      Adjacent Ordering
+    </span>
+    <span class="toc-item" onclick="getExperiment(4)">
+      Sweeping
+    </span>
+    <span class="toc-item" onclick="getExperiment(5)">
+      Bubble Sort
+    </span>
+  </div>
+  <div class="sub-head"> Introduction </div>
+  <div class="introduction">
+    
+  </div>
+  <div class="exp-container">
+    <div id="experiment"></div>
+  </div>
+  <script>
+
+    
+    const names = [ "Swap"
+                    , "Ordering"
+                    , "Adjacent Ordering"
+                    , "Sweeping"
+                    , "Bubble Sort"
+                  ];
+    
+    function getExperiment(num){
+        
+        const parent =
+              document.getElementsByClassName("exp-container")[0];
+        parent.innerHTML = '';
+        const sn = document.createElement("div");
+        sn.classList.add("sect-name");
+        sn.innerHTML = names[num-1];
+        parent.appendChild(sn);
+        const expNode = document.createElement("div");
+        parent.appendChild(expNode);        
+        switch (num) {
+        case 1:
+            return Elm.Swap.init({
+                node: expNode
+            });
+        case 2:
+            console.log(expNode);
+            return Elm.Ordering.init({
+                node: expNode
+            });
+        case 3:
+            return Elm.AdjacentOrdering.init({
+                node: expNode
+            });
+        case 4:
+            return Elm.Sweeping.init({
+                node: expNode
+            });
+        case 5:
+            return Elm.BubbleSort.init({
+                node: expNode
+            });
+        }
+    }
+  </script>
+</body>
+</html>

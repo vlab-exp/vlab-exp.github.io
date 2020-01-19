@@ -1,2 +1,2 @@
-# vlab-exp.github.io
-hosting 
+# vlab-exp.github.com
+Hosting of demos
