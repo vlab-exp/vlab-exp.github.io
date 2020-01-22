@@ -13291,15 +13291,25 @@ var author$project$Swap$view = function (model) {
 };
 var author$project$Sweeping$NextClicked = {$: 'NextClicked'};
 var author$project$Sweeping$ResetClicked = {$: 'ResetClicked'};
-var author$project$Sweeping$isSelected = F2(
-	function (idx, selected) {
-		var lo = selected.a;
-		var hi = selected.b;
-		return (_Utils_eq(idx, lo) || _Utils_eq(idx, hi)) ? true : false;
-	});
 var author$project$Sweeping$arrayIndexSvg = F3(
-	function (selected, index, cxf) {
-		var fillColor = A2(author$project$Sweeping$isSelected, index, selected) ? 'rgb(183, 28, 28)' : 'rgb(38, 50, 56)';
+	function (itr, index, cxf) {
+		var fillColor = _Utils_eq(itr, index) ? 'rgb(183, 28, 28)' : 'rgb(38, 50, 56)';
+		var label = A2(
+			elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$x(
+					elm$core$String$fromFloat(cxf)),
+					elm$svg$Svg$Attributes$y('80'),
+					elm$svg$Svg$Attributes$fontSize('40'),
+					elm$svg$Svg$Attributes$fill(fillColor),
+					elm$svg$Svg$Attributes$textAnchor('middle'),
+					elm$svg$Svg$Attributes$dominantBaseline('middle')
+				]),
+			_List_fromArray(
+				[
+					elm$svg$Svg$text('i')
+				]));
 		var txt = A2(
 			elm$svg$Svg$text_,
 			_List_fromArray(
@@ -13333,8 +13343,8 @@ var author$project$Sweeping$arrayIndexSvg = F3(
 		return A2(
 			elm$svg$Svg$g,
 			_List_Nil,
-			A2(author$project$Sweeping$isSelected, index, selected) ? _List_fromArray(
-				[txt, crc]) : _List_fromArray(
+			_Utils_eq(itr, index) ? _List_fromArray(
+				[txt, crc, label]) : _List_fromArray(
 				[txt]));
 	});
 var author$project$Sweeping$arrayXAxis = F2(
@@ -13355,7 +13365,6 @@ var author$project$Sweeping$arrayIndices = function (model) {
 		author$project$Sweeping$arrayXAxis,
 		elm$core$List$length(array),
 		200);
-	var selected = _Utils_Tuple2(iterator, iterator + 1);
 	return A2(
 		elm$svg$Svg$g,
 		_List_fromArray(
@@ -13364,9 +13373,15 @@ var author$project$Sweeping$arrayIndices = function (model) {
 			]),
 		A2(
 			elm$core$List$indexedMap,
-			author$project$Sweeping$arrayIndexSvg(selected),
+			author$project$Sweeping$arrayIndexSvg(iterator),
 			xAxis));
 };
+var author$project$Sweeping$isSelected = F2(
+	function (idx, selected) {
+		var lo = selected.a;
+		var hi = selected.b;
+		return (_Utils_eq(idx, lo) || _Utils_eq(idx, hi)) ? true : false;
+	});
 var author$project$Sweeping$arrayItemSvg = F3(
 	function (selected, cxf, dataPair) {
 		var radius = '80';
@@ -13676,8 +13691,8 @@ var author$project$BSLab$b1Instructions = A2(
 	_List_fromArray(
 		[
 			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('The Swap Machine experiment consists of a list of numbers.  On the right side you can see the list of numbers that you are going to interact with.  Each circle containing a number represents an element of the list.  You can click on the number to select it.  Clicking on a selected number deselects it. You can select at most two numbers at a time.'),
-			author$project$BSLab$sectBody('On selecting any two numbers, you can swap them by clicking on the \'swap\' button that appear on the top between the two selected numbers.  The selections are reset after each swap operation.'),
+			author$project$BSLab$sectBody('The Swap Machine experiment consists of a list of numbers.  You can click on any number to select/deselect it.  You can select at most two numbers at a time.'),
+			author$project$BSLab$sectBody('On selecting any two numbers, you can swap them by clicking on the \'swap\' button.  The selections are reset after each swap operation.'),
 			author$project$BSLab$sectHead('Objective'),
 			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by swapping the numbers in the list.  You are free to select any pair of numbers you want to swap.'),
 			author$project$BSLab$sectHead('Procedure'),
@@ -13698,9 +13713,8 @@ var author$project$BSLab$b2Instructions = A2(
 	_List_fromArray(
 		[
 			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('Hopefully you have completed the Swap Machine Experiment.  The Order Machine Experiment is similar to the Swap Machine Experiment.  It consists of a list of numbers.  On the right side you can see the list of numbers that you are going to interact with.  Each circle containing a number represents an element of the list.  You can click on the number to select it.  Clicking on a selected number deselects it. You can select at most two numbers at a time.'),
-			author$project$BSLab$sectBody('The difference between the Swap Machine and the Order Machine is that in the Swap Machine, you can swap any two selected numbers, whereas in the Order Machine, you can only swap the numbers if they are out of order.'),
-			author$project$BSLab$sectBody('Two numbers are out of order if the larger number comes before the smaller number in the list.  The \'order\' operation is used to order the numbers; it swaps the numbers only if they are out if order.'),
+			author$project$BSLab$sectBody('Hopefully you have completed the Swap Machine Experiment.  The Order Machine is similar to the Swap Machine.'),
+			author$project$BSLab$sectBody('The main difference between the Swap Machine and the Order Machine is that in the Swap Machine, you can swap any two selected numbers, whereas in the Order Machine, you can only swap the numbers if they are out of order.'),
 			author$project$BSLab$sectHead('Objective'),
 			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by ordering the numbers in the list.  You are free to select any pair of numbers you want to order.'),
 			author$project$BSLab$sectHead('Procedure'),
@@ -13721,7 +13735,7 @@ var author$project$BSLab$b3Instructions = A2(
 	_List_fromArray(
 		[
 			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('In this experiment, you will be working with an \'Order Adjacent Machine\'.  An \'Order Adjacent Machine\' is a specialized version of the \'Order Machine\'.  In the right section, you can see that the machine involves an list of numbers.  You can select any number in the list by clicking on it, and undo the selection by clicking againg.'),
+			author$project$BSLab$sectBody('In this experiment, you will be working with an \'Order Adjacent Machine\'.  An \'Order Adjacent Machine\' is a specialized version of the \'Order Machine\'.'),
 			author$project$BSLab$sectBody('The difference between the \'Order Machine\' and the \'Order Adjacent Machine\' is that in the \'Order Machine\', you can select any two numbers to be ordered, whereas in the \'Order Adjacent Machine\', you can only select adjacent numbers.  When you click on one number, the next one is automatically selected for you.  Then the selected pair can be ordered, just like in the \'Order Machine\'.'),
 			author$project$BSLab$sectBody('Perform the \'Order Machine\' experiment first, if you haven\'t already done so.'),
 			author$project$BSLab$sectHead('Objective'),
