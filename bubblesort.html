@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>BSLab</title>
+  <title>BubblesortDemo</title>
 </head>
 
 <body>
@@ -1051,6 +1051,89 @@ function _Basics_not(bool) { return !bool; }
 var _Basics_and = F2(function(a, b) { return a && b; });
 var _Basics_or  = F2(function(a, b) { return a || b; });
 var _Basics_xor = F2(function(a, b) { return a !== b; });
+
+
+
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
+	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2(elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
 
 
 
@@ -4365,43 +4448,9 @@ function _Browser_load(url)
 		}
 	}));
 }
-
-
-
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
+var author$project$AdjacentOrdering$GotRandomArray = function (a) {
+	return {$: 'GotRandomArray', a: a};
 };
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
 var elm$core$Basics$negate = function (n) {
 	return -n;
 };
@@ -4485,73 +4534,63 @@ var elm$core$Set$toList = function (_n0) {
 	var dict = _n0.a;
 	return elm$core$Dict$keys(dict);
 };
-var author$project$AdjacentOrdering$init = {
-	array: _List_fromArray(
-		[30, 45, 12, 9, 5, 8]),
-	hints: _List_fromArray(
-		['Click on any numbered circle to select it, click again to undo the selection.', 'You can only select adjacent items.  Click on one, the next one gets selected.', 'To deselect a pair, click on any one number.']),
-	selected: _Utils_Tuple2(-1, -1),
-	stats: {selectionPairCount: 0, swapCount: 0}
+var elm$core$Basics$identity = function (x) {
+	return x;
 };
-var author$project$BSLab$GotViewport = function (a) {
-	return {$: 'GotViewport', a: a};
+var elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
 };
-var author$project$BSLab$Intro = {$: 'Intro'};
-var author$project$BubbleSort$init = {
-	array: _List_fromArray(
-		[80, 36, 17, 4, 23, 56]),
-	boundary: 6,
-	hints: _List_fromArray(
-		['Click on the next button, to step through the algorithm.']),
-	iterator: 0,
-	stats: {selectionPairCount: 0, swapCount: 0}
+var elm$core$Task$andThen = _Scheduler_andThen;
+var elm$core$Task$succeed = _Scheduler_succeed;
+var elm$core$Basics$add = _Basics_add;
+var elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var elm$core$Basics$mul = _Basics_mul;
+var elm$random$Random$next = function (_n0) {
+	var state0 = _n0.a;
+	var incr = _n0.b;
+	return A2(elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
 };
-var author$project$Ordering$init = {
-	array: _List_fromArray(
-		[30, 45, 12, 9, 5, 8]),
-	hints: _List_fromArray(
-		['Click on any numbered circle to select it, click again to undo the selection.', 'You can select upto two numbers.']),
-	selected: _Utils_Tuple2(-1, -1),
-	stats: {selectionPairCount: 0, swapCount: 0}
+var elm$random$Random$initialSeed = function (x) {
+	var _n0 = elm$random$Random$next(
+		A2(elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _n0.a;
+	var incr = _n0.b;
+	var state2 = (state1 + x) >>> 0;
+	return elm$random$Random$next(
+		A2(elm$random$Random$Seed, state2, incr));
 };
-var author$project$Swap$init = {
-	array: _List_fromArray(
-		[12, 6, 8, 7, 34, 2, 9]),
-	hints: _List_fromArray(
-		['Click on any numbered circle to select it, click again to undo the selection.', 'You can select upto two numbers.']),
-	selected: _Utils_Tuple2(-1, -1),
-	stats: {selectionPairCount: 0, swapCount: 0}
+var elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
 };
-var author$project$Sweeping$init = {
-	array: _List_fromArray(
-		[30, 45, 12, 9, 5, 8]),
-	hints: _List_fromArray(
-		['Click on the next button to order the selected pair, and go to the next one.']),
-	iterator: 0,
-	stats: {selectionPairCount: 0, swapCount: 0}
+var elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
 };
-var elm$browser$Browser$External = function (a) {
-	return {$: 'External', a: a};
+var elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var elm$time$Time$customZone = elm$time$Time$Zone;
+var elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
 };
-var elm$browser$Browser$Internal = function (a) {
-	return {$: 'Internal', a: a};
+var elm$time$Time$millisToPosix = elm$time$Time$Posix;
+var elm$time$Time$now = _Time_now(elm$time$Time$millisToPosix);
+var elm$time$Time$posixToMillis = function (_n0) {
+	var millis = _n0.a;
+	return millis;
 };
-var elm$browser$Browser$Dom$NotFound = function (a) {
-	return {$: 'NotFound', a: a};
-};
-var elm$core$Basics$never = function (_n0) {
-	never:
-	while (true) {
-		var nvr = _n0.a;
-		var $temp$_n0 = nvr;
-		_n0 = $temp$_n0;
-		continue never;
-	}
-};
-var elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
-};
-var elm$core$Maybe$Nothing = {$: 'Nothing'};
+var elm$random$Random$init = A2(
+	elm$core$Task$andThen,
+	function (time) {
+		return elm$core$Task$succeed(
+			elm$random$Random$initialSeed(
+				elm$time$Time$posixToMillis(time)));
+	},
+	elm$time$Time$now);
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -4560,144 +4599,6 @@ var elm$core$Result$isOk = function (result) {
 	} else {
 		return false;
 	}
-};
-var elm$core$Basics$identity = function (x) {
-	return x;
-};
-var elm$core$Task$Perform = function (a) {
-	return {$: 'Perform', a: a};
-};
-var elm$core$Task$succeed = _Scheduler_succeed;
-var elm$core$Task$init = elm$core$Task$succeed(_Utils_Tuple0);
-var elm$core$Basics$add = _Basics_add;
-var elm$core$Basics$gt = _Utils_gt;
-var elm$core$List$foldl = F3(
-	function (func, acc, list) {
-		foldl:
-		while (true) {
-			if (!list.b) {
-				return acc;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				var $temp$func = func,
-					$temp$acc = A2(func, x, acc),
-					$temp$list = xs;
-				func = $temp$func;
-				acc = $temp$acc;
-				list = $temp$list;
-				continue foldl;
-			}
-		}
-	});
-var elm$core$List$reverse = function (list) {
-	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
-};
-var elm$core$List$foldrHelper = F4(
-	function (fn, acc, ctr, ls) {
-		if (!ls.b) {
-			return acc;
-		} else {
-			var a = ls.a;
-			var r1 = ls.b;
-			if (!r1.b) {
-				return A2(fn, a, acc);
-			} else {
-				var b = r1.a;
-				var r2 = r1.b;
-				if (!r2.b) {
-					return A2(
-						fn,
-						a,
-						A2(fn, b, acc));
-				} else {
-					var c = r2.a;
-					var r3 = r2.b;
-					if (!r3.b) {
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(fn, c, acc)));
-					} else {
-						var d = r3.a;
-						var r4 = r3.b;
-						var res = (ctr > 500) ? A3(
-							elm$core$List$foldl,
-							fn,
-							acc,
-							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(
-									fn,
-									c,
-									A2(fn, d, res))));
-					}
-				}
-			}
-		}
-	});
-var elm$core$List$foldr = F3(
-	function (fn, acc, ls) {
-		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
-	});
-var elm$core$List$map = F2(
-	function (f, xs) {
-		return A3(
-			elm$core$List$foldr,
-			F2(
-				function (x, acc) {
-					return A2(
-						elm$core$List$cons,
-						f(x),
-						acc);
-				}),
-			_List_Nil,
-			xs);
-	});
-var elm$core$Basics$apR = F2(
-	function (x, f) {
-		return f(x);
-	});
-var elm$core$Task$andThen = _Scheduler_andThen;
-var elm$core$Task$map = F2(
-	function (func, taskA) {
-		return A2(
-			elm$core$Task$andThen,
-			function (a) {
-				return elm$core$Task$succeed(
-					func(a));
-			},
-			taskA);
-	});
-var elm$core$Task$map2 = F3(
-	function (func, taskA, taskB) {
-		return A2(
-			elm$core$Task$andThen,
-			function (a) {
-				return A2(
-					elm$core$Task$andThen,
-					function (b) {
-						return elm$core$Task$succeed(
-							A2(func, a, b));
-					},
-					taskB);
-			},
-			taskA);
-	});
-var elm$core$Task$sequence = function (tasks) {
-	return A3(
-		elm$core$List$foldr,
-		elm$core$Task$map2(elm$core$List$cons),
-		elm$core$Task$succeed(_List_Nil),
-		tasks);
 };
 var elm$core$Array$branchFactor = 32;
 var elm$core$Array$Array_elm_builtin = F4(
@@ -4722,6 +4623,28 @@ var elm$core$Array$SubTree = function (a) {
 	return {$: 'SubTree', a: a};
 };
 var elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
+var elm$core$List$foldl = F3(
+	function (func, acc, list) {
+		foldl:
+		while (true) {
+			if (!list.b) {
+				return acc;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				var $temp$func = func,
+					$temp$acc = A2(func, x, acc),
+					$temp$list = xs;
+				func = $temp$func;
+				acc = $temp$acc;
+				list = $temp$list;
+				continue foldl;
+			}
+		}
+	});
+var elm$core$List$reverse = function (list) {
+	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
+};
 var elm$core$Array$compressNodes = F2(
 	function (nodes, acc) {
 		compressNodes:
@@ -4743,6 +4666,10 @@ var elm$core$Array$compressNodes = F2(
 				continue compressNodes;
 			}
 		}
+	});
+var elm$core$Basics$apR = F2(
+	function (x, f) {
+		return f(x);
 	});
 var elm$core$Basics$eq = _Utils_equal;
 var elm$core$Tuple$first = function (_n0) {
@@ -4770,11 +4697,11 @@ var elm$core$Basics$apL = F2(
 		return f(x);
 	});
 var elm$core$Basics$floor = _Basics_floor;
+var elm$core$Basics$gt = _Utils_gt;
 var elm$core$Basics$max = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) > 0) ? x : y;
 	});
-var elm$core$Basics$mul = _Basics_mul;
 var elm$core$Basics$sub = _Basics_sub;
 var elm$core$Elm$JsArray$length = _JsArray_length;
 var elm$core$Array$builderToArray = F2(
@@ -4842,6 +4769,10 @@ var elm$core$Array$initialize = F2(
 			return A5(elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
+var elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
+var elm$core$Maybe$Nothing = {$: 'Nothing'};
 var elm$core$Result$Err = function (a) {
 	return {$: 'Err', a: a};
 };
@@ -5054,6 +4985,446 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 		}
 	});
 var elm$core$Platform$sendToApp = _Platform_sendToApp;
+var elm$random$Random$step = F2(
+	function (_n0, seed) {
+		var generator = _n0.a;
+		return generator(seed);
+	});
+var elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _n1 = A2(elm$random$Random$step, generator, seed);
+			var value = _n1.a;
+			var newSeed = _n1.b;
+			return A2(
+				elm$core$Task$andThen,
+				function (_n2) {
+					return A3(elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2(elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var elm$random$Random$onSelfMsg = F3(
+	function (_n0, _n1, seed) {
+		return elm$core$Task$succeed(seed);
+	});
+var elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var elm$random$Random$map = F2(
+	function (func, _n0) {
+		var genA = _n0.a;
+		return elm$random$Random$Generator(
+			function (seed0) {
+				var _n1 = genA(seed0);
+				var a = _n1.a;
+				var seed1 = _n1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var elm$random$Random$cmdMap = F2(
+	function (func, _n0) {
+		var generator = _n0.a;
+		return elm$random$Random$Generate(
+			A2(elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager(elm$random$Random$init, elm$random$Random$onEffects, elm$random$Random$onSelfMsg, elm$random$Random$cmdMap);
+var elm$random$Random$command = _Platform_leaf('Random');
+var elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return elm$random$Random$command(
+			elm$random$Random$Generate(
+				A2(elm$random$Random$map, tagger, generator)));
+	});
+var elm$core$Bitwise$and = _Bitwise_and;
+var elm$core$Bitwise$xor = _Bitwise_xor;
+var elm$random$Random$peel = function (_n0) {
+	var state = _n0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var elm$random$Random$int = F2(
+	function (a, b) {
+		return elm$random$Random$Generator(
+			function (seed0) {
+				var _n0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _n0.a;
+				var hi = _n0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & elm$random$Random$peel(seed0)) >>> 0) + lo,
+						elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = elm$random$Random$peel(seed);
+							var seedN = elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var elm$random$Random$andThen = F2(
+	function (callback, _n0) {
+		var genA = _n0.a;
+		return elm$random$Random$Generator(
+			function (seed) {
+				var _n1 = genA(seed);
+				var result = _n1.a;
+				var newSeed = _n1.b;
+				var _n2 = callback(result);
+				var genB = _n2.a;
+				return genB(newSeed);
+			});
+	});
+var elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _n0 = A2(elm$core$Elm$JsArray$initializeFromList, elm$core$Array$branchFactor, list);
+			var jsArray = _n0.a;
+			var remainingItems = _n0.b;
+			if (_Utils_cmp(
+				elm$core$Elm$JsArray$length(jsArray),
+				elm$core$Array$branchFactor) < 0) {
+				return A2(
+					elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					elm$core$List$cons,
+					elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return elm$core$Array$empty;
+	} else {
+		return A3(elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var elm$random$Random$listHelp = F4(
+	function (revList, n, gen, seed) {
+		listHelp:
+		while (true) {
+			if (n < 1) {
+				return _Utils_Tuple2(revList, seed);
+			} else {
+				var _n0 = gen(seed);
+				var value = _n0.a;
+				var newSeed = _n0.b;
+				var $temp$revList = A2(elm$core$List$cons, value, revList),
+					$temp$n = n - 1,
+					$temp$gen = gen,
+					$temp$seed = newSeed;
+				revList = $temp$revList;
+				n = $temp$n;
+				gen = $temp$gen;
+				seed = $temp$seed;
+				continue listHelp;
+			}
+		}
+	});
+var elm$random$Random$list = F2(
+	function (n, _n0) {
+		var gen = _n0.a;
+		return elm$random$Random$Generator(
+			function (seed) {
+				return A4(elm$random$Random$listHelp, _List_Nil, n, gen, seed);
+			});
+	});
+var elm_community$random_extra$Random$Array$array = F2(
+	function (arrayLength, generator) {
+		return A2(
+			elm$random$Random$map,
+			elm$core$Array$fromList,
+			A2(elm$random$Random$list, arrayLength, generator));
+	});
+var elm_community$random_extra$Random$Array$rangeLengthArray = F3(
+	function (minLength, maxLength, generator) {
+		return A2(
+			elm$random$Random$andThen,
+			function (len) {
+				return A2(elm_community$random_extra$Random$Array$array, len, generator);
+			},
+			A2(elm$random$Random$int, minLength, maxLength));
+	});
+var author$project$AdjacentOrdering$init = function (_n0) {
+	return _Utils_Tuple2(
+		{
+			array: _List_fromArray(
+				[30, 45, 12, 9, 5, 8]),
+			hints: _List_fromArray(
+				['Click on any numbered circle to select it, click again to undo the selection.', 'You can only select adjacent items.  Click on one, the next one gets selected.', 'To deselect a pair, click on any one number.']),
+			selected: _Utils_Tuple2(-1, -1),
+			stats: {selectionPairCount: 0, swapCount: 0}
+		},
+		A2(
+			elm$random$Random$generate,
+			author$project$AdjacentOrdering$GotRandomArray,
+			A3(
+				elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				8,
+				A2(elm$random$Random$int, 10, 50))));
+};
+var author$project$BubbleSort$GotRandomArray = function (a) {
+	return {$: 'GotRandomArray', a: a};
+};
+var author$project$BubbleSort$init = function (_n0) {
+	return _Utils_Tuple2(
+		{
+			array: _List_fromArray(
+				[80, 36, 17, 4, 23, 56]),
+			boundary: 6,
+			hints: _List_fromArray(
+				['Click on the next button, to step through the algorithm.']),
+			iterator: 0,
+			stats: {selectionPairCount: 0, swapCount: 0}
+		},
+		A2(
+			elm$random$Random$generate,
+			author$project$BubbleSort$GotRandomArray,
+			A3(
+				elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				6,
+				A2(elm$random$Random$int, 10, 50))));
+};
+var author$project$BubblesortDemo$AdjMsg = function (a) {
+	return {$: 'AdjMsg', a: a};
+};
+var author$project$BubblesortDemo$BSMsg = function (a) {
+	return {$: 'BSMsg', a: a};
+};
+var author$project$BubblesortDemo$BubbleMsg = function (a) {
+	return {$: 'BubbleMsg', a: a};
+};
+var author$project$BubblesortDemo$GotViewport = function (a) {
+	return {$: 'GotViewport', a: a};
+};
+var author$project$BubblesortDemo$Intro = {$: 'Intro'};
+var author$project$BubblesortDemo$OrdMsg = function (a) {
+	return {$: 'OrdMsg', a: a};
+};
+var author$project$BubblesortDemo$SwapMsg = function (a) {
+	return {$: 'SwapMsg', a: a};
+};
+var author$project$Ordering$GotRandomArray = function (a) {
+	return {$: 'GotRandomArray', a: a};
+};
+var author$project$Ordering$init = function (_n0) {
+	return _Utils_Tuple2(
+		{
+			array: _List_fromArray(
+				[30, 45, 12, 9, 5, 8]),
+			hints: _List_fromArray(
+				['Click on any numbered circle to select it, click again to undo the selection.', 'You can select upto two numbers.']),
+			selected: _Utils_Tuple2(-1, -1),
+			stats: {selectionPairCount: 0, swapCount: 0}
+		},
+		A2(
+			elm$random$Random$generate,
+			author$project$Ordering$GotRandomArray,
+			A3(
+				elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				8,
+				A2(elm$random$Random$int, 10, 50))));
+};
+var author$project$Swap$GotRandomArray = function (a) {
+	return {$: 'GotRandomArray', a: a};
+};
+var author$project$Swap$init = function (_n0) {
+	return _Utils_Tuple2(
+		{
+			array: _List_fromArray(
+				[12, 6, 8, 7, 34, 2, 9]),
+			hints: _List_fromArray(
+				['Click on any numbered circle to select it, click again to undo the selection.', 'You can select upto two numbers.']),
+			selected: _Utils_Tuple2(-1, -1),
+			stats: {selectionPairCount: 0, swapCount: 0}
+		},
+		A2(
+			elm$random$Random$generate,
+			author$project$Swap$GotRandomArray,
+			A3(
+				elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				8,
+				A2(elm$random$Random$int, 10, 50))));
+};
+var author$project$Sweeping$GotRandomArray = function (a) {
+	return {$: 'GotRandomArray', a: a};
+};
+var author$project$Sweeping$init = function (_n0) {
+	return _Utils_Tuple2(
+		{
+			array: _List_fromArray(
+				[30, 45, 12, 9, 5, 8]),
+			hints: _List_fromArray(
+				['Click on the next button to order the selected pair, and go to the next one.']),
+			iterator: 0,
+			stats: {selectionPairCount: 0, swapCount: 0}
+		},
+		A2(
+			elm$random$Random$generate,
+			author$project$Sweeping$GotRandomArray,
+			A3(
+				elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				8,
+				A2(elm$random$Random$int, 10, 50))));
+};
+var elm$browser$Browser$External = function (a) {
+	return {$: 'External', a: a};
+};
+var elm$browser$Browser$Internal = function (a) {
+	return {$: 'Internal', a: a};
+};
+var elm$browser$Browser$Dom$NotFound = function (a) {
+	return {$: 'NotFound', a: a};
+};
+var elm$core$Basics$never = function (_n0) {
+	never:
+	while (true) {
+		var nvr = _n0.a;
+		var $temp$_n0 = nvr;
+		_n0 = $temp$_n0;
+		continue never;
+	}
+};
+var elm$core$Task$Perform = function (a) {
+	return {$: 'Perform', a: a};
+};
+var elm$core$Task$init = elm$core$Task$succeed(_Utils_Tuple0);
+var elm$core$List$foldrHelper = F4(
+	function (fn, acc, ctr, ls) {
+		if (!ls.b) {
+			return acc;
+		} else {
+			var a = ls.a;
+			var r1 = ls.b;
+			if (!r1.b) {
+				return A2(fn, a, acc);
+			} else {
+				var b = r1.a;
+				var r2 = r1.b;
+				if (!r2.b) {
+					return A2(
+						fn,
+						a,
+						A2(fn, b, acc));
+				} else {
+					var c = r2.a;
+					var r3 = r2.b;
+					if (!r3.b) {
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(fn, c, acc)));
+					} else {
+						var d = r3.a;
+						var r4 = r3.b;
+						var res = (ctr > 500) ? A3(
+							elm$core$List$foldl,
+							fn,
+							acc,
+							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(
+									fn,
+									c,
+									A2(fn, d, res))));
+					}
+				}
+			}
+		}
+	});
+var elm$core$List$foldr = F3(
+	function (fn, acc, ls) {
+		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
+	});
+var elm$core$List$map = F2(
+	function (f, xs) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, acc) {
+					return A2(
+						elm$core$List$cons,
+						f(x),
+						acc);
+				}),
+			_List_Nil,
+			xs);
+	});
+var elm$core$Task$map = F2(
+	function (func, taskA) {
+		return A2(
+			elm$core$Task$andThen,
+			function (a) {
+				return elm$core$Task$succeed(
+					func(a));
+			},
+			taskA);
+	});
+var elm$core$Task$map2 = F3(
+	function (func, taskA, taskB) {
+		return A2(
+			elm$core$Task$andThen,
+			function (a) {
+				return A2(
+					elm$core$Task$andThen,
+					function (b) {
+						return elm$core$Task$succeed(
+							A2(func, a, b));
+					},
+					taskB);
+			},
+			taskA);
+	});
+var elm$core$Task$sequence = function (tasks) {
+	return A3(
+		elm$core$List$foldr,
+		elm$core$Task$map2(elm$core$List$cons),
+		elm$core$Task$succeed(_List_Nil),
+		tasks);
+};
 var elm$core$Task$spawnCmd = F2(
 	function (router, _n0) {
 		var task = _n0.a;
@@ -5239,25 +5610,51 @@ var elm$url$Url$fromString = function (str) {
 		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
 };
 var elm$browser$Browser$Dom$getViewport = _Browser_withWindow(_Browser_getViewport);
-var author$project$BSLab$init = function (_n0) {
+var elm$core$Platform$Cmd$batch = _Platform_batch;
+var elm$core$Platform$Cmd$map = _Platform_map;
+var author$project$BubblesortDemo$init = function (f) {
+	var _n0 = author$project$BubbleSort$init(f);
+	var b5model = _n0.a;
+	var b5cmd = _n0.b;
+	var _n1 = author$project$Sweeping$init(f);
+	var b4model = _n1.a;
+	var b4cmd = _n1.b;
+	var _n2 = author$project$AdjacentOrdering$init(f);
+	var b3model = _n2.a;
+	var b3cmd = _n2.b;
+	var _n3 = author$project$Ordering$init(f);
+	var b2model = _n3.a;
+	var b2cmd = _n3.b;
+	var _n4 = author$project$Swap$init(f);
+	var b1model = _n4.a;
+	var b1cmd = _n4.b;
 	return _Utils_Tuple2(
 		{
-			active: author$project$BSLab$Intro,
-			b1model: author$project$Swap$init,
-			b2model: author$project$Ordering$init,
-			b3model: author$project$AdjacentOrdering$init,
-			b4model: author$project$Sweeping$init,
-			b5model: author$project$BubbleSort$init,
+			active: author$project$BubblesortDemo$Intro,
+			b1model: b1model,
+			b2model: b2model,
+			b3model: b3model,
+			b4model: b4model,
+			b5model: b5model,
 			intro: 'Youre home',
 			machineNames: _List_fromArray(
 				['Swap Machine', 'Order Machine', 'Order Adjacent Machine', 'Bubble Machine', 'Bubblesort Machine']),
 			viewPort: elm$core$Maybe$Nothing
 		},
-		A2(elm$core$Task$perform, author$project$BSLab$GotViewport, elm$browser$Browser$Dom$getViewport));
+		elm$core$Platform$Cmd$batch(
+			_List_fromArray(
+				[
+					A2(elm$core$Task$perform, author$project$BubblesortDemo$GotViewport, elm$browser$Browser$Dom$getViewport),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$SwapMsg, b1cmd),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$OrdMsg, b2cmd),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$AdjMsg, b3cmd),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$BubbleMsg, b4cmd),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$BSMsg, b5cmd)
+				])));
 };
 var elm$core$Platform$Sub$batch = _Platform_batch;
 var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
-var author$project$BSLab$subscriptions = function (model) {
+var author$project$BubblesortDemo$subscriptions = function (model) {
 	return elm$core$Platform$Sub$none;
 };
 var author$project$AdjacentOrdering$deselectPair = function (model) {
@@ -5356,7 +5753,7 @@ var author$project$AdjacentOrdering$selectMore = F2(
 			model,
 			{
 				hints: _List_fromArray(
-					['You do not need more than two numbers here,', 'Deselect one of your currently selected numbers first.'])
+					['Deselect the current pair to select another.'])
 			});
 	});
 var author$project$AdjacentOrdering$selectHi = F2(
@@ -5670,13 +6067,28 @@ var author$project$AdjacentOrdering$swap = function (model) {
 			stats: author$project$AdjacentOrdering$incrementSwapCount(stats)
 		});
 };
+var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var author$project$AdjacentOrdering$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'DataItemClicked') {
-			var index = msg.a;
-			return A2(author$project$AdjacentOrdering$handleDataItemClick, model, index);
-		} else {
-			return author$project$AdjacentOrdering$swap(model);
+		switch (msg.$) {
+			case 'DataItemClicked':
+				var index = msg.a;
+				return _Utils_Tuple2(
+					A2(author$project$AdjacentOrdering$handleDataItemClick, model, index),
+					elm$core$Platform$Cmd$none);
+			case 'SwapInitiated':
+				return _Utils_Tuple2(
+					author$project$AdjacentOrdering$swap(model),
+					elm$core$Platform$Cmd$none);
+			default:
+				var arr = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							array: elm$core$Array$toList(arr)
+						}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
 var author$project$BubbleSort$decrementBoundary = function (model) {
@@ -5733,9 +6145,27 @@ var author$project$BubbleSort$nextStep = function (model) {
 		model,
 		{boundary: -2, iterator: -2});
 };
+var elm$core$Array$length = function (_n0) {
+	var len = _n0.a;
+	return len;
+};
 var author$project$BubbleSort$update = F2(
 	function (msg, model) {
-		return author$project$BubbleSort$nextStep(model);
+		if (msg.$ === 'NextClicked') {
+			return _Utils_Tuple2(
+				author$project$BubbleSort$nextStep(model),
+				elm$core$Platform$Cmd$none);
+		} else {
+			var arr = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{
+						array: elm$core$Array$toList(arr),
+						boundary: elm$core$Array$length(arr)
+					}),
+				elm$core$Platform$Cmd$none);
+		}
 	});
 var author$project$Ordering$deselectHi = F2(
 	function (i, model) {
@@ -5915,13 +6345,36 @@ var author$project$Ordering$swap = function (model) {
 };
 var author$project$Ordering$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'DataItemClicked') {
-			var index = msg.a;
-			return A2(author$project$Ordering$handleDataItemClick, model, index);
-		} else {
-			return author$project$Ordering$swap(model);
+		switch (msg.$) {
+			case 'DataItemClicked':
+				var index = msg.a;
+				return _Utils_Tuple2(
+					A2(author$project$Ordering$handleDataItemClick, model, index),
+					elm$core$Platform$Cmd$none);
+			case 'SwapInitiated':
+				return _Utils_Tuple2(
+					author$project$Ordering$swap(model),
+					elm$core$Platform$Cmd$none);
+			default:
+				var arr = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							array: elm$core$Array$toList(arr)
+						}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
+var author$project$Swap$initWith = function (l) {
+	return {
+		array: l,
+		hints: _List_fromArray(
+			['Click on any numbered circle to select it, click again to undo the selection.', 'You can select upto two numbers.']),
+		selected: _Utils_Tuple2(-1, -1),
+		stats: {selectionPairCount: 0, swapCount: 0}
+	};
+};
 var author$project$Swap$deselectHi = F2(
 	function (i, model) {
 		var _n0 = model;
@@ -6064,11 +6517,25 @@ var author$project$Swap$swap = function (model) {
 };
 var author$project$Swap$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'DataItemClicked') {
-			var index = msg.a;
-			return A2(author$project$Swap$handleDataItemClick, model, index);
-		} else {
-			return author$project$Swap$swap(model);
+		switch (msg.$) {
+			case 'DataItemClicked':
+				var index = msg.a;
+				return _Utils_Tuple2(
+					A2(author$project$Swap$handleDataItemClick, model, index),
+					elm$core$Platform$Cmd$none);
+			case 'SwapInitiated':
+				return _Utils_Tuple2(
+					author$project$Swap$swap(model),
+					elm$core$Platform$Cmd$none);
+			default:
+				var arr = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							array: elm$core$Array$toList(arr)
+						}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
 var author$project$Sweeping$incrementIterator = function (model) {
@@ -6121,15 +6588,27 @@ var author$project$Sweeping$resetIterator = function (model) {
 };
 var author$project$Sweeping$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'NextClicked') {
-			return author$project$Sweeping$nextStep(model);
-		} else {
-			return author$project$Sweeping$resetIterator(model);
+		switch (msg.$) {
+			case 'NextClicked':
+				return _Utils_Tuple2(
+					author$project$Sweeping$nextStep(model),
+					elm$core$Platform$Cmd$none);
+			case 'ResetClicked':
+				return _Utils_Tuple2(
+					author$project$Sweeping$resetIterator(model),
+					elm$core$Platform$Cmd$none);
+			default:
+				var arr = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							array: elm$core$Array$toList(arr)
+						}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
-var elm$core$Platform$Cmd$batch = _Platform_batch;
-var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var author$project$BSLab$update = F2(
+var author$project$BubblesortDemo$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 'ActivatePage':
@@ -6141,50 +6620,55 @@ var author$project$BSLab$update = F2(
 					elm$core$Platform$Cmd$none);
 			case 'SwapMsg':
 				var b1m = msg.a;
+				var _n1 = A2(author$project$Swap$update, b1m, model.b1model);
+				var b1model = _n1.a;
+				var b1cmd = _n1.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							b1model: A2(author$project$Swap$update, b1m, model.b1model)
-						}),
-					elm$core$Platform$Cmd$none);
+						{b1model: b1model}),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$SwapMsg, b1cmd));
 			case 'OrdMsg':
 				var b2m = msg.a;
+				var _n2 = A2(author$project$Ordering$update, b2m, model.b2model);
+				var b2model = _n2.a;
+				var b2cmd = _n2.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							b2model: A2(author$project$Ordering$update, b2m, model.b2model)
-						}),
-					elm$core$Platform$Cmd$none);
+						{b2model: b2model}),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$OrdMsg, b2cmd));
 			case 'AdjMsg':
 				var b3m = msg.a;
+				var _n3 = A2(author$project$AdjacentOrdering$update, b3m, model.b3model);
+				var b3model = _n3.a;
+				var b3cmd = _n3.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							b3model: A2(author$project$AdjacentOrdering$update, b3m, model.b3model)
-						}),
-					elm$core$Platform$Cmd$none);
+						{b3model: b3model}),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$AdjMsg, b3cmd));
 			case 'BubbleMsg':
 				var b4m = msg.a;
+				var _n4 = A2(author$project$Sweeping$update, b4m, model.b4model);
+				var b4model = _n4.a;
+				var b4cmd = _n4.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							b4model: A2(author$project$Sweeping$update, b4m, model.b4model)
-						}),
-					elm$core$Platform$Cmd$none);
+						{b4model: b4model}),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$BubbleMsg, b4cmd));
 			case 'BSMsg':
 				var b5m = msg.a;
+				var _n5 = A2(author$project$BubbleSort$update, b5m, model.b5model);
+				var b5model = _n5.a;
+				var b5cmd = _n5.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							b5model: A2(author$project$BubbleSort$update, b5m, model.b5model)
-						}),
-					elm$core$Platform$Cmd$none);
-			default:
+						{b5model: b5model}),
+					A2(elm$core$Platform$Cmd$map, author$project$BubblesortDemo$BSMsg, b5cmd));
+			case 'GotViewport':
 				var vp = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -6193,12 +6677,22 @@ var author$project$BSLab$update = F2(
 							viewPort: elm$core$Maybe$Just(vp)
 						}),
 					elm$core$Platform$Cmd$none);
+			default:
+				var ra = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							b1model: author$project$Swap$initWith(
+								elm$core$Array$toList(ra))
+						}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
-var author$project$BSLab$ActivatePage = function (a) {
+var author$project$BubblesortDemo$ActivatePage = function (a) {
 	return {$: 'ActivatePage', a: a};
 };
-var author$project$BSLab$SwapMachine = {$: 'SwapMachine'};
+var author$project$BubblesortDemo$SwapMachine = {$: 'SwapMachine'};
 var mdgriffith$elm_ui$Internal$Model$AlignX = function (a) {
 	return {$: 'AlignX', a: a};
 };
@@ -6373,7 +6867,6 @@ var mdgriffith$elm_ui$Internal$Flag$centerX = mdgriffith$elm_ui$Internal$Flag$fl
 var mdgriffith$elm_ui$Internal$Flag$centerY = mdgriffith$elm_ui$Internal$Flag$flag(43);
 var mdgriffith$elm_ui$Internal$Flag$heightBetween = mdgriffith$elm_ui$Internal$Flag$flag(45);
 var mdgriffith$elm_ui$Internal$Flag$heightFill = mdgriffith$elm_ui$Internal$Flag$flag(37);
-var elm$core$Bitwise$and = _Bitwise_and;
 var mdgriffith$elm_ui$Internal$Flag$present = F2(
 	function (myFlag, _n0) {
 		var fieldOne = _n0.a;
@@ -12063,7 +12556,7 @@ var mdgriffith$elm_ui$Element$Input$button = F2(
 				_List_fromArray(
 					[label])));
 	});
-var author$project$BSLab$introBody = A2(
+var author$project$BubblesortDemo$introBody = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -12115,7 +12608,7 @@ var author$project$BSLab$introBody = A2(
 						]),
 					_List_fromArray(
 						[
-							mdgriffith$elm_ui$Element$text('The bubblesort algorithm is introduced gradually through five different experiments.  Each experiment introduces just one new concept, and lets you interactively learn that concept while performing the given task.  By the time you reach the final stage, you will be presented with the final algorithm, which you can step through at your own pace, visualising each every step involved.')
+							mdgriffith$elm_ui$Element$text('The Bubblesort algorithm is introduced gradually through five different experiments.  Each experiment introduces just one new concept, and lets you interactively learn that concept while performing the given task.  By the time you reach the final stage, you will be presented with the final algorithm, which you can step through at your own pace, visualising each every step involved.')
 						]))
 				])),
 			A2(
@@ -12130,7 +12623,7 @@ var author$project$BSLab$introBody = A2(
 			{
 				label: mdgriffith$elm_ui$Element$text('Get Started'),
 				onPress: elm$core$Maybe$Just(
-					author$project$BSLab$ActivatePage(author$project$BSLab$SwapMachine))
+					author$project$BubblesortDemo$ActivatePage(author$project$BubblesortDemo$SwapMachine))
 			})
 		]));
 var elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
@@ -12221,6 +12714,7 @@ var author$project$AdjacentOrdering$arrayIndices = function (model) {
 var author$project$AdjacentOrdering$DataItemClicked = function (a) {
 	return {$: 'DataItemClicked', a: a};
 };
+var elm$svg$Svg$Attributes$cursor = _VirtualDom_attribute('cursor');
 var elm$svg$Svg$Attributes$fontWeight = _VirtualDom_attribute('font-weight');
 var elm$svg$Svg$Events$onClick = function (msg) {
 	return A2(
@@ -12241,7 +12735,8 @@ var author$project$AdjacentOrdering$arrayItemSvg = F3(
 			_List_fromArray(
 				[
 					elm$svg$Svg$Events$onClick(
-					author$project$AdjacentOrdering$DataItemClicked(idx))
+					author$project$AdjacentOrdering$DataItemClicked(idx)),
+					elm$svg$Svg$Attributes$cursor('pointer')
 				]),
 			_List_fromArray(
 				[
@@ -12333,8 +12828,78 @@ var author$project$AdjacentOrdering$hintView = function (model) {
 			hints));
 };
 var elm$svg$Svg$rect = elm$svg$Svg$trustedNode('rect');
+var elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
 var elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
+var author$project$DrawingUtils$labelledValue = F3(
+	function (label, value, color) {
+		var _n0 = _Utils_Tuple2(200, 50);
+		var width = _n0.a;
+		var height = _n0.b;
+		var rcy = ((-1) * height) / 2;
+		var rcx = ((-1) * width) / 2;
+		return A2(
+			elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					elm$svg$Svg$Attributes$transform('translate(1400 50)')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$svg$Svg$rect,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$x(
+							elm$core$String$fromFloat(rcx)),
+							elm$svg$Svg$Attributes$y(
+							elm$core$String$fromFloat(rcy)),
+							elm$svg$Svg$Attributes$fill(color),
+							elm$svg$Svg$Attributes$width(
+							elm$core$String$fromInt(width)),
+							elm$svg$Svg$Attributes$height(
+							elm$core$String$fromInt(height))
+						]),
+					_List_Nil),
+					A2(
+					elm$svg$Svg$text_,
+					_List_fromArray(
+						[
+							elm$svg$Svg$Attributes$fontSize('30'),
+							elm$svg$Svg$Attributes$fontWeight('bold'),
+							elm$svg$Svg$Attributes$textAnchor('middle'),
+							elm$svg$Svg$Attributes$dominantBaseline('middle'),
+							elm$svg$Svg$Attributes$fontFamily('monospace')
+						]),
+					_List_fromArray(
+						[
+							elm$svg$Svg$text(label)
+						]))
+				]));
+	});
+var elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			elm$core$List$any,
+			A2(elm$core$Basics$composeL, elm$core$Basics$not, isOkay),
+			list);
+	});
+var elm$core$List$sortBy = _List_sortBy;
+var elm$core$List$sort = function (xs) {
+	return A2(elm$core$List$sortBy, elm$core$Basics$identity, xs);
+};
+var author$project$Utils$isSorted = function (l) {
+	var sorted_list = elm$core$List$sort(l);
+	return A2(
+		elm$core$List$all,
+		function (c) {
+			return c ? true : false;
+		},
+		A3(elm$core$List$map2, elm$core$Basics$eq, l, sorted_list));
+};
+var author$project$AdjacentOrdering$sortedIndicator = function (arr) {
+	return author$project$Utils$isSorted(arr) ? A3(author$project$DrawingUtils$labelledValue, 'sorted', 10, 'rgb(156, 204, 101)') : A3(author$project$DrawingUtils$labelledValue, '', 10, 'rgb(255, 255, 255)');
+};
 var author$project$AdjacentOrdering$svgBackground = A2(
 	elm$svg$Svg$rect,
 	_List_fromArray(
@@ -12351,7 +12916,6 @@ var author$project$AdjacentOrdering$itemPos = F3(
 	function (i, n, w) {
 		return (i - ((n - 1) / 2)) * w;
 	});
-var elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
 var elm$svg$Svg$Attributes$rx = _VirtualDom_attribute('rx');
 var elm$svg$Svg$Attributes$ry = _VirtualDom_attribute('ry');
 var author$project$DrawingUtils$btn = F3(
@@ -12365,7 +12929,8 @@ var author$project$DrawingUtils$btn = F3(
 				[
 					elm$svg$Svg$Attributes$transform(
 					'translate(' + (elm$core$String$fromFloat(x) + (' ' + (elm$core$String$fromFloat(y) + ')')))),
-					elm$svg$Svg$Events$onClick(m)
+					elm$svg$Svg$Events$onClick(m),
+					elm$svg$Svg$Attributes$cursor('pointer')
 				]),
 			_List_fromArray(
 				[
@@ -12467,6 +13032,7 @@ var author$project$AdjacentOrdering$svgContent = function (model) {
 			[
 				author$project$AdjacentOrdering$svgBackground,
 				author$project$DrawingUtils$systemName('Order Adjacent Machine'),
+				author$project$AdjacentOrdering$sortedIndicator(model.array),
 				author$project$AdjacentOrdering$hintView(model),
 				author$project$AdjacentOrdering$arraySvg(model),
 				author$project$AdjacentOrdering$arrayIndices(model),
@@ -12477,6 +13043,7 @@ var author$project$AdjacentOrdering$svgContent = function (model) {
 			[
 				author$project$AdjacentOrdering$svgBackground,
 				author$project$DrawingUtils$systemName('Order Adjacent Machine'),
+				author$project$AdjacentOrdering$sortedIndicator(model.array),
 				author$project$AdjacentOrdering$hintView(model),
 				author$project$AdjacentOrdering$arraySvg(model),
 				author$project$AdjacentOrdering$arrayIndices(model)
@@ -12498,21 +13065,6 @@ var author$project$AdjacentOrdering$svgContainer = function (model) {
 };
 var author$project$AdjacentOrdering$view = function (model) {
 	return author$project$AdjacentOrdering$svgContainer(model);
-};
-var author$project$BSLab$AdjMsg = function (a) {
-	return {$: 'AdjMsg', a: a};
-};
-var author$project$BSLab$BSMsg = function (a) {
-	return {$: 'BSMsg', a: a};
-};
-var author$project$BSLab$BubbleMsg = function (a) {
-	return {$: 'BubbleMsg', a: a};
-};
-var author$project$BSLab$OrdMsg = function (a) {
-	return {$: 'OrdMsg', a: a};
-};
-var author$project$BSLab$SwapMsg = function (a) {
-	return {$: 'SwapMsg', a: a};
 };
 var author$project$BubbleSort$NextClicked = {$: 'NextClicked'};
 var author$project$BubbleSort$arrayIndexSvg = F4(
@@ -12714,6 +13266,9 @@ var author$project$BubbleSort$hintView = function (model) {
 			},
 			hints));
 };
+var author$project$BubbleSort$sortedIndicator = function (arr) {
+	return author$project$Utils$isSorted(arr) ? A3(author$project$DrawingUtils$labelledValue, 'sorted', 10, 'rgb(156, 204, 101)') : A3(author$project$DrawingUtils$labelledValue, '', 10, 'rgb(255, 255, 255)');
+};
 var author$project$BubbleSort$svgBackground = A2(
 	elm$svg$Svg$rect,
 	_List_fromArray(
@@ -12775,6 +13330,7 @@ var author$project$BubbleSort$svgContent = function (model) {
 		[
 			author$project$BubbleSort$svgBackground,
 			author$project$DrawingUtils$systemName('Bubblesort Machine'),
+			author$project$BubbleSort$sortedIndicator(model.array),
 			author$project$BubbleSort$hintView(model),
 			A2(author$project$BubbleSort$variables, model.iterator, model.boundary),
 			author$project$BubbleSort$arraySvg(model),
@@ -12884,7 +13440,8 @@ var author$project$Ordering$arrayItemSvg = F3(
 			_List_fromArray(
 				[
 					elm$svg$Svg$Events$onClick(
-					author$project$Ordering$DataItemClicked(idx))
+					author$project$Ordering$DataItemClicked(idx)),
+					elm$svg$Svg$Attributes$cursor('pointer')
 				]),
 			_List_fromArray(
 				[
@@ -12968,6 +13525,9 @@ var author$project$Ordering$hintView = function (model) {
 			},
 			hints));
 };
+var author$project$Ordering$sortedIndicator = function (arr) {
+	return author$project$Utils$isSorted(arr) ? A3(author$project$DrawingUtils$labelledValue, 'sorted', 10, 'rgb(156, 204, 101)') : A3(author$project$DrawingUtils$labelledValue, '', 10, 'rgb(255, 255, 255)');
+};
 var author$project$Ordering$svgBackground = A2(
 	elm$svg$Svg$rect,
 	_List_fromArray(
@@ -13014,6 +13574,7 @@ var author$project$Ordering$svgContent = function (model) {
 			[
 				author$project$Ordering$svgBackground,
 				author$project$DrawingUtils$systemName('Order Machine'),
+				author$project$Ordering$sortedIndicator(model.array),
 				author$project$Ordering$hintView(model),
 				author$project$Ordering$arraySvg(model),
 				author$project$Ordering$arrayIndices(model),
@@ -13024,6 +13585,7 @@ var author$project$Ordering$svgContent = function (model) {
 			[
 				author$project$Ordering$svgBackground,
 				author$project$DrawingUtils$systemName('Order Machine'),
+				author$project$Ordering$sortedIndicator(model.array),
 				author$project$Ordering$hintView(model),
 				author$project$Ordering$arraySvg(model),
 				author$project$Ordering$arrayIndices(model)
@@ -13128,7 +13690,8 @@ var author$project$Swap$arrayItemSvg = F3(
 			_List_fromArray(
 				[
 					elm$svg$Svg$Events$onClick(
-					author$project$Swap$DataItemClicked(idx))
+					author$project$Swap$DataItemClicked(idx)),
+					elm$svg$Svg$Attributes$cursor('pointer')
 				]),
 			_List_fromArray(
 				[
@@ -13212,6 +13775,9 @@ var author$project$Swap$hintView = function (model) {
 			},
 			hints));
 };
+var author$project$Swap$sortedIndicator = function (arr) {
+	return author$project$Utils$isSorted(arr) ? A3(author$project$DrawingUtils$labelledValue, 'sorted', 10, 'rgb(156, 204, 101)') : A3(author$project$DrawingUtils$labelledValue, '', 10, 'rgb(255, 255, 255)');
+};
 var author$project$Swap$svgBackground = A2(
 	elm$svg$Svg$rect,
 	_List_fromArray(
@@ -13259,6 +13825,7 @@ var author$project$Swap$svgContent = function (model) {
 			[
 				author$project$Swap$svgBackground,
 				author$project$DrawingUtils$systemName('Swap Machine'),
+				author$project$Swap$sortedIndicator(model.array),
 				author$project$Swap$hintView(model),
 				author$project$Swap$arraySvg(model),
 				author$project$Swap$arrayIndices(model),
@@ -13269,6 +13836,7 @@ var author$project$Swap$svgContent = function (model) {
 			[
 				author$project$Swap$svgBackground,
 				author$project$DrawingUtils$systemName('Swap Machine'),
+				author$project$Swap$sortedIndicator(model.array),
 				author$project$Swap$hintView(model),
 				author$project$Swap$arraySvg(model),
 				author$project$Swap$arrayIndices(model)
@@ -13476,6 +14044,9 @@ var author$project$Sweeping$hintView = function (model) {
 			},
 			hints));
 };
+var author$project$Sweeping$sortedIndicator = function (arr) {
+	return author$project$Utils$isSorted(arr) ? A3(author$project$DrawingUtils$labelledValue, 'sorted', 10, 'rgb(156, 204, 101)') : A3(author$project$DrawingUtils$labelledValue, '', 10, 'rgb(255, 255, 255)');
+};
 var author$project$Sweeping$svgBackground = A2(
 	elm$svg$Svg$rect,
 	_List_fromArray(
@@ -13494,6 +14065,7 @@ var author$project$Sweeping$svgContent = function (model) {
 		[
 			author$project$Sweeping$svgBackground,
 			author$project$DrawingUtils$systemName('Bubble Machine'),
+			author$project$Sweeping$sortedIndicator(model.array),
 			author$project$Sweeping$hintView(model),
 			author$project$Sweeping$arraySvg(model),
 			author$project$Sweeping$arrayIndices(model),
@@ -13511,6 +14083,7 @@ var author$project$Sweeping$svgContent = function (model) {
 		[
 			author$project$Sweeping$svgBackground,
 			author$project$DrawingUtils$systemName('Bubble Machine'),
+			author$project$Sweeping$sortedIndicator(model.array),
 			author$project$Sweeping$hintView(model),
 			author$project$Sweeping$arraySvg(model),
 			author$project$Sweeping$arrayIndices(model),
@@ -13592,7 +14165,7 @@ var mdgriffith$elm_ui$Internal$Model$map = F2(
 		}
 	});
 var mdgriffith$elm_ui$Element$map = mdgriffith$elm_ui$Internal$Model$map;
-var author$project$BSLab$experimentView = function (model) {
+var author$project$BubblesortDemo$experimentView = function (model) {
 	var wrap = mdgriffith$elm_ui$Element$el(
 		_List_fromArray(
 			[
@@ -13607,45 +14180,45 @@ var author$project$BSLab$experimentView = function (model) {
 	var active = _n0.active;
 	switch (active.$) {
 		case 'Intro':
-			return author$project$BSLab$introBody;
+			return author$project$BubblesortDemo$introBody;
 		case 'SwapMachine':
 			return wrap(
 				A2(
 					mdgriffith$elm_ui$Element$map,
-					author$project$BSLab$SwapMsg,
+					author$project$BubblesortDemo$SwapMsg,
 					mdgriffith$elm_ui$Element$html(
 						author$project$Swap$view(model.b1model))));
 		case 'OrderMachine':
 			return wrap(
 				A2(
 					mdgriffith$elm_ui$Element$map,
-					author$project$BSLab$OrdMsg,
+					author$project$BubblesortDemo$OrdMsg,
 					mdgriffith$elm_ui$Element$html(
 						author$project$Ordering$view(model.b2model))));
 		case 'OrdAdjMachine':
 			return wrap(
 				A2(
 					mdgriffith$elm_ui$Element$map,
-					author$project$BSLab$AdjMsg,
+					author$project$BubblesortDemo$AdjMsg,
 					mdgriffith$elm_ui$Element$html(
 						author$project$AdjacentOrdering$view(model.b3model))));
 		case 'BubbleMachine':
 			return wrap(
 				A2(
 					mdgriffith$elm_ui$Element$map,
-					author$project$BSLab$BubbleMsg,
+					author$project$BubblesortDemo$BubbleMsg,
 					mdgriffith$elm_ui$Element$html(
 						author$project$Sweeping$view(model.b4model))));
 		default:
 			return wrap(
 				A2(
 					mdgriffith$elm_ui$Element$map,
-					author$project$BSLab$BSMsg,
+					author$project$BubblesortDemo$BSMsg,
 					mdgriffith$elm_ui$Element$html(
 						author$project$BubbleSort$view(model.b5model))));
 	}
 };
-var author$project$BSLab$sectBody = function (b) {
+var author$project$BubblesortDemo$sectBody = function (b) {
 	return A2(
 		mdgriffith$elm_ui$Element$paragraph,
 		_List_fromArray(
@@ -13667,7 +14240,7 @@ var mdgriffith$elm_ui$Element$Font$size = function (i) {
 		mdgriffith$elm_ui$Internal$Flag$fontSize,
 		mdgriffith$elm_ui$Internal$Model$FontSize(i));
 };
-var author$project$BSLab$sectHead = function (h) {
+var author$project$BubblesortDemo$sectHead = function (h) {
 	return A2(
 		mdgriffith$elm_ui$Element$paragraph,
 		_List_fromArray(
@@ -13680,7 +14253,7 @@ var author$project$BSLab$sectHead = function (h) {
 				mdgriffith$elm_ui$Element$text(h)
 			]));
 };
-var author$project$BSLab$b1Instructions = A2(
+var author$project$BubblesortDemo$b1Instructions = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -13690,19 +14263,19 @@ var author$project$BSLab$b1Instructions = A2(
 		]),
 	_List_fromArray(
 		[
-			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('The Swap Machine experiment consists of a list of numbers.  You can click on any number to select/deselect it.  You can select at most two numbers at a time.'),
-			author$project$BSLab$sectBody('On selecting any two numbers, you can swap them by clicking on the \'swap\' button.  The selections are reset after each swap operation.'),
-			author$project$BSLab$sectHead('Objective'),
-			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by swapping the numbers in the list.  You are free to select any pair of numbers you want to swap.'),
-			author$project$BSLab$sectHead('Procedure'),
-			author$project$BSLab$sectBody('Follow the given steps to perform the experiment.'),
-			author$project$BSLab$sectBody('Step 1: Select first number'),
-			author$project$BSLab$sectBody('Step 2: Select second number'),
-			author$project$BSLab$sectBody('Step 3: Swap the selected numbers'),
-			author$project$BSLab$sectBody('Step 4: Check if the list is sorted or not.  Repeat Steps 1 to 3, if the list is not sorted.')
+			author$project$BubblesortDemo$sectHead('Objective'),
+			author$project$BubblesortDemo$sectBody('Sort the given list by swapping the numbers in the list.  You are free to select any pair of numbers you want to swap.'),
+			author$project$BubblesortDemo$sectHead('Experiment Setup'),
+			author$project$BubblesortDemo$sectBody('The Swap Machine experiment consists of a list of numbers.  You can click on any number to select/deselect it.  You can select at most two numbers at a time.'),
+			author$project$BubblesortDemo$sectBody('On selecting any two numbers, you can swap them by clicking on the \'swap\' button.  The selections are reset after each swap operation.'),
+			author$project$BubblesortDemo$sectHead('Procedure'),
+			author$project$BubblesortDemo$sectBody('Follow the given steps to perform the experiment.'),
+			author$project$BubblesortDemo$sectBody('Step 1: Select first number'),
+			author$project$BubblesortDemo$sectBody('Step 2: Select second number'),
+			author$project$BubblesortDemo$sectBody('Step 3: Swap the selected numbers'),
+			author$project$BubblesortDemo$sectBody('Step 4: Check if the list is sorted or not.  Repeat Steps 1 to 3, if the list is not sorted.')
 		]));
-var author$project$BSLab$b2Instructions = A2(
+var author$project$BubblesortDemo$b2Instructions = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -13712,19 +14285,19 @@ var author$project$BSLab$b2Instructions = A2(
 		]),
 	_List_fromArray(
 		[
-			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('Hopefully you have completed the Swap Machine Experiment.  The Order Machine is similar to the Swap Machine.'),
-			author$project$BSLab$sectBody('The main difference between the Swap Machine and the Order Machine is that in the Swap Machine, you can swap any two selected numbers, whereas in the Order Machine, you can only swap the numbers if they are out of order.'),
-			author$project$BSLab$sectHead('Objective'),
-			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by ordering the numbers in the list.  You are free to select any pair of numbers you want to order.'),
-			author$project$BSLab$sectHead('Procedure'),
-			author$project$BSLab$sectBody('Follow the given steps to perform the experiment.'),
-			author$project$BSLab$sectBody('Step 1: Select first number'),
-			author$project$BSLab$sectBody('Step 2: Select second number'),
-			author$project$BSLab$sectBody('Step 3: Order the selected numbers'),
-			author$project$BSLab$sectBody('Step 4: Check if the list is sorted or not.  Repeat Steps 1 to 3, if the list is not sorted.')
+			author$project$BubblesortDemo$sectHead('Objective'),
+			author$project$BubblesortDemo$sectBody('Sort the given list by ordering the numbers in the list.  You are free to select any pair of numbers you want to order.'),
+			author$project$BubblesortDemo$sectHead('Experiment Setup'),
+			author$project$BubblesortDemo$sectBody('The Order Machine is similar to the Swap Machine.'),
+			author$project$BubblesortDemo$sectBody('The main difference between the Swap Machine and the Order Machine is that in the Swap Machine, you can swap any two selected numbers, whereas in the Order Machine, you can only swap the numbers if they are out of order.'),
+			author$project$BubblesortDemo$sectHead('Procedure'),
+			author$project$BubblesortDemo$sectBody('Follow the given steps to perform the experiment.'),
+			author$project$BubblesortDemo$sectBody('Step 1: Select first number'),
+			author$project$BubblesortDemo$sectBody('Step 2: Select second number'),
+			author$project$BubblesortDemo$sectBody('Step 3: Order the selected numbers'),
+			author$project$BubblesortDemo$sectBody('Step 4: Check if the list is sorted or not.')
 		]));
-var author$project$BSLab$b3Instructions = A2(
+var author$project$BubblesortDemo$b3Instructions = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -13734,19 +14307,18 @@ var author$project$BSLab$b3Instructions = A2(
 		]),
 	_List_fromArray(
 		[
-			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('In this experiment, you will be working with an \'Order Adjacent Machine\'.  An \'Order Adjacent Machine\' is a specialized version of the \'Order Machine\'.'),
-			author$project$BSLab$sectBody('The difference between the \'Order Machine\' and the \'Order Adjacent Machine\' is that in the \'Order Machine\', you can select any two numbers to be ordered, whereas in the \'Order Adjacent Machine\', you can only select adjacent numbers.  When you click on one number, the next one is automatically selected for you.  Then the selected pair can be ordered, just like in the \'Order Machine\'.'),
-			author$project$BSLab$sectBody('Perform the \'Order Machine\' experiment first, if you haven\'t already done so.'),
-			author$project$BSLab$sectHead('Objective'),
-			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by ordering adjacent numbers in the list.'),
-			author$project$BSLab$sectHead('Procedure'),
-			author$project$BSLab$sectBody('Follow the given steps to perform the experiment.'),
-			author$project$BSLab$sectBody('Step 1: Select a number (The adjacent pair get selected)'),
-			author$project$BSLab$sectBody('Step 2: Order the selected numbers'),
-			author$project$BSLab$sectBody('Step 3: Check if the list is sorted or not.  Repeat Steps 1 to 2, if the list is not sorted.')
+			author$project$BubblesortDemo$sectHead('Objective'),
+			author$project$BubblesortDemo$sectBody('Sort the given list by ordering adjacent numbers in the list.'),
+			author$project$BubblesortDemo$sectHead('Experiment Setup'),
+			author$project$BubblesortDemo$sectBody('An \'Order Adjacent Machine\' is a specialized version of the \'Order Machine\'.'),
+			author$project$BubblesortDemo$sectBody('The difference between the \'Order Machine\' and the \'Order Adjacent Machine\' is that in the \'Order Machine\', you can select any two numbers, whereas in the \'Order Adjacent Machine\', you can only select adjacent numbers.'),
+			author$project$BubblesortDemo$sectHead('Procedure'),
+			author$project$BubblesortDemo$sectBody('Follow the given steps to perform the experiment.'),
+			author$project$BubblesortDemo$sectBody('Step 1: Select a number (The adjacent pair get selected)'),
+			author$project$BubblesortDemo$sectBody('Step 2: Order the selected numbers'),
+			author$project$BubblesortDemo$sectBody('Step 3: Check if the list is sorted or not.')
 		]));
-var author$project$BSLab$b4Instructions = A2(
+var author$project$BubblesortDemo$b4Instructions = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -13756,19 +14328,18 @@ var author$project$BSLab$b4Instructions = A2(
 		]),
 	_List_fromArray(
 		[
-			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('The Bubble Machine invloves an list of numbers and two control called \'inc\' (increment) and \'reset\'.  The increment control allows you to iterate through the list, starting from index 0 going upto the last element.  The inc control also performs adjacent ordering operation on the current index.  The \'reset\' control takes the current index back to 0.'),
-			author$project$BSLab$sectBody('The two controls \'inc\' and \'reset\' can be found at the bottom of the list.  In this machine, you do not have the option to select any arbitrary number by clicking on it, the only way to select a number is to use to increment operator. (the \'inc\' button).'),
-			author$project$BSLab$sectBody('If you have completed the \'Order Adjacent\' experiment, you can observe that the fundamental operation in the bubble machine is the same as the Order Adjacent Machine, which is ordering adjacent numbers. The only difference is the way you select the pair to order.'),
-			author$project$BSLab$sectHead('Objective'),
-			author$project$BSLab$sectBody('In this experiment, you need to sort the given list by performing adjacent ordering operation using increment and reset controls.'),
-			author$project$BSLab$sectHead('Procedure'),
-			author$project$BSLab$sectBody('Follow the given steps to perform the experiment.'),
-			author$project$BSLab$sectBody('Step 1: Click on the \'inc\' button to go through the list.'),
-			author$project$BSLab$sectBody('Step 2: When you reach the end of the list, hit reset, and start againg.'),
-			author$project$BSLab$sectBody('Step 3: Check if the list is sorted or not.  Repeat Steps 1 to 2, if the list is not sorted.')
+			author$project$BubblesortDemo$sectHead('Objective'),
+			author$project$BubblesortDemo$sectBody('Sort the given list by performing adjacent ordering operation using increment and reset to select the pairs.'),
+			author$project$BubblesortDemo$sectHead('Experiment Setup'),
+			author$project$BubblesortDemo$sectBody('The Bubble Machine invloves two control called \'inc\' (increment) and \'reset\'.  The increment control allows you to iterate through the list, starting from index 0 going upto the last element.  The inc control also performs adjacent ordering operation on the current index.  The \'reset\' control takes the current index back to 0.'),
+			author$project$BubblesortDemo$sectBody('The fundamental operation in the bubble machine is the same as the Order Adjacent Machine, which is ordering adjacent numbers. The only difference is the way you select the pair to order.'),
+			author$project$BubblesortDemo$sectHead('Procedure'),
+			author$project$BubblesortDemo$sectBody('Follow the given steps to perform the experiment.'),
+			author$project$BubblesortDemo$sectBody('Step 1: Click on the \'inc\' button to go through the list.'),
+			author$project$BubblesortDemo$sectBody('Step 2: Hit reset, to go back to the start.'),
+			author$project$BubblesortDemo$sectBody('Step 3: Check if the list is sorted or not.')
 		]));
-var author$project$BSLab$b5Instructions = A2(
+var author$project$BubblesortDemo$b5Instructions = A2(
 	mdgriffith$elm_ui$Element$column,
 	_List_fromArray(
 		[
@@ -13778,20 +14349,19 @@ var author$project$BSLab$b5Instructions = A2(
 		]),
 	_List_fromArray(
 		[
-			author$project$BSLab$sectHead('Experiment Setup'),
-			author$project$BSLab$sectBody('This experiment involves the bubblesort machine.  This machine implementes the bubblesort algorithm.'),
-			author$project$BSLab$sectBody('There is just one control called \'next\' available to you.  The \'next\' button performs the next step in the bubblesort algorithm.  You can observe the list getting sorted as the algorithm progresses.'),
-			author$project$BSLab$sectBody('In addition to the \'next\' button, and the list, you can obverve the two indicators \'i\' and \'b\', that mark the values of \'current index\' and \'boundary\' variables involved in the algorithm.'),
-			author$project$BSLab$sectHead('Objective'),
-			author$project$BSLab$sectBody('In this experiment, you need to step through the bubblesort algorithm, to sort the given list.'),
-			author$project$BSLab$sectHead('Procedure'),
-			author$project$BSLab$sectBody('Follow the given steps to perform the experiment.'),
-			author$project$BSLab$sectBody('Step 1: Click on the \'next\' button to step through the algorithm.'),
-			author$project$BSLab$sectBody('Step 2: When the boundary reaches the value 1, check if the list is sorted.')
+			author$project$BubblesortDemo$sectHead('Objective'),
+			author$project$BubblesortDemo$sectBody('In this experiment, you need to step through the Bubblesort algorithm, to sort the given list.'),
+			author$project$BubblesortDemo$sectHead('Experiment Setup'),
+			author$project$BubblesortDemo$sectBody('There is just one control called \'next\'.  The \'next\' button performs the next step in the Bubblesort algorithm.  You can observe the list getting sorted as the algorithm progresses.'),
+			author$project$BubblesortDemo$sectBody('The two indicators \'i\' and \'b\', mark the values of \'current index\' and \'boundary\' variables involved in the algorithm.'),
+			author$project$BubblesortDemo$sectHead('Procedure'),
+			author$project$BubblesortDemo$sectBody('Follow the given steps to perform the experiment.'),
+			author$project$BubblesortDemo$sectBody('Step 1: Click on the \'next\' button to step through the algorithm.'),
+			author$project$BubblesortDemo$sectBody('Step 2: When the boundary reaches the value 1, check if the list is sorted.')
 		]));
 var mdgriffith$elm_ui$Internal$Flag$overflow = mdgriffith$elm_ui$Internal$Flag$flag(20);
 var mdgriffith$elm_ui$Element$scrollbarY = A2(mdgriffith$elm_ui$Internal$Model$Class, mdgriffith$elm_ui$Internal$Flag$overflow, mdgriffith$elm_ui$Internal$Style$classes.scrollbarsY);
-var author$project$BSLab$instructionsView = function (model) {
+var author$project$BubblesortDemo$instructionsView = function (model) {
 	var vwrap = mdgriffith$elm_ui$Element$el(
 		_List_fromArray(
 			[
@@ -13806,35 +14376,35 @@ var author$project$BSLab$instructionsView = function (model) {
 			return vwrap(
 				mdgriffith$elm_ui$Element$text('...'));
 		case 'SwapMachine':
-			return vwrap(author$project$BSLab$b1Instructions);
+			return vwrap(author$project$BubblesortDemo$b1Instructions);
 		case 'OrderMachine':
-			return vwrap(author$project$BSLab$b2Instructions);
+			return vwrap(author$project$BubblesortDemo$b2Instructions);
 		case 'OrdAdjMachine':
-			return vwrap(author$project$BSLab$b3Instructions);
+			return vwrap(author$project$BubblesortDemo$b3Instructions);
 		case 'BubbleMachine':
-			return vwrap(author$project$BSLab$b4Instructions);
+			return vwrap(author$project$BubblesortDemo$b4Instructions);
 		default:
-			return vwrap(author$project$BSLab$b5Instructions);
+			return vwrap(author$project$BubblesortDemo$b5Instructions);
 	}
 };
-var author$project$BSLab$BubbleMachine = {$: 'BubbleMachine'};
-var author$project$BSLab$BubbleSort = {$: 'BubbleSort'};
-var author$project$BSLab$OrdAdjMachine = {$: 'OrdAdjMachine'};
-var author$project$BSLab$OrderMachine = {$: 'OrderMachine'};
-var author$project$BSLab$toPage = function (idx) {
+var author$project$BubblesortDemo$BubbleMachine = {$: 'BubbleMachine'};
+var author$project$BubblesortDemo$BubbleSort = {$: 'BubbleSort'};
+var author$project$BubblesortDemo$OrdAdjMachine = {$: 'OrdAdjMachine'};
+var author$project$BubblesortDemo$OrderMachine = {$: 'OrderMachine'};
+var author$project$BubblesortDemo$toPage = function (idx) {
 	switch (idx) {
 		case 0:
-			return author$project$BSLab$SwapMachine;
+			return author$project$BubblesortDemo$SwapMachine;
 		case 1:
-			return author$project$BSLab$OrderMachine;
+			return author$project$BubblesortDemo$OrderMachine;
 		case 2:
-			return author$project$BSLab$OrdAdjMachine;
+			return author$project$BubblesortDemo$OrdAdjMachine;
 		case 3:
-			return author$project$BSLab$BubbleMachine;
+			return author$project$BubblesortDemo$BubbleMachine;
 		case 4:
-			return author$project$BSLab$BubbleSort;
+			return author$project$BubblesortDemo$BubbleSort;
 		default:
-			return author$project$BSLab$Intro;
+			return author$project$BubblesortDemo$Intro;
 	}
 };
 var mdgriffith$elm_ui$Internal$Flag$fontColor = mdgriffith$elm_ui$Internal$Flag$flag(14);
@@ -13848,10 +14418,10 @@ var mdgriffith$elm_ui$Element$Font$color = function (fontColor) {
 			'color',
 			fontColor));
 };
-var author$project$BSLab$machineNameView = F3(
+var author$project$BubblesortDemo$machineNameView = F3(
 	function (currentPage, idx, mn) {
 		var col = _Utils_eq(
-			author$project$BSLab$toPage(idx),
+			author$project$BubblesortDemo$toPage(idx),
 			currentPage) ? A3(mdgriffith$elm_ui$Element$rgb255, 255, 87, 34) : A3(mdgriffith$elm_ui$Element$rgb255, 3, 155, 229);
 		return A2(
 			mdgriffith$elm_ui$Element$el,
@@ -13863,8 +14433,8 @@ var author$project$BSLab$machineNameView = F3(
 					mdgriffith$elm_ui$Element$Background$color(col),
 					mdgriffith$elm_ui$Element$Font$size(16),
 					mdgriffith$elm_ui$Element$Events$onClick(
-					author$project$BSLab$ActivatePage(
-						author$project$BSLab$toPage(idx))),
+					author$project$BubblesortDemo$ActivatePage(
+						author$project$BubblesortDemo$toPage(idx))),
 					mdgriffith$elm_ui$Element$pointer
 				]),
 			mdgriffith$elm_ui$Element$text(mn));
@@ -13889,7 +14459,7 @@ var mdgriffith$elm_ui$Element$row = F2(
 						attrs))),
 			mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
 	});
-var author$project$BSLab$machineView = function (model) {
+var author$project$BubblesortDemo$machineView = function (model) {
 	return A2(
 		mdgriffith$elm_ui$Element$column,
 		_List_fromArray(
@@ -13909,7 +14479,7 @@ var author$project$BSLab$machineView = function (model) {
 					]),
 				A2(
 					elm$core$List$indexedMap,
-					author$project$BSLab$machineNameView(model.active),
+					author$project$BubblesortDemo$machineNameView(model.active),
 					model.machineNames)),
 				A2(
 				mdgriffith$elm_ui$Element$row,
@@ -13921,29 +14491,29 @@ var author$project$BSLab$machineView = function (model) {
 					]),
 				_List_fromArray(
 					[
-						author$project$BSLab$instructionsView(model),
-						author$project$BSLab$experimentView(model)
+						author$project$BubblesortDemo$instructionsView(model),
+						author$project$BubblesortDemo$experimentView(model)
 					]))
 			]));
 };
-var author$project$BSLab$getContent = function (model) {
+var author$project$BubblesortDemo$getContent = function (model) {
 	var _n0 = model.active;
 	switch (_n0.$) {
 		case 'Intro':
-			return author$project$BSLab$introBody;
+			return author$project$BubblesortDemo$introBody;
 		case 'SwapMachine':
-			return author$project$BSLab$machineView(model);
+			return author$project$BubblesortDemo$machineView(model);
 		case 'OrderMachine':
-			return author$project$BSLab$machineView(model);
+			return author$project$BubblesortDemo$machineView(model);
 		case 'OrdAdjMachine':
-			return author$project$BSLab$machineView(model);
+			return author$project$BubblesortDemo$machineView(model);
 		case 'BubbleMachine':
-			return author$project$BSLab$machineView(model);
+			return author$project$BubblesortDemo$machineView(model);
 		default:
-			return author$project$BSLab$machineView(model);
+			return author$project$BubblesortDemo$machineView(model);
 	}
 };
-var author$project$BSLab$mainHeader = A2(
+var author$project$BubblesortDemo$mainHeader = A2(
 	mdgriffith$elm_ui$Element$el,
 	_List_fromArray(
 		[
@@ -13960,7 +14530,7 @@ var author$project$BSLab$mainHeader = A2(
 		_List_fromArray(
 			[
 				mdgriffith$elm_ui$Element$Events$onClick(
-				author$project$BSLab$ActivatePage(author$project$BSLab$Intro)),
+				author$project$BubblesortDemo$ActivatePage(author$project$BubblesortDemo$Intro)),
 				mdgriffith$elm_ui$Element$pointer
 			]),
 		mdgriffith$elm_ui$Element$text('Bubblesort')));
@@ -14221,8 +14791,8 @@ var mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 'Px', a: a};
 };
 var mdgriffith$elm_ui$Element$px = mdgriffith$elm_ui$Internal$Model$Px;
-var author$project$BSLab$view = function (model) {
-	var content = author$project$BSLab$getContent(model);
+var author$project$BubblesortDemo$view = function (model) {
+	var content = author$project$BubblesortDemo$getContent(model);
 	var _n0 = function () {
 		var _n1 = model.viewPort;
 		if (_n1.$ === 'Just') {
@@ -14234,29 +14804,35 @@ var author$project$BSLab$view = function (model) {
 	}();
 	var vh = _n0.a;
 	var vw = _n0.b;
-	return A2(
-		mdgriffith$elm_ui$Element$layout,
-		_List_Nil,
-		A2(
-			mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
-					mdgriffith$elm_ui$Element$height(
-					mdgriffith$elm_ui$Element$px(
-						elm$core$Basics$round(vh))),
-					mdgriffith$elm_ui$Element$clip
-				]),
-			_List_fromArray(
-				[author$project$BSLab$mainHeader, content])));
+	return {
+		body: _List_fromArray(
+			[
+				A2(
+				mdgriffith$elm_ui$Element$layout,
+				_List_Nil,
+				A2(
+					mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							mdgriffith$elm_ui$Element$width(mdgriffith$elm_ui$Element$fill),
+							mdgriffith$elm_ui$Element$height(
+							mdgriffith$elm_ui$Element$px(
+								elm$core$Basics$round(vh))),
+							mdgriffith$elm_ui$Element$clip
+						]),
+					_List_fromArray(
+						[author$project$BubblesortDemo$mainHeader, content])))
+			]),
+		title: 'Learning Bubblesort Algorith through fun interactions!'
+	};
 };
-var elm$browser$Browser$element = _Browser_element;
-var author$project$BSLab$main = elm$browser$Browser$element(
-	{init: author$project$BSLab$init, subscriptions: author$project$BSLab$subscriptions, update: author$project$BSLab$update, view: author$project$BSLab$view});
-_Platform_export({'BSLab':{'init':author$project$BSLab$main(
+var elm$browser$Browser$document = _Browser_document;
+var author$project$BubblesortDemo$main = elm$browser$Browser$document(
+	{init: author$project$BubblesortDemo$init, subscriptions: author$project$BubblesortDemo$subscriptions, update: author$project$BubblesortDemo$update, view: author$project$BubblesortDemo$view});
+_Platform_export({'BubblesortDemo':{'init':author$project$BubblesortDemo$main(
 	elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
 
-var app = Elm.BSLab.init({ node: document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49") });
+var app = Elm.BubblesortDemo.init({ node: document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49") });
 if (document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49"))
 {
   document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49").innerText = 'This is a headless program, meaning there is nothing to show here.\n\nI started the program anyway though, and you can access it as `app` in the developer console.';
