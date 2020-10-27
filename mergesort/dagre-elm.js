@@ -6585,12 +6585,14 @@ var $author$project$DGraph$viewNode = function (node) {
 	}
 };
 var $author$project$Dagre$viewGraph = function (graph) {
+	var vw = A2($elm$core$Basics$max, 800, graph.value.width * 1.1);
+	var vh = A2($elm$core$Basics$max, 800, graph.value.height * 1.1);
 	return A2(
 		$elm$svg$Svg$svg,
 		_List_fromArray(
 			[
 				$elm$svg$Svg$Attributes$viewBox(
-				'0 0 ' + ($elm$core$String$fromFloat(graph.value.height * 1.1) + (' ' + $elm$core$String$fromFloat(graph.value.width * 1.1)))),
+				'0 0 ' + ($elm$core$String$fromFloat(vh) + (' ' + $elm$core$String$fromFloat(vw)))),
 				$elm$svg$Svg$Attributes$width('700px'),
 				$elm$svg$Svg$Attributes$height('500px'),
 				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
