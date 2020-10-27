@@ -6250,7 +6250,7 @@ var $author$project$DGraph$expand = F3(
 			}
 		}();
 		var dlen = $elm$core$List$length(toSplit);
-		return (dlen > 2) ? A3($author$project$DGraph$expandgt2, path, nodes, edges) : ((dlen === 1) ? A3($author$project$DGraph$expandSingleton, path, nodes, edges) : A3($author$project$DGraph$expandBase, path, nodes, edges));
+		return (dlen > 1) ? A3($author$project$DGraph$expandgt2, path, nodes, edges) : ((dlen === 1) ? A3($author$project$DGraph$expandSingleton, path, nodes, edges) : A3($author$project$DGraph$expandBase, path, nodes, edges));
 	});
 var $author$project$DGraph$update = F2(
 	function (msg, graph) {
