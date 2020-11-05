@@ -5995,7 +5995,6 @@ var $author$project$Styles$container = _List_fromArray(
 		A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between')
 	]);
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$h3 = _VirtualDom_node('h3');
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -6019,23 +6018,6 @@ var $author$project$Heading$heading = A2(
 					$elm$html$Html$text('Bubblesort')
 				]))
 		]));
-var $author$project$Styles$info = _List_fromArray(
-	[
-		A2($elm$html$Html$Attributes$style, 'flex-basis', '30%'),
-		A2($elm$html$Html$Attributes$style, 'border-right', '1px solid #455A64'),
-		A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-		A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
-		A2($elm$html$Html$Attributes$style, 'overflow', 'scroll'),
-		A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em'),
-		A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
-	]);
-var $author$project$Swap$msgToString = function (m) {
-	if (m.$ === 'Swap') {
-		return 'Swap';
-	} else {
-		return '';
-	}
-};
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -6125,6 +6107,107 @@ var $author$project$Nav$navbar = function (pl) {
 						]));
 			},
 			pages_));
+};
+var $elm$html$Html$h3 = _VirtualDom_node('h3');
+var $author$project$Styles$info = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'flex-basis', '30%'),
+		A2($elm$html$Html$Attributes$style, 'border-right', '1px solid #455A64'),
+		A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+		A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
+		A2($elm$html$Html$Attributes$style, 'overflow', 'scroll'),
+		A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em'),
+		A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
+	]);
+var $author$project$Swap$viewInfo = A2(
+	$elm$html$Html$div,
+	$author$project$Styles$info,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h3,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Objective')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Sort the given list by swapping the numbers in the list. \n                             You are free to select any pair of numbers you want to swap.\n                             ')
+				])),
+			A2(
+			$elm$html$Html$h3,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Experiment Setup')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             The Swap Machine experiment consists of a list of numbers. \n                             You can click on any number to select/deselect it. \n                             You can select at most two numbers at a time.\n                             ')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             On selecting any two numbers, you can swap them by clicking on the \'Swap\' button. \n                             The selections are reset after each swap operation.\n                             ')
+				])),
+			A2(
+			$elm$html$Html$h3,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Procedure')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Follow the given steps to perform the experiment.\n                             ')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Step 1: Select first number\n                             ')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Step 2: Select second number\n                             ')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Step 3: Swap the selected numbers\n                             ')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('\n                             Step 4: Check if the list is sorted or not. Repeat Steps 1 to 3, \n                             if the list is not sorted.\n                             ')
+				]))
+		]));
+var $author$project$Swap$msgToString = function (m) {
+	if (m.$ === 'Swap') {
+		return 'Swap';
+	} else {
+		return '';
+	}
 };
 var $author$project$Prompt$show = function (prompt_text) {
 	return A2(
@@ -6597,6 +6680,7 @@ var $author$project$ListView$cells = F3(
 					}),
 				nums));
 	});
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $author$project$Swap$selectionsListWithLabels = function (selections) {
 	switch (selections.$) {
 		case 'NoneSelected':
@@ -6619,6 +6703,7 @@ var $author$project$Swap$selectionsListWithLabels = function (selections) {
 };
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $author$project$Swap$viewNums = F2(
 	function (nums, selections) {
 		var msg = function () {
@@ -6657,7 +6742,8 @@ var $author$project$Swap$viewNums = F2(
 						[
 							$elm$svg$Svg$Attributes$viewBox(
 							'0 0 ' + ($elm$core$String$fromInt(lwidth) + ' 300')),
-							A2($elm$html$Html$Attributes$style, 'height', '100%')
+							$elm$svg$Svg$Attributes$height('100%'),
+							$elm$svg$Svg$Attributes$width('100%')
 						]),
 					_List_fromArray(
 						[
@@ -6666,6 +6752,52 @@ var $author$project$Swap$viewNums = F2(
 							nums,
 							$author$project$Swap$selectionsListWithLabels(selections),
 							msg)
+						]))
+				]));
+	});
+var $author$project$Swap$viewSim = F4(
+	function (numbers, ctrls, selections, prompt) {
+		return A2(
+			$elm$html$Html$div,
+			$author$project$Styles$simContainer,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+							A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
+							A2($elm$html$Html$Attributes$style, 'align-items', 'center')
+						]),
+					_List_fromArray(
+						[
+							$author$project$Prompt$show(prompt),
+							$author$project$SortedIndicator$sortedIndicator(numbers)
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+							A2($elm$html$Html$Attributes$style, 'padding', '0 1em'),
+							A2($elm$html$Html$Attributes$style, 'flex-grow', '1')
+						]),
+					_List_fromArray(
+						[
+							A2($author$project$Swap$viewNums, numbers, selections)
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+							A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+							A2($elm$html$Html$Attributes$style, 'flex-grow', '1')
+						]),
+					_List_fromArray(
+						[
+							A2($author$project$Controls$view, ctrls, $author$project$Swap$msgToString)
 						]))
 				]));
 	});
@@ -6690,131 +6822,8 @@ var $author$project$Swap$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2(
-						$elm$html$Html$div,
-						$author$project$Styles$info,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$h3,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('Objective')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Sort the given list by swapping the numbers in the list. \n                        You are free to select any pair of numbers you want to swap.\n                        ')
-									])),
-								A2(
-								$elm$html$Html$h3,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('Experiment Setup')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        The Swap Machine experiment consists of a list of numbers. \n                        You can click on any number to select/deselect it. \n                        You can select at most two numbers at a time.\n                        ')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        On selecting any two numbers, you can swap them by clicking on the \'Swap\' button. \n                        The selections are reset after each swap operation.\n                        ')
-									])),
-								A2(
-								$elm$html$Html$h3,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('Procedure')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Follow the given steps to perform the experiment.\n                        ')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Step 1: Select first number\n                        ')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Step 2: Select second number\n                        ')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Step 3: Swap the selected numbers\n                        ')
-									])),
-								A2(
-								$elm$html$Html$p,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text('\n                        Step 4: Check if the list is sorted or not. Repeat Steps 1 to 3, \n                        if the list is not sorted.\n                        ')
-									]))
-							])),
-						A2(
-						$elm$html$Html$div,
-						$author$project$Styles$simContainer,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-										A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
-										A2($elm$html$Html$Attributes$style, 'align-items', 'center')
-									]),
-								_List_fromArray(
-									[
-										$author$project$Prompt$show(prompt),
-										$author$project$SortedIndicator$sortedIndicator(numbers)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-										A2($elm$html$Html$Attributes$style, 'padding', '0 1em')
-									]),
-								_List_fromArray(
-									[
-										A2($author$project$Swap$viewNums, numbers, selections)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-										A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
-										A2($elm$html$Html$Attributes$style, 'flex-grow', '1')
-									]),
-								_List_fromArray(
-									[
-										A2($author$project$Controls$view, ctrls, $author$project$Swap$msgToString)
-									]))
-							]))
+						$author$project$Swap$viewInfo,
+						A4($author$project$Swap$viewSim, numbers, ctrls, selections, prompt)
 					]))
 			]));
 };

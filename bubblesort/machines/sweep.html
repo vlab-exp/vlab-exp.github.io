@@ -6661,6 +6661,7 @@ var $author$project$ListView$cells = F3(
 					}),
 				nums));
 	});
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $author$project$Sweep$selectionsListWithLabels = function (selections) {
 	switch (selections.$) {
 		case 'NoneSelected':
@@ -6689,6 +6690,7 @@ var $author$project$Sweep$selectionsListWithLabels = function (selections) {
 };
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $author$project$Sweep$viewNums = F2(
 	function (nums, selections) {
 		var msg = function (ci) {
@@ -6711,7 +6713,8 @@ var $author$project$Sweep$viewNums = F2(
 						[
 							$elm$svg$Svg$Attributes$viewBox(
 							'0 0 ' + ($elm$core$String$fromInt(lwidth) + ' 300')),
-							A2($elm$html$Html$Attributes$style, 'height', '100%')
+							$elm$svg$Svg$Attributes$height('100%'),
+							$elm$svg$Svg$Attributes$width('100%')
 						]),
 					_List_fromArray(
 						[
