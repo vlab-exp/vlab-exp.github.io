@@ -1,3 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Swap</title>
+  <style>body { padding: 0; margin: 0; }</style>
+</head>
+
+<body>
+
+<pre id="elm"></pre>
+
+<script>
+try {
 (function(scope){
 'use strict';
 
@@ -5227,10 +5241,12 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Dagre$GotRandomArray = function (a) {
+var $author$project$Controls$Disabled = {$: 'Disabled'};
+var $author$project$Swap$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $author$project$Swap$NoneSelected = {$: 'NoneSelected'};
+var $author$project$Swap$Swap = {$: 'Swap'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -5338,69 +5354,6 @@ var $elm$random$Random$generate = F2(
 			$elm$random$Random$Generate(
 				A2($elm$random$Random$map, tagger, generator)));
 	});
-var $author$project$DG3$Point = F2(
-	function (x, y) {
-		return {x: x, y: y};
-	});
-var $author$project$DG3$defEdVal = {
-	label: '',
-	points: _List_fromArray(
-		[
-			A2($author$project$DG3$Point, 0, 0)
-		])
-};
-var $author$project$Config$opNodeHeight = 50;
-var $author$project$Config$opNodeWidth = 150;
-var $author$project$DG3$defNodeVal = {height: $author$project$Config$opNodeHeight, label: '', width: $author$project$Config$opNodeWidth, x: 0, y: 0};
-var $author$project$Dagre$defaultGDOptions = {compound: false, directed: true, multigraph: false};
-var $author$project$Config$itemCfg = {fill: '#ffffff', height: 50, stroke: '#111111', width: 50};
-var $author$project$Config$nodeCfg = {itemGap: 20, padding: 20};
-var $author$project$Config$node_height = function () {
-	var padding_height = $author$project$Config$nodeCfg.padding * 2;
-	return $author$project$Config$itemCfg.height + padding_height;
-}();
-var $author$project$Config$node_width = function (nItems) {
-	var padding_width = $author$project$Config$nodeCfg.padding * 2;
-	var all_items_width = nItems * $author$project$Config$itemCfg.width;
-	var all_gaps_width = (nItems - 1) * $author$project$Config$nodeCfg.itemGap;
-	return (all_items_width + all_gaps_width) + padding_width;
-};
-var $author$project$DG3$nodeFromLabelVal = function (lst) {
-	return {
-		height: $author$project$Config$node_height,
-		label: A2(
-			$elm$core$String$join,
-			' ',
-			A2($elm$core$List$map, $elm$core$String$fromInt, lst)),
-		width: $author$project$Config$node_width(
-			$elm$core$List$length(lst)),
-		x: 0,
-		y: 0
-	};
-};
-var $author$project$Dagre$ig1 = function (data) {
-	return {
-		edges: _List_fromArray(
-			[
-				{v: '$', value: $author$project$DG3$defEdVal, w: 'ms_n_$'}
-			]),
-		nodes: _List_fromArray(
-			[
-				{
-				v: '$',
-				value: $author$project$DG3$nodeFromLabelVal(data)
-			},
-				{
-				v: 'ms_n_$',
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'MS'})
-			}
-			]),
-		options: $author$project$Dagre$defaultGDOptions,
-		value: {height: 0, width: 0}
-	};
-};
 var $elm$core$Bitwise$and = _Bitwise_and;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
@@ -5537,364 +5490,143 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 			},
 			A2($elm$random$Random$int, minLength, maxLength));
 	});
-var $author$project$Dagre$init = function (flags) {
+var $author$project$Swap$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
-			graph: $author$project$Dagre$ig1(_List_Nil)
-		},
-		$elm$core$Platform$Cmd$batch(
-			_List_fromArray(
+			ctrls: _List_fromArray(
 				[
-					A2(
-					$elm$random$Random$generate,
-					$author$project$Dagre$GotRandomArray,
-					A3(
-						$elm_community$random_extra$Random$Array$rangeLengthArray,
-						5,
-						10,
-						A2($elm$random$Random$int, 10, 50)))
-				])));
-};
-var $author$project$Dagre$Recv = function (a) {
-	return {$: 'Recv', a: a};
-};
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Dagre$messageReceiver = _Platform_incomingPort('messageReceiver', $elm$json$Json$Decode$string);
-var $author$project$Dagre$subscriptions = function (_v0) {
-	return $author$project$Dagre$messageReceiver($author$project$Dagre$Recv);
-};
-var $elm$json$Json$Decode$decodeString = _Json_runOnString;
-var $elm$json$Json$Encode$list = F2(
-	function (func, entries) {
-		return _Json_wrap(
+					{label: 'Swap', message: $author$project$Swap$Swap, status: $author$project$Controls$Disabled, text: ''}
+				]),
+			numbers: _List_fromArray(
+				[10, 20, 50, 8, 30, 100, 5, 82]),
+			prompt: 'Click on any numbered circle to toggle the selection. \n                You can select upto two numbers.',
+			selections: $author$project$Swap$NoneSelected
+		},
+		A2(
+			$elm$random$Random$generate,
+			$author$project$Swap$GotRandomArray,
 			A3(
-				$elm$core$List$foldl,
-				_Json_addEntry(func),
-				_Json_emptyArray(_Utils_Tuple0),
-				entries));
-	});
-var $elm$json$Json$Encode$object = function (pairs) {
-	return _Json_wrap(
-		A3(
-			$elm$core$List$foldl,
-			F2(
-				function (_v0, obj) {
-					var k = _v0.a;
-					var v = _v0.b;
-					return A3(_Json_addField, k, v, obj);
-				}),
-			_Json_emptyObject(_Utils_Tuple0),
-			pairs));
+				$elm_community$random_extra$Random$Array$rangeLengthArray,
+				4,
+				6,
+				A2($elm$random$Random$int, 10, 50))));
 };
-var $elm$json$Json$Encode$float = _Json_wrap;
-var $author$project$DG3$pointEncode = function (p) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'x',
-				$elm$json$Json$Encode$float(p.x)),
-				_Utils_Tuple2(
-				'y',
-				$elm$json$Json$Encode$float(p.y))
-			]));
+var $elm$core$Platform$Sub$batch = _Platform_batch;
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$Swap$subscriptions = function (model) {
+	return $elm$core$Platform$Sub$none;
 };
-var $elm$json$Json$Encode$string = _Json_wrap;
-var $author$project$DG3$evEncode = function (ev) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'label',
-				$elm$json$Json$Encode$string(ev.label)),
-				_Utils_Tuple2(
-				'points',
-				A2($elm$json$Json$Encode$list, $author$project$DG3$pointEncode, ev.points))
-			]));
+var $author$project$Swap$BothSelected = F2(
+	function (a, b) {
+		return {$: 'BothSelected', a: a, b: b};
+	});
+var $author$project$Swap$OneSelected = function (a) {
+	return {$: 'OneSelected', a: a};
 };
-var $author$project$DG3$gdEdgeEncode = function (gde) {
-	var _v0 = gde;
-	var value = _v0.value;
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'v',
-				$elm$json$Json$Encode$string(gde.v)),
-				_Utils_Tuple2(
-				'w',
-				$elm$json$Json$Encode$string(gde.w)),
-				_Utils_Tuple2(
-				'value',
-				$author$project$DG3$evEncode(value))
-			]));
-};
-var $author$project$DG3$nvEncode = function (nv) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'label',
-				$elm$json$Json$Encode$string(nv.label)),
-				_Utils_Tuple2(
-				'width',
-				$elm$json$Json$Encode$float(nv.width)),
-				_Utils_Tuple2(
-				'height',
-				$elm$json$Json$Encode$float(nv.height)),
-				_Utils_Tuple2(
-				'x',
-				$elm$json$Json$Encode$float(nv.x)),
-				_Utils_Tuple2(
-				'y',
-				$elm$json$Json$Encode$float(nv.y))
-			]));
-};
-var $author$project$DG3$gdNodeEncode = function (gdn) {
-	var _v0 = gdn;
-	var value = _v0.value;
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'v',
-				$elm$json$Json$Encode$string(gdn.v)),
-				_Utils_Tuple2(
-				'value',
-				$author$project$DG3$nvEncode(value))
-			]));
-};
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $author$project$DG3$gdOptionEncode = function (gdo) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'directed',
-				$elm$json$Json$Encode$bool(gdo.directed)),
-				_Utils_Tuple2(
-				'multigraph',
-				$elm$json$Json$Encode$bool(gdo.multigraph)),
-				_Utils_Tuple2(
-				'compound',
-				$elm$json$Json$Encode$bool(gdo.compound))
-			]));
-};
-var $author$project$DG3$gdEncode = function (gd) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'options',
-				$author$project$DG3$gdOptionEncode(gd.options)),
-				_Utils_Tuple2(
-				'nodes',
-				$elm$json$Json$Encode$list($author$project$DG3$gdNodeEncode)(gd.nodes)),
-				_Utils_Tuple2(
-				'edges',
-				$elm$json$Json$Encode$list($author$project$DG3$gdEdgeEncode)(gd.edges)),
-				_Utils_Tuple2(
-				'value',
-				$elm$json$Json$Encode$object(
-					_List_fromArray(
-						[
-							_Utils_Tuple2(
-							'ranker',
-							$elm$json$Json$Encode$string('network-simplex'))
-						])))
-			]));
-};
-var $author$project$DG3$GData = F4(
-	function (options, nodes, edges, value) {
-		return {edges: edges, nodes: nodes, options: options, value: value};
+var $author$project$Swap$deselect = F2(
+	function (i, selections) {
+		switch (selections.$) {
+			case 'NoneSelected':
+				return _Utils_Tuple2($author$project$Swap$NoneSelected, '');
+			case 'OneSelected':
+				var j = selections.a;
+				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$Swap$NoneSelected, 'Select two numbers to swap.') : _Utils_Tuple2(
+					$author$project$Swap$OneSelected(j),
+					'');
+			default:
+				var j = selections.a;
+				var k = selections.b;
+				return _Utils_eq(i, j) ? _Utils_Tuple2(
+					$author$project$Swap$OneSelected(k),
+					'Select one more number.') : (_Utils_eq(i, k) ? _Utils_Tuple2(
+					$author$project$Swap$OneSelected(j),
+					'Select one more number.') : _Utils_Tuple2(
+					A2($author$project$Swap$BothSelected, j, k),
+					'Click the \'Swap\' button to swap the selected numbers.'));
+		}
 	});
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$DG3$GDataEdge = F3(
-	function (v, w, value) {
-		return {v: v, value: value, w: w};
-	});
-var $author$project$DG3$EdgeValue = F2(
-	function (label, points) {
-		return {label: label, points: points};
-	});
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $elm$json$Json$Decode$float = _Json_decodeFloat;
-var $author$project$DG3$pointDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$Point,
-	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
-var $author$project$DG3$evDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$EdgeValue,
-	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
-	A2(
-		$elm$json$Json$Decode$field,
-		'points',
-		$elm$json$Json$Decode$list($author$project$DG3$pointDecoder)));
-var $elm$json$Json$Decode$map3 = _Json_map3;
-var $author$project$DG3$gdEdgeDecoder = A4(
-	$elm$json$Json$Decode$map3,
-	$author$project$DG3$GDataEdge,
-	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'w', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$evDecoder));
-var $author$project$DG3$GDataNode = F2(
-	function (v, value) {
-		return {v: v, value: value};
-	});
-var $author$project$DG3$NodeValue = F5(
-	function (label, width, height, x, y) {
-		return {height: height, label: label, width: width, x: x, y: y};
-	});
-var $elm$json$Json$Decode$map5 = _Json_map5;
-var $author$project$DG3$nvDecoder = A6(
-	$elm$json$Json$Decode$map5,
-	$author$project$DG3$NodeValue,
-	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
-var $author$project$DG3$gdNodeDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$GDataNode,
-	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$nvDecoder));
-var $author$project$DG3$GDataOptions = F3(
-	function (directed, multigraph, compound) {
-		return {compound: compound, directed: directed, multigraph: multigraph};
-	});
-var $elm$json$Json$Decode$bool = _Json_decodeBool;
-var $author$project$DG3$gdOptionDecoder = A4(
-	$elm$json$Json$Decode$map3,
-	$author$project$DG3$GDataOptions,
-	A2($elm$json$Json$Decode$field, 'directed', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'multigraph', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'compound', $elm$json$Json$Decode$bool));
-var $author$project$DG3$Dims = F2(
-	function (width, height) {
-		return {height: height, width: width};
-	});
-var $author$project$DG3$gdimDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$Dims,
-	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float));
-var $elm$json$Json$Decode$map4 = _Json_map4;
-var $author$project$DG3$gdataDecoder = A5(
-	$elm$json$Json$Decode$map4,
-	$author$project$DG3$GData,
-	A2($elm$json$Json$Decode$field, 'options', $author$project$DG3$gdOptionDecoder),
-	A2(
-		$elm$json$Json$Decode$field,
-		'nodes',
-		$elm$json$Json$Decode$list($author$project$DG3$gdNodeDecoder)),
-	A2(
-		$elm$json$Json$Decode$field,
-		'edges',
-		$elm$json$Json$Decode$list($author$project$DG3$gdEdgeDecoder)),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$gdimDecoder));
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Dagre$sendMessage = _Platform_outgoingPort('sendMessage', $elm$core$Basics$identity);
-var $author$project$NodeId$revordr = function (ord) {
-	switch (ord.$) {
-		case 'LT':
-			return $elm$core$Basics$GT;
-		case 'GT':
-			return $elm$core$Basics$LT;
-		default:
-			return $elm$core$Basics$EQ;
-	}
+var $author$project$Swap$select = F2(
+	function (i, selections) {
+		switch (selections.$) {
+			case 'NoneSelected':
+				return _Utils_Tuple2(
+					$author$project$Swap$OneSelected(i),
+					'Select one more number and then click the \'Swap\' button');
+			case 'OneSelected':
+				var j = selections.a;
+				return _Utils_Tuple2(
+					A2($author$project$Swap$BothSelected, j, i),
+					'Click the \'Swap\' button to swap the selected numbers.');
+			default:
+				var j = selections.a;
+				var k = selections.b;
+				return _Utils_Tuple2(
+					A2($author$project$Swap$BothSelected, j, k),
+					'Two numbers are already selected.');
+		}
+	});
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
 };
-var $author$project$NodeId$comp = F2(
-	function (p1, p2) {
-		comp:
+var $author$project$Controls$disable = F2(
+	function (m, ctrls) {
+		return A2(
+			$elm$core$List$map,
+			function (c) {
+				return _Utils_eq(c.message, m) ? _Utils_update(
+					c,
+					{status: $author$project$Controls$Disabled}) : c;
+			},
+			ctrls);
+	});
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
 		while (true) {
-			var _v0 = _Utils_Tuple2(p1, p2);
-			if (!_v0.a.b) {
-				if (!_v0.b.b) {
-					return $elm$core$Basics$EQ;
-				} else {
-					if (_v0.b.a.$ === 'Right') {
-						var _v5 = _v0.b;
-						var _v6 = _v5.a;
-						var rest2 = _v5.b;
-						return $author$project$NodeId$revordr(
-							A2($author$project$NodeId$comp, p2, p1));
-					} else {
-						var _v7 = _v0.b;
-						var _v8 = _v7.a;
-						var rest2 = _v7.b;
-						return $author$project$NodeId$revordr(
-							A2($author$project$NodeId$comp, p2, p1));
-					}
-				}
+			if (n <= 0) {
+				return list;
 			} else {
-				if (_v0.a.a.$ === 'Left') {
-					if (!_v0.b.b) {
-						var _v1 = _v0.a;
-						var _v2 = _v1.a;
-						var rest1 = _v1.b;
-						return $elm$core$Basics$LT;
-					} else {
-						if (_v0.b.a.$ === 'Left') {
-							var _v9 = _v0.a;
-							var _v10 = _v9.a;
-							var rest1 = _v9.b;
-							var _v11 = _v0.b;
-							var _v12 = _v11.a;
-							var rest2 = _v11.b;
-							var $temp$p1 = rest1,
-								$temp$p2 = rest2;
-							p1 = $temp$p1;
-							p2 = $temp$p2;
-							continue comp;
-						} else {
-							var _v17 = _v0.a;
-							var _v18 = _v17.a;
-							var rest1 = _v17.b;
-							var _v19 = _v0.b;
-							var _v20 = _v19.a;
-							var rest2 = _v19.b;
-							return $elm$core$Basics$LT;
-						}
-					}
+				if (!list.b) {
+					return list;
 				} else {
-					if (!_v0.b.b) {
-						var _v3 = _v0.a;
-						var _v4 = _v3.a;
-						var rest1 = _v3.b;
-						return $elm$core$Basics$GT;
-					} else {
-						if (_v0.b.a.$ === 'Right') {
-							var _v13 = _v0.a;
-							var _v14 = _v13.a;
-							var rest1 = _v13.b;
-							var _v15 = _v0.b;
-							var _v16 = _v15.a;
-							var rest2 = _v15.b;
-							var $temp$p1 = rest1,
-								$temp$p2 = rest2;
-							p1 = $temp$p1;
-							p2 = $temp$p2;
-							continue comp;
-						} else {
-							var _v21 = _v0.a;
-							var _v22 = _v21.a;
-							var rest1 = _v21.b;
-							var _v23 = _v0.b;
-							var _v24 = _v23.a;
-							var rest2 = _v23.b;
-							return $elm$core$Basics$GT;
-						}
-					}
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
 				}
 			}
 		}
 	});
-var $author$project$NodeId$Left = {$: 'Left'};
-var $author$project$NodeId$RootSym = {$: 'RootSym'};
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm_community$list_extra$List$Extra$getAt = F2(
+	function (idx, xs) {
+		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
+			A2($elm$core$List$drop, idx, xs));
+	});
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$List$concat = function (lists) {
+	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
+};
 var $elm$core$List$takeReverse = F3(
 	function (n, list, kept) {
 		takeReverse:
@@ -6021,114 +5753,404 @@ var $elm$core$List$take = F2(
 	function (n, list) {
 		return A3($elm$core$List$takeFast, 0, n, list);
 	});
-var $author$project$NodeId$getPath = function (sl) {
-	getPath:
-	while (true) {
-		_v0$2:
+var $elm_community$list_extra$List$Extra$splitAt = F2(
+	function (n, xs) {
+		return _Utils_Tuple2(
+			A2($elm$core$List$take, n, xs),
+			A2($elm$core$List$drop, n, xs));
+	});
+var $elm_community$list_extra$List$Extra$uncons = function (list) {
+	if (!list.b) {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var first = list.a;
+		var rest = list.b;
+		return $elm$core$Maybe$Just(
+			_Utils_Tuple2(first, rest));
+	}
+};
+var $elm_community$list_extra$List$Extra$swapAt = F3(
+	function (index1, index2, l) {
+		swapAt:
 		while (true) {
-			if (sl.b) {
-				if (sl.a.$ === 'RootSym') {
-					var _v1 = sl.a;
-					var restp = sl.b;
-					return A2(
-						$elm$core$List$map,
-						function (s) {
-							if (s.$ === 'DirSym') {
-								var d = s.a;
-								return d;
-							} else {
-								return $author$project$NodeId$Left;
-							}
-						},
-						A2(
-							$elm$core$List$take,
-							$elm$core$List$length(restp) - 1,
-							restp));
+			if (_Utils_eq(index1, index2) || (index1 < 0)) {
+				return l;
+			} else {
+				if (_Utils_cmp(index1, index2) > 0) {
+					var $temp$index1 = index2,
+						$temp$index2 = index1,
+						$temp$l = l;
+					index1 = $temp$index1;
+					index2 = $temp$index2;
+					l = $temp$l;
+					continue swapAt;
 				} else {
-					if ((sl.b.b && sl.b.b.b) && (sl.b.b.a.$ === 'RootSym')) {
-						var _v3 = sl.b;
-						var _v4 = _v3.b;
-						var _v5 = _v4.a;
-						var restp = _v4.b;
-						var $temp$sl = A2($elm$core$List$cons, $author$project$NodeId$RootSym, restp);
-						sl = $temp$sl;
-						continue getPath;
+					var _v0 = A2($elm_community$list_extra$List$Extra$splitAt, index1, l);
+					var part1 = _v0.a;
+					var tail1 = _v0.b;
+					var _v1 = A2($elm_community$list_extra$List$Extra$splitAt, index2 - index1, tail1);
+					var head2 = _v1.a;
+					var tail2 = _v1.b;
+					var _v2 = _Utils_Tuple2(
+						$elm_community$list_extra$List$Extra$uncons(head2),
+						$elm_community$list_extra$List$Extra$uncons(tail2));
+					if ((_v2.a.$ === 'Just') && (_v2.b.$ === 'Just')) {
+						var _v3 = _v2.a.a;
+						var value1 = _v3.a;
+						var part2 = _v3.b;
+						var _v4 = _v2.b.a;
+						var value2 = _v4.a;
+						var part3 = _v4.b;
+						return $elm$core$List$concat(
+							_List_fromArray(
+								[
+									part1,
+									A2($elm$core$List$cons, value2, part2),
+									A2($elm$core$List$cons, value1, part3)
+								]));
 					} else {
-						break _v0$2;
+						return l;
 					}
 				}
-			} else {
-				break _v0$2;
 			}
 		}
-		return _List_Nil;
-	}
-};
-var $author$project$NodeId$AppSym = function (a) {
-	return {$: 'AppSym', a: a};
-};
-var $author$project$NodeId$FuncSym = function (a) {
-	return {$: 'FuncSym', a: a};
-};
-var $author$project$NodeId$MS = {$: 'MS'};
-var $author$project$NodeId$Merge = {$: 'Merge'};
-var $author$project$NodeId$Split = {$: 'Split'};
-var $author$project$NodeId$App = {$: 'App'};
-var $author$project$NodeId$NApp = {$: 'NApp'};
-var $author$project$NodeId$appFromStr = function (appstr) {
-	switch (appstr) {
-		case 'a':
-			return $author$project$NodeId$App;
-		case 'n':
-			return $author$project$NodeId$NApp;
-		default:
-			return $author$project$NodeId$NApp;
-	}
-};
-var $author$project$NodeId$NotSorted = {$: 'NotSorted'};
-var $author$project$NodeId$SortSym = function (a) {
-	return {$: 'SortSym', a: a};
-};
-var $author$project$NodeId$Sorted = {$: 'Sorted'};
-var $elm$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
+	});
+var $author$project$Controls$updateText = F3(
+	function (m, str, ctrls) {
+		return A2(
+			$elm$core$List$map,
+			function (c) {
+				return _Utils_eq(c.message, m) ? _Utils_update(
+					c,
+					{text: str}) : c;
+			},
+			ctrls);
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
 		} else {
-			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+			return _default;
 		}
 	});
-var $elm$core$List$concat = function (lists) {
-	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
-};
-var $elm$core$String$dropRight = F2(
-	function (n, string) {
-		return (n < 1) ? string : A3($elm$core$String$slice, 0, -n, string);
-	});
-var $author$project$NodeId$DirSym = function (a) {
-	return {$: 'DirSym', a: a};
-};
-var $author$project$NodeId$Right = {$: 'Right'};
-var $author$project$NodeId$dirFromStr = function (dirstr) {
-	if (dirstr === 'l') {
-		return $author$project$NodeId$Left;
-	} else {
-		return $author$project$NodeId$Right;
-	}
-};
-var $author$project$NodeId$NoOp = {$: 'NoOp'};
-var $author$project$NodeId$funcFromStr = function (funcstr) {
-	switch (funcstr) {
-		case 'split':
-			return $author$project$NodeId$Split;
-		case 'merge':
-			return $author$project$NodeId$Merge;
-		case 'ms':
-			return $author$project$NodeId$MS;
+var $author$project$Swap$swap = function (model) {
+	var _v0 = model;
+	var numbers = _v0.numbers;
+	var ctrls = _v0.ctrls;
+	var prompt = _v0.prompt;
+	var selections = _v0.selections;
+	switch (selections.$) {
+		case 'NoneSelected':
+			return _Utils_update(
+				model,
+				{
+					ctrls: A3($author$project$Controls$updateText, $author$project$Swap$Swap, 'Select two numbers and then click \'Swap\'.', ctrls)
+				});
+		case 'OneSelected':
+			var i = selections.a;
+			return _Utils_update(
+				model,
+				{
+					ctrls: A3(
+						$author$project$Controls$updateText,
+						$author$project$Swap$Swap,
+						$elm$core$String$concat(
+							_List_fromArray(
+								[
+									'You have selected the number ',
+									$elm$core$String$fromInt(
+									A2(
+										$elm$core$Maybe$withDefault,
+										-1,
+										A2($elm_community$list_extra$List$Extra$getAt, i, numbers))),
+									'. Select another number to swap it with.'
+								])),
+						ctrls)
+				});
 		default:
-			return $author$project$NodeId$NoOp;
+			var i = selections.a;
+			var j = selections.b;
+			var selections_ = $author$project$Swap$NoneSelected;
+			return _Utils_update(
+				model,
+				{
+					ctrls: A2(
+						$author$project$Controls$disable,
+						$author$project$Swap$Swap,
+						A3($author$project$Controls$updateText, $author$project$Swap$Swap, '', ctrls)),
+					numbers: A3($elm_community$list_extra$List$Extra$swapAt, i, j, numbers),
+					prompt: 'Select two numbers and then click \'Swap\'',
+					selections: selections_
+				});
 	}
 };
+var $author$project$Controls$Active = {$: 'Active'};
+var $author$project$Controls$enable = F2(
+	function (m, ctrls) {
+		return A2(
+			$elm$core$List$map,
+			function (c) {
+				return _Utils_eq(c.message, m) ? _Utils_update(
+					c,
+					{status: $author$project$Controls$Active}) : c;
+			},
+			ctrls);
+	});
+var $author$project$Swap$updateStatus = F3(
+	function (selections, nums, ctrls) {
+		switch (selections.$) {
+			case 'NoneSelected':
+				return A3(
+					$author$project$Controls$updateText,
+					$author$project$Swap$Swap,
+					'',
+					A2($author$project$Controls$disable, $author$project$Swap$Swap, ctrls));
+			case 'OneSelected':
+				return A3(
+					$author$project$Controls$updateText,
+					$author$project$Swap$Swap,
+					'',
+					A2($author$project$Controls$disable, $author$project$Swap$Swap, ctrls));
+			default:
+				var i = selections.a;
+				var j = selections.b;
+				var nj = $elm$core$String$fromInt(
+					A2(
+						$elm$core$Maybe$withDefault,
+						-1,
+						A2($elm_community$list_extra$List$Extra$getAt, j, nums)));
+				var ni = $elm$core$String$fromInt(
+					A2(
+						$elm$core$Maybe$withDefault,
+						-1,
+						A2($elm_community$list_extra$List$Extra$getAt, i, nums)));
+				return A3(
+					$author$project$Controls$updateText,
+					$author$project$Swap$Swap,
+					'Click the \'Swap\' button to swap the numbers ' + (ni + (' and ' + nj)),
+					A2($author$project$Controls$enable, $author$project$Swap$Swap, ctrls));
+		}
+	});
+var $author$project$Swap$update = F2(
+	function (msg, model) {
+		var _v0 = model;
+		var ctrls = _v0.ctrls;
+		var numbers = _v0.numbers;
+		var selections = _v0.selections;
+		switch (msg.$) {
+			case 'Swap':
+				return _Utils_Tuple2(
+					$author$project$Swap$swap(model),
+					$elm$core$Platform$Cmd$none);
+			case 'Select':
+				var x = msg.a;
+				var _v2 = A2($author$project$Swap$select, x, selections);
+				var selections_ = _v2.a;
+				var pm = _v2.b;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							ctrls: A3($author$project$Swap$updateStatus, selections_, numbers, ctrls),
+							prompt: pm,
+							selections: selections_
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'Deselect':
+				var i = msg.a;
+				var _v3 = A2($author$project$Swap$deselect, i, selections);
+				var selections_ = _v3.a;
+				var pm = _v3.b;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							ctrls: A3($author$project$Swap$updateStatus, selections_, numbers, ctrls),
+							prompt: pm,
+							selections: selections_
+						}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				var arr = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							numbers: $elm$core$Array$toList(arr)
+						}),
+					$elm$core$Platform$Cmd$none);
+		}
+	});
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $author$project$Styles$container = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'display', 'grid'),
+		A2($elm$html$Html$Attributes$style, 'grid-template-rows', '10vh 5vh 85vh'),
+		A2($elm$html$Html$Attributes$style, 'grid-template-columns', '1fr'),
+		A2($elm$html$Html$Attributes$style, 'height', '100vh'),
+		A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
+		A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between')
+	]);
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$h3 = _VirtualDom_node('h3');
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Heading$heading = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			A2($elm$html$Html$Attributes$style, 'background', '#455A64'),
+			A2($elm$html$Html$Attributes$style, 'color', '#FFF'),
+			A2($elm$html$Html$Attributes$style, 'font-size', '1.5em'),
+			A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+			A2($elm$html$Html$Attributes$style, 'padding', '0 1em')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Bubblesort')
+				]))
+		]));
+var $author$project$Styles$info = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'flex-basis', '30%'),
+		A2($elm$html$Html$Attributes$style, 'border-right', '1px solid #455A64'),
+		A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+		A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
+		A2($elm$html$Html$Attributes$style, 'overflow', 'scroll'),
+		A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em'),
+		A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
+	]);
+var $author$project$Swap$msgToString = function (m) {
+	if (m.$ === 'Swap') {
+		return 'Swap';
+	} else {
+		return '';
+	}
+};
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $author$project$Nav$hostedpages = function () {
+	var remotehost = 'https://vlab-exp.github.io';
+	var lochost = 'http://localhost:8000';
+	var host = remotehost;
+	return _List_fromArray(
+		[
+			_Utils_Tuple3('Home', host + ('/bubblesort/' + 'index.html'), false),
+			_Utils_Tuple3('Swap Machine', host + '/bubblesort/machines/swap.html', false),
+			_Utils_Tuple3('Order Machine', host + '/bubblesort/machines/order.html', false),
+			_Utils_Tuple3('Order Adjacent Machine', host + '/bubblesort/machines/adjorder.html', false),
+			_Utils_Tuple3('Bubble Machine', host + '/bubblesort/machines/sweep.html', false),
+			_Utils_Tuple3('Bubblesort Machine', host + '/bubblesort/machines/bubblesort.html', false)
+		]);
+}();
+var $author$project$Nav$pages = $author$project$Nav$hostedpages;
+var $elm$html$Html$span = _VirtualDom_node('span');
+var $author$project$Nav$navbar = function (pl) {
+	var pages_ = A2(
+		$elm$core$List$map,
+		function (_v1) {
+			var l = _v1.a;
+			var h = _v1.b;
+			var c = _v1.c;
+			return _Utils_eq(pl, l) ? _Utils_Tuple3(l, h, true) : _Utils_Tuple3(l, h, c);
+		},
+		$author$project$Nav$pages);
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'background', '#78909C'),
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'stretch'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0 1em')
+			]),
+		A2(
+			$elm$core$List$map,
+			function (_v0) {
+				var l = _v0.a;
+				var href = _v0.b;
+				var cp = _v0.c;
+				return A2(
+					$elm$html$Html$span,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em'),
+							A2(
+							$elm$html$Html$Attributes$style,
+							'background',
+							cp ? '#CFD8DC' : '#78909C'),
+							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+							A2($elm$html$Html$Attributes$style, 'align-items', 'center')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href(href),
+									A2(
+									$elm$html$Html$Attributes$style,
+									'color',
+									cp ? '#000' : '#fff'),
+									A2($elm$html$Html$Attributes$style, 'text-decoration', 'none')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(l)
+								]))
+						]));
+			},
+			pages_));
+};
+var $author$project$Prompt$show = function (prompt_text) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
+				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(prompt_text)
+			]));
+};
+var $author$project$Styles$simContainer = _List_fromArray(
+	[
+		A2($elm$html$Html$Attributes$style, 'flex', '1'),
+		A2($elm$html$Html$Attributes$style, 'display', 'grid'),
+		A2($elm$html$Html$Attributes$style, 'grid-template-rows', '1fr 2fr 1fr'),
+		A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em')
+	]);
 var $elm$core$List$any = F2(
 	function (isOkay, list) {
 		any:
@@ -6150,176 +6172,343 @@ var $elm$core$List$any = F2(
 			}
 		}
 	});
-var $elm$core$List$member = F2(
-	function (x, xs) {
-		return A2(
-			$elm$core$List$any,
-			function (a) {
-				return _Utils_eq(a, x);
-			},
-			xs);
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
 	});
-var $author$project$NodeId$isApp = function (astr) {
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
+var $elm$html$Html$b = _VirtualDom_node('b');
+var $elm$core$List$sortBy = _List_sortBy;
+var $elm$core$List$sort = function (xs) {
+	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
+};
+var $author$project$SortedIndicator$sortedIndicator = function (nums) {
+	var sortedBgColor = '#388E3C';
+	var isSorted = A2(
+		$elm$core$List$all,
+		function (b) {
+			return b;
+		},
+		A3(
+			$elm$core$List$map2,
+			F2(
+				function (a, b) {
+					return _Utils_eq(a, b);
+				}),
+			nums,
+			$elm$core$List$sort(nums)));
+	var text = isSorted ? 'SORTED' : 'NOT SORTED';
+	var bgColor = '#F57C00';
+	var styles = _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$Attributes$style,
+			'background',
+			isSorted ? sortedBgColor : bgColor),
+			A2($elm$html$Html$Attributes$style, 'color', '#FFFFFF'),
+			A2($elm$html$Html$Attributes$style, 'padding', '10px'),
+			A2($elm$html$Html$Attributes$style, 'margin', '0 10px')
+		]);
 	return A2(
-		$elm$core$List$member,
-		astr,
-		_List_fromArray(
-			['a', 'n']));
-};
-var $author$project$NodeId$isDir = function (dstr) {
-	return A2(
-		$elm$core$List$member,
-		dstr,
-		_List_fromArray(
-			['l', 'r']));
-};
-var $author$project$NodeId$isFunc = function (fstr) {
-	return A2(
-		$elm$core$List$member,
-		fstr,
-		_List_fromArray(
-			['split', 'merge', 'ms']));
-};
-var $author$project$NodeId$isSort = function (sstr) {
-	return A2(
-		$elm$core$List$member,
-		sstr,
-		_List_fromArray(
-			['/s']));
-};
-var $author$project$NodeId$sortFromStr = function (sstr) {
-	if (sstr === '/s') {
-		return $author$project$NodeId$Sorted;
-	} else {
-		return $author$project$NodeId$NotSorted;
-	}
-};
-var $author$project$NodeId$symFromStr = function (symstr) {
-	return $author$project$NodeId$isFunc(symstr) ? $elm$core$Maybe$Just(
-		$author$project$NodeId$FuncSym(
-			$author$project$NodeId$funcFromStr(symstr))) : ($author$project$NodeId$isDir(symstr) ? $elm$core$Maybe$Just(
-		$author$project$NodeId$DirSym(
-			$author$project$NodeId$dirFromStr(symstr))) : ($author$project$NodeId$isApp(symstr) ? $elm$core$Maybe$Just(
-		$author$project$NodeId$AppSym(
-			$author$project$NodeId$appFromStr(symstr))) : ($author$project$NodeId$isSort(symstr) ? $elm$core$Maybe$Just(
-		$author$project$NodeId$SortSym(
-			$author$project$NodeId$sortFromStr(symstr))) : ((symstr === '$') ? $elm$core$Maybe$Just($author$project$NodeId$RootSym) : $elm$core$Maybe$Nothing))));
-};
-var $author$project$NodeId$parsePath = function (pstr) {
-	return A2($elm$core$String$contains, '/s', pstr) ? $elm$core$List$concat(
+		$elm$html$Html$div,
+		styles,
 		_List_fromArray(
 			[
 				A2(
-				$elm$core$List$map,
-				function (s) {
-					var _v0 = $author$project$NodeId$symFromStr(s);
-					if (_v0.$ === 'Just') {
-						var sym = _v0.a;
-						return sym;
-					} else {
-						return $author$project$NodeId$RootSym;
-					}
-				},
-				A2(
-					$elm$core$String$split,
-					'-',
-					A2($elm$core$String$dropRight, 2, pstr))),
+				$elm$html$Html$b,
+				_List_Nil,
 				_List_fromArray(
-				[
-					$author$project$NodeId$SortSym($author$project$NodeId$Sorted)
-				])
-			])) : $elm$core$List$concat(
-		_List_fromArray(
-			[
-				A2(
-				$elm$core$List$map,
-				function (s) {
-					var _v1 = $author$project$NodeId$symFromStr(s);
-					if (_v1.$ === 'Just') {
-						var sym = _v1.a;
-						return sym;
-					} else {
-						return $author$project$NodeId$RootSym;
-					}
-				},
-				A2($elm$core$String$split, '-', pstr)),
-				_List_fromArray(
-				[
-					$author$project$NodeId$SortSym($author$project$NodeId$NotSorted)
-				])
+					[
+						$elm$html$Html$text(text)
+					]))
 			]));
 };
-var $author$project$NodeId$parseId = function (idstr) {
-	var _v0 = A2($elm$core$String$split, '_', idstr);
-	_v0$4:
-	while (true) {
-		if (_v0.b) {
-			if (_v0.b.b) {
-				if (_v0.b.b.b && (!_v0.b.b.b.b)) {
-					switch (_v0.a) {
-						case 'ms':
-							var _v1 = _v0.b;
-							var asym = _v1.a;
-							var _v2 = _v1.b;
-							var path = _v2.a;
-							return A2(
-								$elm$core$List$cons,
-								$author$project$NodeId$FuncSym($author$project$NodeId$MS),
-								A2(
-									$elm$core$List$cons,
-									$author$project$NodeId$AppSym(
-										$author$project$NodeId$appFromStr(asym)),
-									$author$project$NodeId$parsePath(path)));
-						case 'merge':
-							var _v3 = _v0.b;
-							var asym = _v3.a;
-							var _v4 = _v3.b;
-							var path = _v4.a;
-							return A2(
-								$elm$core$List$cons,
-								$author$project$NodeId$FuncSym($author$project$NodeId$Merge),
-								A2(
-									$elm$core$List$cons,
-									$author$project$NodeId$AppSym(
-										$author$project$NodeId$appFromStr(asym)),
-									$author$project$NodeId$parsePath(path)));
-						case 'split':
-							var _v5 = _v0.b;
-							var asym = _v5.a;
-							var _v6 = _v5.b;
-							var path = _v6.a;
-							return A2(
-								$elm$core$List$cons,
-								$author$project$NodeId$FuncSym($author$project$NodeId$Split),
-								A2(
-									$elm$core$List$cons,
-									$author$project$NodeId$AppSym(
-										$author$project$NodeId$appFromStr(asym)),
-									$author$project$NodeId$parsePath(path)));
-						default:
-							break _v0$4;
-					}
+var $elm$html$Html$button = _VirtualDom_node('button');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $author$project$Controls$ctrl_btnview = F3(
+	function (status, message, msg2str) {
+		var disabledPadding = '10px';
+		var disabledColor = '#B0BEC5';
+		var commonStyles = _List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'border', 'none'),
+				A2($elm$html$Html$Attributes$style, 'min-width', '5em'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'monospace'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '10px'),
+				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.4s ease')
+			]);
+		var btn_body = _List_fromArray(
+			[
+				$elm$html$Html$text(
+				msg2str(message))
+			]);
+		var activePadding = '15px';
+		var activeColor = '#90CAF9';
+		if (status.$ === 'Active') {
+			return A2(
+				$elm$html$Html$button,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(message),
+							A2($elm$html$Html$Attributes$style, 'background', activeColor),
+							A2($elm$html$Html$Attributes$style, 'padding', activePadding)
+						]),
+					commonStyles),
+				btn_body);
+		} else {
+			return A2(
+				$elm$html$Html$button,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(message),
+							A2($elm$html$Html$Attributes$style, 'background', disabledColor),
+							A2($elm$html$Html$Attributes$style, 'padding', disabledPadding)
+						]),
+					commonStyles),
+				btn_body);
+		}
+	});
+var $author$project$Controls$ctrlview = F2(
+	function (msg2str, ctrl) {
+		var _v0 = ctrl;
+		var label = _v0.label;
+		var status = _v0.status;
+		var message = _v0.message;
+		var text = _v0.text;
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+					A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+					A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
+				]),
+			_List_fromArray(
+				[
+					A3($author$project$Controls$ctrl_btnview, status, message, msg2str),
+					A2(
+					$elm$html$Html$p,
+					_List_fromArray(
+						[
+							A2($elm$html$Html$Attributes$style, 'padding', '0 20px 0 10px')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text(text)
+						]))
+				]));
+	});
+var $author$project$Controls$view = F2(
+	function (ctrls, msg2str) {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+					A2($elm$html$Html$Attributes$style, 'flex-direction', 'row'),
+					A2($elm$html$Html$Attributes$style, 'flex-wrap', 'wrap'),
+					A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
+					A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
+					A2($elm$html$Html$Attributes$style, 'padding', '5px'),
+					A2($elm$html$Html$Attributes$style, 'flex', '1')
+				]),
+			A2(
+				$elm$core$List$map,
+				$author$project$Controls$ctrlview(msg2str),
+				ctrls));
+	});
+var $author$project$Swap$Deselect = function (a) {
+	return {$: 'Deselect', a: a};
+};
+var $author$project$Swap$Select = function (a) {
+	return {$: 'Select', a: a};
+};
+var $author$project$ListView$cell_gap = 20;
+var $author$project$ListView$cell_radius = 56;
+var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
+var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $elm$core$String$fromFloat = _String_fromNumber;
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $elm$core$String$replace = F3(
+	function (before, after, string) {
+		return A2(
+			$elm$core$String$join,
+			after,
+			A2($elm$core$String$split, before, string));
+	});
+var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
+var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var $author$project$ListView$crc_ = F6(
+	function (col, strokeCol, td, r, x, y) {
+		return A2(
+			$elm$svg$Svg$circle,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$cx(
+					$elm$core$String$fromFloat(x)),
+					$elm$svg$Svg$Attributes$cy(
+					$elm$core$String$fromFloat(y)),
+					$elm$svg$Svg$Attributes$r(
+					$elm$core$String$fromFloat(r)),
+					$elm$svg$Svg$Attributes$fill(col),
+					$elm$svg$Svg$Attributes$stroke(strokeCol),
+					$elm$svg$Svg$Attributes$strokeWidth('4'),
+					A2(
+					$elm$html$Html$Attributes$style,
+					'transition',
+					A3(
+						$elm$core$String$replace,
+						'{n}',
+						$elm$core$String$fromFloat(td),
+						'all {n}s ease-in-out'))
+				]),
+			_List_Nil);
+	});
+var $elm$svg$Svg$Attributes$cursor = _VirtualDom_attribute('cursor');
+var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
+var $elm$svg$Svg$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $author$project$ListView$regularFill = '#FFF59D';
+var $author$project$ListView$strokeColor = '#F44336';
+var $elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
+var $elm$svg$Svg$Attributes$dominantBaseline = _VirtualDom_attribute('dominant-baseline');
+var $elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
+var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$svg$Svg$Attributes$textAnchor = _VirtualDom_attribute('text-anchor');
+var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
+var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
+var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
+var $author$project$ListView$txt = F3(
+	function (x, y, v) {
+		return A2(
+			$elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x(
+					$elm$core$String$fromFloat(x)),
+					$elm$svg$Svg$Attributes$y(
+					$elm$core$String$fromFloat(y)),
+					$elm$svg$Svg$Attributes$fontSize('40'),
+					$elm$svg$Svg$Attributes$fill('#112233'),
+					$elm$svg$Svg$Attributes$textAnchor('middle'),
+					$elm$svg$Svg$Attributes$dominantBaseline('middle')
+				]),
+			_List_fromArray(
+				[
+					$elm$svg$Svg$text(
+					$elm$core$String$fromInt(v))
+				]));
+	});
+var $author$project$ListView$txt_ = F4(
+	function (x, y, fsize, v) {
+		return A2(
+			$elm$svg$Svg$text_,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$x(
+					$elm$core$String$fromFloat(x)),
+					$elm$svg$Svg$Attributes$y(
+					$elm$core$String$fromFloat(y)),
+					$elm$svg$Svg$Attributes$fontSize(
+					$elm$core$String$fromFloat(fsize)),
+					$elm$svg$Svg$Attributes$fill('#112233'),
+					$elm$svg$Svg$Attributes$textAnchor('middle'),
+					$elm$svg$Svg$Attributes$dominantBaseline('middle')
+				]),
+			_List_fromArray(
+				[
+					$elm$svg$Svg$text(v)
+				]));
+	});
+var $author$project$ListView$cell = F8(
+	function (x, y, v, idx, label, selected, inplace, m) {
+		var idxCrc = selected ? A6($author$project$ListView$crc_, '#fff', '#F44336', 0.5, $author$project$ListView$cell_radius / 2, 0, $author$project$ListView$cell_radius * 2) : A6($author$project$ListView$crc_, '#fff', '#fff', 1, $author$project$ListView$cell_radius / 2, 0, $author$project$ListView$cell_radius * 2);
+		var cfn = function () {
+			var _v1 = _Utils_Tuple2(selected, inplace);
+			if (_v1.a) {
+				if (_v1.b) {
+					return A4($author$project$ListView$crc_, '#AED581', $author$project$ListView$strokeColor, 0.5, $author$project$ListView$cell_radius);
 				} else {
-					break _v0$4;
+					return A4($author$project$ListView$crc_, $author$project$ListView$regularFill, $author$project$ListView$strokeColor, 0.5, $author$project$ListView$cell_radius);
 				}
 			} else {
-				var p = _v0.a;
-				return $author$project$NodeId$parsePath(p);
+				if (_v1.b) {
+					return A4($author$project$ListView$crc_, '#AED581', '#fff', 1, $author$project$ListView$cell_radius);
+				} else {
+					return A4($author$project$ListView$crc_, $author$project$ListView$regularFill, '#fff', 1, $author$project$ListView$cell_radius);
+				}
 			}
-		} else {
-			break _v0$4;
-		}
-	}
-	return _List_Nil;
-};
-var $author$project$NodeId$compIds = F2(
-	function (s1, s2) {
+		}();
 		return A2(
-			$author$project$NodeId$comp,
-			$author$project$NodeId$getPath(
-				$author$project$NodeId$parseId(s1)),
-			$author$project$NodeId$getPath(
-				$author$project$NodeId$parseId(s2)));
+			$elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$transform(
+					$elm$core$String$concat(
+						_List_fromArray(
+							[
+								'translate(',
+								$elm$core$String$fromFloat(x * ((2 * $author$project$ListView$cell_radius) + $author$project$ListView$cell_gap)),
+								', ',
+								$elm$core$String$fromFloat(y),
+								')'
+							]))),
+					$elm$svg$Svg$Attributes$cursor('pointer'),
+					$elm$svg$Svg$Events$onClick(m)
+				]),
+			_List_fromArray(
+				[
+					A2(cfn, 0, 0),
+					idxCrc,
+					A3($author$project$ListView$txt, 0, 0, v),
+					A4(
+					$author$project$ListView$txt_,
+					0,
+					$author$project$ListView$cell_radius * 2,
+					25,
+					$elm$core$String$fromInt(idx)),
+					function () {
+					if (label.$ === 'Nothing') {
+						return A4($author$project$ListView$txt_, 0, $author$project$ListView$cell_radius * 3, 25, '');
+					} else {
+						var l = label.a;
+						return A4($author$project$ListView$txt_, 0, $author$project$ListView$cell_radius * 3, 25, l);
+					}
+				}()
+				]));
 	});
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
@@ -6332,950 +6521,322 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $elm_community$list_extra$List$Extra$find = F2(
-	function (predicate, list) {
-		find:
-		while (true) {
-			if (!list.b) {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var first = list.a;
-				var rest = list.b;
-				if (predicate(first)) {
-					return $elm$core$Maybe$Just(first);
-				} else {
-					var $temp$predicate = predicate,
-						$temp$list = rest;
-					predicate = $temp$predicate;
-					list = $temp$list;
-					continue find;
-				}
-			}
-		}
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
-var $author$project$DG3$labelToData = function (slst) {
-	return A2(
-		$elm$core$List$map,
-		function (lv) {
-			return A2(
-				$elm$core$Maybe$withDefault,
-				-1,
-				$elm$core$String$toInt(lv));
-		},
-		A2($elm$core$String$split, ' ', slst));
-};
-var $elm$core$Basics$not = _Basics_not;
-var $elm$core$List$sortBy = _List_sortBy;
-var $elm$core$List$sort = function (xs) {
-	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
-};
-var $author$project$DG3$expandSingleton = F3(
-	function (path, nodes, edges) {
-		var toSplit = function () {
-			var _v0 = A2(
-				$elm_community$list_extra$List$Extra$find,
-				function (n) {
-					return _Utils_eq(n.v, path);
-				},
-				nodes);
-			if (_v0.$ === 'Just') {
-				var n = _v0.a;
-				return $author$project$DG3$labelToData(n.value.label);
-			} else {
-				return _List_Nil;
-			}
-		}();
-		var exp_nodes = _List_fromArray(
-			[
-				{
-				v: path + '/s',
-				value: $author$project$DG3$nodeFromLabelVal(
-					$elm$core$List$sort(toSplit))
+var $elm$core$List$member = F2(
+	function (x, xs) {
+		return A2(
+			$elm$core$List$any,
+			function (a) {
+				return _Utils_eq(a, x);
 			},
-				{
-				v: 'ms_a_' + path,
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'ms'})
-			}
-			]);
-		var exp_edges = _List_fromArray(
-			[
-				{v: path, value: $author$project$DG3$defEdVal, w: 'ms_a_' + path},
-				{v: 'ms_a_' + path, value: $author$project$DG3$defEdVal, w: path + '/s'},
-				{
-				v: path + '/s',
-				value: $author$project$DG3$defEdVal,
-				w: 'merge_n_' + A2($elm$core$String$dropRight, 2, path)
-			}
-			]);
-		return _Utils_Tuple2(
-			A2(
-				$elm$core$List$append,
-				A2(
-					$elm$core$List$filter,
-					function (n) {
-						return !_Utils_eq(n.v, 'ms_n_' + path);
-					},
-					nodes),
-				exp_nodes),
-			A2(
-				$elm$core$List$append,
-				A2(
-					$elm$core$List$filter,
-					function (e) {
-						return !(_Utils_eq(e.v, 'ms_n_' + path) || _Utils_eq(e.w, 'ms_n_' + path));
-					},
-					edges),
-				exp_edges));
+			xs);
 	});
-var $author$project$DG3$expandgt2 = F3(
-	function (path, nodes, edges) {
-		var toSplit = function () {
-			var _v0 = A2(
-				$elm_community$list_extra$List$Extra$find,
-				function (n) {
-					return _Utils_eq(n.v, path);
-				},
-				nodes);
-			if (_v0.$ === 'Just') {
-				var n = _v0.a;
-				return $author$project$DG3$labelToData(n.value.label);
-			} else {
-				return _List_Nil;
-			}
-		}();
-		var exp_nodes = _List_fromArray(
-			[
-				{
-				v: 'split_n_' + path,
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'split'})
+var $author$project$ListView$cells = F3(
+	function (nums, labelledSelections, m) {
+		var sortedNums = $elm$core$List$sort(nums);
+		var selections = A2(
+			$elm$core$List$map,
+			function (ls) {
+				return ls.v;
 			},
-				{
-				v: 'ms_n_' + (path + '-l'),
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'ms'})
+			labelledSelections);
+		var labels = A2(
+			$elm$core$List$map,
+			function (ls) {
+				return ls.l;
 			},
-				{
-				v: 'ms_n_' + (path + '-r'),
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'ms'})
-			},
-				{
-				v: 'merge_n_' + path,
-				value: _Utils_update(
-					$author$project$DG3$defNodeVal,
-					{label: 'merge'})
-			}
-			]);
-		var exp_edges = _List_fromArray(
-			[
-				{v: path, value: $author$project$DG3$defEdVal, w: 'split_n_' + path},
-				{v: 'split_n_' + path, value: $author$project$DG3$defEdVal, w: 'ms_n_' + (path + '-l')},
-				{v: 'split_n_' + path, value: $author$project$DG3$defEdVal, w: 'ms_n_' + (path + '-r')},
-				{v: 'ms_n_' + (path + '-l'), value: $author$project$DG3$defEdVal, w: 'merge_n_' + path},
-				{v: 'ms_n_' + (path + '-r'), value: $author$project$DG3$defEdVal, w: 'merge_n_' + path}
-			]);
-		var dlen = $elm$core$List$length(toSplit);
-		var splitIdx = $elm$core$Basics$ceiling(dlen / 2);
-		return _Utils_Tuple2(
-			A2(
-				$elm$core$List$append,
-				A2(
-					$elm$core$List$filter,
-					function (n) {
-						return !_Utils_eq(n.v, 'ms_n_' + path);
-					},
-					nodes),
-				exp_nodes),
-			A2(
-				$elm$core$List$append,
-				A2(
-					$elm$core$List$filter,
-					function (e) {
-						return !A2(
-							$elm$core$List$member,
-							'ms_n_' + path,
-							_List_fromArray(
-								[e.v, e.w]));
-					},
-					A2(
-						$elm$core$List$map,
-						function (e) {
-							return _Utils_eq(e.v, 'ms_n_' + path) ? _Utils_update(
-								e,
-								{v: 'merge_n_' + path}) : e;
-						},
-						edges)),
-				exp_edges));
-	});
-var $author$project$DG3$expand = F3(
-	function (path, nodes, edges) {
-		var toSplit = function () {
-			var _v0 = A2(
-				$elm_community$list_extra$List$Extra$find,
-				function (n) {
-					return _Utils_eq(n.v, path);
-				},
-				nodes);
-			if (_v0.$ === 'Just') {
-				var n = _v0.a;
-				return $author$project$DG3$labelToData(n.value.label);
-			} else {
-				return _List_Nil;
-			}
-		}();
-		var dlen = $elm$core$List$length(toSplit);
-		if (dlen < 1) {
-			return _Utils_Tuple2(nodes, edges);
-		} else {
-			if (dlen > 1) {
-				return A3($author$project$DG3$expandgt2, path, nodes, edges);
-			} else {
-				var fullExpendGraph = A3($author$project$DG3$expandSingleton, path, nodes, edges);
-				return fullExpendGraph;
-			}
-		}
-	});
-var $author$project$DG3$getData = F2(
-	function (p, nl) {
-		var _v0 = A2(
-			$elm_community$list_extra$List$Extra$find,
-			function (n) {
-				return _Utils_eq(n.v, p);
-			},
-			nl);
-		if (_v0.$ === 'Just') {
-			var n = _v0.a;
-			return $author$project$DG3$labelToData(n.value.label);
-		} else {
-			return _List_Nil;
-		}
-	});
-var $author$project$LMerge$merge = F2(
-	function (a, b) {
-		var _v0 = _Utils_Tuple2(a, b);
-		if (!_v0.a.b) {
-			if (!_v0.b.b) {
-				return _List_Nil;
-			} else {
-				var _v1 = _v0.b;
-				var hb = _v1.a;
-				var tb = _v1.b;
-				return A2($elm$core$List$cons, hb, tb);
-			}
-		} else {
-			if (!_v0.b.b) {
-				var _v2 = _v0.a;
-				var ha = _v2.a;
-				var ta = _v2.b;
-				return A2($elm$core$List$cons, ha, ta);
-			} else {
-				var _v3 = _v0.a;
-				var ha = _v3.a;
-				var ta = _v3.b;
-				var _v4 = _v0.b;
-				var hb = _v4.a;
-				var tb = _v4.b;
-				return (_Utils_cmp(ha, hb) < 0) ? A2(
-					$elm$core$List$cons,
-					ha,
-					A2(
-						$author$project$LMerge$merge,
-						ta,
-						A2($elm$core$List$cons, hb, tb))) : A2(
-					$elm$core$List$cons,
-					hb,
-					A2(
-						$author$project$LMerge$merge,
-						A2($elm$core$List$cons, ha, ta),
-						tb));
-			}
-		}
-	});
-var $author$project$DG3$mergeroot = F2(
-	function (nodes, edges) {
-		var sorted_data = A2(
-			$author$project$LMerge$merge,
-			A2($author$project$DG3$getData, '$-l/s', nodes),
-			A2($author$project$DG3$getData, '$-r/s', nodes));
-		var sorted_node = {
-			v: '$/s',
-			value: $author$project$DG3$nodeFromLabelVal(sorted_data)
-		};
-		var last_edge = {v: 'merge_a_$', value: $author$project$DG3$defEdVal, w: '$/s'};
-		return _Utils_Tuple2(
-			A2(
-				$elm$core$List$append,
-				_List_fromArray(
-					[sorted_node]),
-				A2(
-					$elm$core$List$map,
-					function (n) {
-						return (n.v === 'merge_n_$') ? _Utils_update(
-							n,
-							{v: 'merge_a_$'}) : n;
-					},
-					nodes)),
-			A2(
-				$elm$core$List$append,
-				_List_fromArray(
-					[last_edge]),
-				A2(
-					$elm$core$List$map,
-					function (e) {
-						return (e.v === 'merge_n_$') ? _Utils_update(
-							e,
-							{v: 'merge_a_$'}) : ((e.w === 'merge_n_$') ? _Utils_update(
-							e,
-							{w: 'merge_a_$'}) : e);
-					},
-					edges)));
-	});
-var $author$project$DG3$merge = F3(
-	function (path, nodes, edges) {
-		var incoming_data = A2(
-			$elm$core$List$filter,
-			function (n) {
-				return _Utils_eq(n.v, path + '-l/s') || _Utils_eq(n.v, path + '-r/s');
-			},
-			nodes);
-		if ($elm$core$List$length(incoming_data) < 2) {
-			return _Utils_Tuple2(nodes, edges);
-		} else {
-			if (path === '$') {
-				return A2($author$project$DG3$mergeroot, nodes, edges);
-			} else {
-				var medges = A2(
-					$elm$core$List$cons,
-					{v: 'merge_n_' + path, value: $author$project$DG3$defEdVal, w: path + '/s'},
-					_List_fromArray(
-						[
-							{
-							v: path + '/s',
-							value: $author$project$DG3$defEdVal,
-							w: 'merge_n_' + A2($elm$core$String$dropRight, 2, path)
-						}
-						]));
-				return _Utils_Tuple2(
-					A2(
-						$elm$core$List$append,
+			labelledSelections);
+		return A2(
+			$elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$transform(
+					$elm$core$String$concat(
 						_List_fromArray(
 							[
-								{
-								v: path + '/s',
-								value: $author$project$DG3$nodeFromLabelVal(
-									A2(
-										$author$project$LMerge$merge,
-										A2($author$project$DG3$getData, path + '-l/s', nodes),
-										A2($author$project$DG3$getData, path + '-r/s', nodes)))
-							}
-							]),
-						A2(
-							$elm$core$List$map,
-							function (n) {
-								return _Utils_eq(n.v, 'merge_n_' + path) ? _Utils_update(
-									n,
-									{v: 'merge_a_' + path}) : n;
-							},
-							nodes)),
-					A2(
-						$elm$core$List$map,
-						function (n) {
-							return _Utils_eq(n.v, 'merge_n_' + path) ? _Utils_update(
-								n,
-								{v: 'merge_a_' + path}) : (_Utils_eq(n.w, 'merge_n_' + path) ? _Utils_update(
-								n,
-								{w: 'merge_a_' + path}) : n);
-						},
-						A2(
-							$elm$core$List$append,
-							medges,
-							A2(
-								$elm$core$List$filter,
-								function (e) {
-									return !(_Utils_eq(e.v, 'merge_n_' + path) && _Utils_eq(
-										e.w,
-										'merge_n_' + A2($elm$core$String$dropRight, 2, path)));
-								},
-								edges))));
-			}
-		}
-	});
-var $elm$core$List$sortWith = _List_sortWith;
-var $elm$core$List$drop = F2(
-	function (n, list) {
-		drop:
-		while (true) {
-			if (n <= 0) {
-				return list;
-			} else {
-				if (!list.b) {
-					return list;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs;
-					n = $temp$n;
-					list = $temp$list;
-					continue drop;
-				}
-			}
-		}
-	});
-var $author$project$DG3$split = F3(
-	function (path, nodes, edges) {
-		var toSplit = function () {
-			var _v0 = A2(
-				$elm_community$list_extra$List$Extra$find,
-				function (n) {
-					return _Utils_eq(n.v, path);
-				},
-				nodes);
-			if (_v0.$ === 'Just') {
-				var n = _v0.a;
-				return $author$project$DG3$labelToData(n.value.label);
-			} else {
-				return _List_Nil;
-			}
-		}();
-		var dlen = $elm$core$List$length(toSplit);
-		var splitIdx = $elm$core$Basics$ceiling(dlen / 2);
-		return (dlen < 1) ? _Utils_Tuple2(nodes, edges) : _Utils_Tuple2(
+								'translate(',
+								$elm$core$String$fromFloat(
+								(1200 - ((((2 * $author$project$ListView$cell_radius) + $author$project$ListView$cell_gap) * $elm$core$List$length(nums)) - $author$project$ListView$cell_gap)) / 2),
+								', ',
+								$elm$core$String$fromFloat(100),
+								')'
+							])))
+				]),
 			A2(
-				$elm$core$List$append,
-				_List_fromArray(
-					[
-						{
-						v: path + '-l',
-						value: $author$project$DG3$nodeFromLabelVal(
-							A2($elm$core$List$take, splitIdx, toSplit))
-					},
-						{
-						v: path + '-r',
-						value: $author$project$DG3$nodeFromLabelVal(
-							A2($elm$core$List$drop, splitIdx, toSplit))
-					}
-					]),
-				A2(
-					$elm$core$List$map,
-					function (n) {
-						return _Utils_eq(n.v, 'split_n_' + path) ? _Utils_update(
+				$elm$core$List$indexedMap,
+				F2(
+					function (p, n) {
+						return A8(
+							$author$project$ListView$cell,
+							p,
+							0,
 							n,
-							{v: 'split_a_' + path}) : n;
-					},
-					nodes)),
-			A2(
-				$elm$core$List$append,
-				_List_fromArray(
-					[
-						{v: path + '-l', value: $author$project$DG3$defEdVal, w: 'ms_n_' + (path + '-l')},
-						{v: path + '-r', value: $author$project$DG3$defEdVal, w: 'ms_n_' + (path + '-r')}
-					]),
-				A2(
-					$elm$core$List$map,
-					function (e) {
-						return (_Utils_eq(e.v, 'split_a_' + path) && _Utils_eq(e.w, 'ms_n_' + (path + '-l'))) ? _Utils_update(
-							e,
-							{v: 'split_a_' + path, w: path + '-l'}) : ((_Utils_eq(e.v, 'split_a_' + path) && _Utils_eq(e.w, 'ms_n_' + (path + '-r'))) ? _Utils_update(
-							e,
-							{v: 'split_a_' + path, w: path + '-r'}) : e);
-					},
-					A2(
-						$elm$core$List$map,
-						function (e) {
-							return _Utils_eq(e.v, 'split_n_' + path) ? _Utils_update(
-								e,
-								{v: 'split_a_' + path}) : (_Utils_eq(e.w, 'split_n_' + path) ? _Utils_update(
-								e,
-								{w: 'split_a_' + path}) : e);
-						},
-						edges))));
+							p,
+							A2(
+								$elm$core$Maybe$withDefault,
+								$elm$core$Maybe$Nothing,
+								$elm$core$List$head(
+									A2(
+										$elm$core$List$map,
+										function (ls) {
+											return ls.l;
+										},
+										A2(
+											$elm$core$List$filter,
+											function (ls) {
+												return _Utils_eq(ls.v, p);
+											},
+											labelledSelections)))),
+							A2($elm$core$List$member, p, selections),
+							_Utils_eq(
+								A2(
+									$elm$core$Maybe$withDefault,
+									-1,
+									A2($elm_community$list_extra$List$Extra$getAt, p, sortedNums)),
+								n),
+							m(p));
+					}),
+				nums));
 	});
-var $author$project$DG3$update = F2(
-	function (msg, graph) {
-		switch (msg.$) {
-			case 'Split':
-				var np = msg.a;
-				var _v1 = A3($author$project$DG3$split, np, graph.nodes, graph.edges);
-				var n_ = _v1.a;
-				var e_ = _v1.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-			case 'Expand':
-				var np = msg.a;
-				var _v2 = A3($author$project$DG3$expand, np, graph.nodes, graph.edges);
-				var n_ = _v2.a;
-				var e_ = _v2.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-			default:
-				var np = msg.a;
-				var _v3 = A3($author$project$DG3$merge, np, graph.nodes, graph.edges);
-				var n_ = _v3.a;
-				var e_ = _v3.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-		}
-	});
-var $author$project$Dagre$update = F2(
-	function (msg, model) {
-		switch (msg.$) {
-			case 'Send':
-				return _Utils_Tuple2(
-					model,
-					$author$project$Dagre$sendMessage(
-						$author$project$DG3$gdEncode(model.graph)));
-			case 'Recv':
-				var message = msg.a;
-				var res = A2($elm$json$Json$Decode$decodeString, $author$project$DG3$gdataDecoder, message);
-				if (res.$ === 'Ok') {
-					var gdata = res.a;
-					return _Utils_Tuple2(
-						_Utils_update(
-							model,
-							{graph: gdata}),
-						$elm$core$Platform$Cmd$none);
-				} else {
-					var e = res.a;
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				}
-			case 'GraphMsg':
-				var dm = msg.a;
-				var gr_ = A2($author$project$DG3$update, dm, model.graph);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{graph: gr_}),
-					$author$project$Dagre$sendMessage(
-						$author$project$DG3$gdEncode(gr_)));
-			default:
-				var arr = msg.a;
-				var gr_ = $author$project$Dagre$ig1(
-					$elm$core$Array$toList(arr));
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{graph: gr_}),
-					$author$project$Dagre$sendMessage(
-						$author$project$DG3$gdEncode(gr_)));
-		}
-	});
-var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Dagre$GraphMsg = function (a) {
-	return {$: 'GraphMsg', a: a};
+var $author$project$Swap$selectionsListWithLabels = function (selections) {
+	switch (selections.$) {
+		case 'NoneSelected':
+			return _List_Nil;
+		case 'OneSelected':
+			var i = selections.a;
+			return _List_fromArray(
+				[
+					{l: $elm$core$Maybe$Nothing, v: i}
+				]);
+		default:
+			var i = selections.a;
+			var j = selections.b;
+			return _List_fromArray(
+				[
+					{l: $elm$core$Maybe$Nothing, v: i},
+					{l: $elm$core$Maybe$Nothing, v: j}
+				]);
+	}
 };
-var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
-var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
-var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
-var $elm$html$Html$map = $elm$virtual_dom$VirtualDom$map;
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
-var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
-var $elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(x);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $elm_community$list_extra$List$Extra$getAt = F2(
-	function (idx, xs) {
-		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
-			A2($elm$core$List$drop, idx, xs));
-	});
-var $elm_community$list_extra$List$Extra$last = function (items) {
-	last:
-	while (true) {
-		if (!items.b) {
-			return $elm$core$Maybe$Nothing;
-		} else {
-			if (!items.b.b) {
-				var x = items.a;
-				return $elm$core$Maybe$Just(x);
-			} else {
-				var rest = items.b;
-				var $temp$items = rest;
-				items = $temp$items;
-				continue last;
+var $author$project$Swap$viewNums = F2(
+	function (nums, selections) {
+		var msg = function () {
+			switch (selections.$) {
+				case 'NoneSelected':
+					return function (ci) {
+						return $author$project$Swap$Select(ci);
+					};
+				case 'OneSelected':
+					var i = selections.a;
+					return function (ci) {
+						return _Utils_eq(ci, i) ? $author$project$Swap$Deselect(ci) : $author$project$Swap$Select(ci);
+					};
+				default:
+					var i = selections.a;
+					var j = selections.b;
+					return function (ci) {
+						return (_Utils_eq(ci, i) || _Utils_eq(ci, j)) ? $author$project$Swap$Deselect(ci) : $author$project$Swap$Select(ci);
+					};
 			}
-		}
-	}
-};
-var $elm$svg$Svg$Attributes$points = _VirtualDom_attribute('points');
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
-var $author$project$DG3$pointToString = function (pt) {
-	return $elm$core$String$concat(
-		_List_fromArray(
-			[
-				$elm$core$String$fromFloat(pt.x),
-				',',
-				$elm$core$String$fromFloat(pt.y)
-			]));
-};
-var $author$project$DG3$pointsToString = function (pts) {
-	return A2(
-		$elm$core$String$join,
-		' ',
-		A2($elm$core$List$map, $author$project$DG3$pointToString, pts));
-};
-var $elm$svg$Svg$polygon = $elm$svg$Svg$trustedNode('polygon');
-var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
-var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
-var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
-var $author$project$DG3$viewEdge = function (edge) {
-	var _v0 = edge;
-	var value = _v0.value;
-	var end = A2(
-		$elm$core$Maybe$withDefault,
-		A2($author$project$DG3$Point, 0, 0),
-		$elm_community$list_extra$List$Extra$last(value.points));
-	var pre_end = A2(
-		$elm$core$Maybe$withDefault,
-		A2($author$project$DG3$Point, 0, 0),
-		A2(
-			$elm_community$list_extra$List$Extra$getAt,
-			$elm$core$List$length(value.points) - 1,
-			value.points));
-	return A2(
-		$elm$svg$Svg$g,
-		_List_Nil,
-		_List_fromArray(
-			[
-				A2(
-				$elm$svg$Svg$polyline,
-				_List_fromArray(
-					[
-						$elm$svg$Svg$Attributes$stroke('#9E9E9E'),
-						$elm$svg$Svg$Attributes$strokeWidth('2'),
-						$elm$svg$Svg$Attributes$fill('none'),
-						$elm$svg$Svg$Attributes$points(
-						$author$project$DG3$pointsToString(value.points))
-					]),
-				_List_Nil),
-				A2(
-				$elm$svg$Svg$polygon,
-				_List_fromArray(
-					[
-						$elm$svg$Svg$Attributes$stroke('#9E9E9E'),
-						$elm$svg$Svg$Attributes$strokeWidth('2'),
-						$elm$svg$Svg$Attributes$fill('#9E9E9E'),
-						$elm$svg$Svg$Attributes$points(
-						$author$project$DG3$pointsToString(
-							_List_fromArray(
-								[
-									end,
-									A2($author$project$DG3$Point, end.x + 5, end.y - 10),
-									A2($author$project$DG3$Point, end.x - 5, end.y - 10),
-									A2($author$project$DG3$Point, end.x, end.y)
-								])))
-					]),
-				_List_Nil)
-			]));
-};
-var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
-var $elm$svg$Svg$Attributes$alignmentBaseline = _VirtualDom_attribute('alignment-baseline');
-var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
-var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
-var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
-var $elm$core$String$endsWith = _String_endsWith;
-var $elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
-var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
-var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
-var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
-var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var $author$project$DG3$viewDataNode = function (node) {
-	var _v0 = node;
-	var value = _v0.value;
-	var bx = $elm$core$String$fromFloat(value.x - (value.width / 2));
-	var by = $elm$core$String$fromFloat(value.y - (value.height / 2));
-	var h = $elm$core$String$fromFloat(value.height);
-	var pt = A2(
-		$elm$svg$Svg$circle,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$cx(
-				$elm$core$String$fromFloat(value.x)),
-				$elm$svg$Svg$Attributes$cy(
-				$elm$core$String$fromFloat(value.y)),
-				$elm$svg$Svg$Attributes$r(
-				$elm$core$String$fromFloat(10))
-			]),
-		_List_Nil);
-	var tx = $elm$core$String$fromFloat((value.x - (value.width / 2)) + $author$project$Config$nodeCfg.padding);
-	var ty = $elm$core$String$fromFloat(value.y);
-	var w = $elm$core$String$fromFloat(value.width);
-	var box = A2(
-		$elm$svg$Svg$rect,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$height(h),
-				$elm$svg$Svg$Attributes$width(w),
-				$elm$svg$Svg$Attributes$stroke('#111'),
-				$elm$svg$Svg$Attributes$strokeWidth('1'),
-				$elm$svg$Svg$Attributes$fill('#fff'),
-				$elm$svg$Svg$Attributes$x(bx),
-				$elm$svg$Svg$Attributes$y(by)
-			]),
-		_List_Nil);
-	var txt = A2(
-		$elm$svg$Svg$text_,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$height(h),
-				$elm$svg$Svg$Attributes$width(w),
-				$elm$svg$Svg$Attributes$x(tx),
-				$elm$svg$Svg$Attributes$y(ty),
-				$elm$svg$Svg$Attributes$fill(
-				A2($elm$core$String$endsWith, '/s', node.v) ? 'green' : 'black'),
-				$elm$svg$Svg$Attributes$fontSize(
-				$elm$core$String$fromInt(50)),
-				$elm$svg$Svg$Attributes$alignmentBaseline('middle')
-			]),
-		_List_fromArray(
-			[
-				$elm$svg$Svg$text(value.label)
-			]));
-	return A2(
-		$elm$svg$Svg$g,
-		_List_Nil,
-		_List_fromArray(
-			[txt]));
-};
-var $author$project$DG3$Expand = function (a) {
-	return {$: 'Expand', a: a};
-};
-var $author$project$DG3$Merge = function (a) {
-	return {$: 'Merge', a: a};
-};
-var $author$project$DG3$Split = function (a) {
-	return {$: 'Split', a: a};
-};
-var $elm$svg$Svg$Attributes$cursor = _VirtualDom_attribute('cursor');
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
+		}();
+		var lwidth = 1100;
 		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+					A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+					A2($elm$html$Html$Attributes$style, 'flex-grow', '1')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$svg,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$viewBox(
+							'0 0 ' + ($elm$core$String$fromInt(lwidth) + ' 300')),
+							A2($elm$html$Html$Attributes$style, 'height', '100%')
+						]),
+					_List_fromArray(
+						[
+							A3(
+							$author$project$ListView$cells,
+							nums,
+							$author$project$Swap$selectionsListWithLabels(selections),
+							msg)
+						]))
+				]));
 	});
-var $elm$svg$Svg$Events$onClick = function (msg) {
-	return A2(
-		$elm$html$Html$Events$on,
-		'click',
-		$elm$json$Json$Decode$succeed(msg));
-};
-var $author$project$DG3$viewOpNode = function (node) {
-	var attrs = A2($elm$core$String$contains, '_n_', node.v) ? (A2($elm$core$String$startsWith, 'ms_n_', node.v) ? _List_fromArray(
-		[
-			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Expand(
-				A2($elm$core$String$dropLeft, 5, node.v))),
-			$elm$svg$Svg$Attributes$cursor('pointer')
-		]) : (A2($elm$core$String$startsWith, 'merge_n_', node.v) ? _List_fromArray(
-		[
-			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Merge(
-				A2($elm$core$String$dropLeft, 8, node.v))),
-			$elm$svg$Svg$Attributes$cursor('pointer')
-		]) : (A2($elm$core$String$startsWith, 'split_n_', node.v) ? _List_fromArray(
-		[
-			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Split(
-				A2($elm$core$String$dropLeft, 8, node.v))),
-			$elm$svg$Svg$Attributes$cursor('pointer')
-		]) : _List_Nil))) : _List_Nil;
-	var _v0 = node;
-	var value = _v0.value;
-	var bx = $elm$core$String$fromFloat(value.x - (value.width / 2));
-	var by = $elm$core$String$fromFloat(value.y - (value.height / 2));
-	var h = $elm$core$String$fromFloat(value.height);
-	var tx = $elm$core$String$fromFloat((value.x - (value.width / 2)) + $author$project$Config$nodeCfg.padding);
-	var ty = $elm$core$String$fromFloat(value.y);
-	var w = $elm$core$String$fromFloat(value.width);
-	var box = A2(
-		$elm$svg$Svg$rect,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$height(h),
-				$elm$svg$Svg$Attributes$width(w),
-				$elm$svg$Svg$Attributes$stroke('#111'),
-				$elm$svg$Svg$Attributes$strokeWidth('1'),
-				$elm$svg$Svg$Attributes$fill('#E3F2FD'),
-				$elm$svg$Svg$Attributes$x(bx),
-				$elm$svg$Svg$Attributes$y(by)
-			]),
-		_List_Nil);
-	var txt = A2(
-		$elm$svg$Svg$text_,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$height(h),
-				$elm$svg$Svg$Attributes$width(w),
-				$elm$svg$Svg$Attributes$x(tx),
-				$elm$svg$Svg$Attributes$y(ty),
-				$elm$svg$Svg$Attributes$fontSize(
-				$elm$core$String$fromInt(50)),
-				$elm$svg$Svg$Attributes$alignmentBaseline('middle')
-			]),
-		_List_fromArray(
-			[
-				$elm$svg$Svg$text(value.label)
-			]));
-	return A2(
-		$elm$svg$Svg$g,
-		attrs,
-		A2($elm$core$String$contains, '_n_', node.v) ? _List_fromArray(
-			[box, txt]) : _List_fromArray(
-			[txt]));
-};
-var $author$project$DG3$viewNode = function (node) {
-	var v = node.v;
-	var vl = A2($elm$core$String$split, '_', v);
-	if (vl.b) {
-		if (!vl.b.b) {
-			var kw = vl.a;
-			return $author$project$DG3$viewDataNode(node);
-		} else {
-			var lw = vl.a;
-			var rest = vl.b;
-			return $author$project$DG3$viewOpNode(node);
-		}
-	} else {
-		return A2($elm$svg$Svg$rect, _List_Nil, _List_Nil);
-	}
-};
-var $author$project$Dagre$viewGraph = function (graph) {
-	var vw = A2($elm$core$Basics$max, 800, graph.value.width * 1.1);
-	var vh = A2($elm$core$Basics$max, 800, graph.value.height * 1.1);
-	return A2(
-		$elm$svg$Svg$svg,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$viewBox(
-				'0 0 ' + ($elm$core$String$fromFloat(vh) + (' ' + $elm$core$String$fromFloat(vw)))),
-				$elm$svg$Svg$Attributes$width('700px'),
-				$elm$svg$Svg$Attributes$height('500px'),
-				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
-				A2($elm$html$Html$Attributes$style, 'background', '#FFFFFF'),
-				A2($elm$html$Html$Attributes$style, 'height', '100%')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$map,
-				function (m) {
-					return $author$project$Dagre$GraphMsg(m);
-				},
-				A2(
-					$elm$svg$Svg$g,
-					_List_Nil,
-					A2($elm$core$List$map, $author$project$DG3$viewNode, graph.nodes))),
-				A2(
-				$elm$html$Html$map,
-				function (m) {
-					return $author$project$Dagre$GraphMsg(m);
-				},
-				A2(
-					$elm$svg$Svg$g,
-					_List_Nil,
-					A2($elm$core$List$map, $author$project$DG3$viewEdge, graph.edges)))
-			]));
-};
-var $author$project$Dagre$view = function (model) {
+var $author$project$Swap$view = function (model) {
 	var _v0 = model;
-	var graph = _v0.graph;
+	var numbers = _v0.numbers;
+	var ctrls = _v0.ctrls;
+	var selections = _v0.selections;
+	var prompt = _v0.prompt;
 	return A2(
 		$elm$html$Html$div,
+		$author$project$Styles$container,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
-				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2($elm$html$Html$Attributes$style, 'margin', '10px')
-			]),
-		_List_fromArray(
-			[
-				$author$project$Dagre$viewGraph(graph)
+				$author$project$Heading$heading,
+				$author$project$Nav$navbar('Swap Machine'),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						A2($elm$html$Html$Attributes$style, 'display', 'flex')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						$author$project$Styles$info,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$h3,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Objective')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Sort the given list by swapping the numbers in the list. \n                        You are free to select any pair of numbers you want to swap.\n                        ')
+									])),
+								A2(
+								$elm$html$Html$h3,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Experiment Setup')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        The Swap Machine experiment consists of a list of numbers. \n                        You can click on any number to select/deselect it. \n                        You can select at most two numbers at a time.\n                        ')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        On selecting any two numbers, you can swap them by clicking on the \'Swap\' button. \n                        The selections are reset after each swap operation.\n                        ')
+									])),
+								A2(
+								$elm$html$Html$h3,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Procedure')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Follow the given steps to perform the experiment.\n                        ')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Step 1: Select first number\n                        ')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Step 2: Select second number\n                        ')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Step 3: Swap the selected numbers\n                        ')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('\n                        Step 4: Check if the list is sorted or not. Repeat Steps 1 to 3, \n                        if the list is not sorted.\n                        ')
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						$author$project$Styles$simContainer,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+										A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
+										A2($elm$html$Html$Attributes$style, 'align-items', 'center')
+									]),
+								_List_fromArray(
+									[
+										$author$project$Prompt$show(prompt),
+										$author$project$SortedIndicator$sortedIndicator(numbers)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+										A2($elm$html$Html$Attributes$style, 'padding', '0 1em')
+									]),
+								_List_fromArray(
+									[
+										A2($author$project$Swap$viewNums, numbers, selections)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+										A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+										A2($elm$html$Html$Attributes$style, 'flex-grow', '1')
+									]),
+								_List_fromArray(
+									[
+										A2($author$project$Controls$view, ctrls, $author$project$Swap$msgToString)
+									]))
+							]))
+					]))
 			]));
 };
-var $author$project$Dagre$main = $elm$browser$Browser$element(
-	{init: $author$project$Dagre$init, subscriptions: $author$project$Dagre$subscriptions, update: $author$project$Dagre$update, view: $author$project$Dagre$view});
-_Platform_export({'Dagre':{'init':$author$project$Dagre$main(
+var $author$project$Swap$main = $elm$browser$Browser$element(
+	{init: $author$project$Swap$init, subscriptions: $author$project$Swap$subscriptions, update: $author$project$Swap$update, view: $author$project$Swap$view});
+_Platform_export({'Swap':{'init':$author$project$Swap$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
+
+  var app = Elm.Swap.init({ node: document.getElementById("elm") });
+}
+catch (e)
+{
+  // display initialization errors (e.g. bad flags, infinite recursion)
+  var header = document.createElement("h1");
+  header.style.fontFamily = "monospace";
+  header.innerText = "Initialization Error";
+  var pre = document.getElementById("elm");
+  document.body.insertBefore(header, pre);
+  pre.innerText = e;
+  throw e;
+}
+</script>
+
+</body>
+</html>
