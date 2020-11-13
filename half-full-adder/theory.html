@@ -42,6 +42,15 @@
     <!-- END INCLUDE MARKDOWN FILES USING ZERO MD JS -->
 
 
+    <script type="application/json" class="js-hypothesis-config">
+      {
+	  "openSidebar": true
+      }
+    </script>
+    
+    <script async src="https://hypothes.is/embed.js"></script>
+
+
 </script>
 
   </head>
@@ -129,8 +138,9 @@
 	      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
 	      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
 	  })();
-	  
-	  </div>
+	  </script>
+	
+      </div>
     </div>
     <footer class="text-light pt-2 vlabs-footer d-flex flex-column">
       <div class="row px-5">
