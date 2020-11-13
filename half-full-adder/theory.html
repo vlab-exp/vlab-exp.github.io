@@ -39,7 +39,10 @@
       };
     </script>
     <script type="module" src="assets/js/zero-md.min.js"></script>
-    <!-- END INCLUDE MARKDOWN FILES USING ZERO MD JS -->    
+    <!-- END INCLUDE MARKDOWN FILES USING ZERO MD JS -->
+
+
+</script>
 
   </head>
   <body class="p-0 container-fluid vlabs-page d-flex flex-column justify-content-between">
@@ -115,7 +118,19 @@
           <zero-md src="round-template/experiment/theory.md">
           </zero-md>
         </div>
-      </div>
+	<div id='discourse-comments'></div>
+	
+	<script type="text/javascript">
+	  DiscourseEmbed = { discourseUrl: 'https://discourse.virtual-labs.ac.in/',
+			     discourseEmbedUrl: 'https://vlab-exp.github.io/half-full-adder/theory.html' };
+	  
+	  (function() {
+	      var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+	      d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+	      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+	  })();
+	  
+	  </div>
     </div>
     <footer class="text-light pt-2 vlabs-footer d-flex flex-column">
       <div class="row px-5">
