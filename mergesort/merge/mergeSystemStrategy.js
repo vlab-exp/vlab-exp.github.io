@@ -5227,7 +5227,7 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$MergeSystem$GotRandomArray = function (a) {
+var $author$project$MergeSystemStrategy$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -5502,39 +5502,113 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 			},
 			A2($elm$random$Random$int, minLength, maxLength));
 	});
-var $author$project$MergeSystem$init = function (_v0) {
+var $elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var $elm$random$Random$float = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var seed1 = $elm$random$Random$next(seed0);
+				var range = $elm$core$Basics$abs(b - a);
+				var n1 = $elm$random$Random$peel(seed1);
+				var n0 = $elm$random$Random$peel(seed0);
+				var lo = (134217727 & n1) * 1.0;
+				var hi = (67108863 & n0) * 1.0;
+				var val = ((hi * 134217728.0) + lo) / 9007199254740992.0;
+				var scaled = (val * range) + a;
+				return _Utils_Tuple2(
+					scaled,
+					$elm$random$Random$next(seed1));
+			});
+	});
+var $elm$random$Random$getByWeight = F3(
+	function (_v0, others, countdown) {
+		getByWeight:
+		while (true) {
+			var weight = _v0.a;
+			var value = _v0.b;
+			if (!others.b) {
+				return value;
+			} else {
+				var second = others.a;
+				var otherOthers = others.b;
+				if (_Utils_cmp(
+					countdown,
+					$elm$core$Basics$abs(weight)) < 1) {
+					return value;
+				} else {
+					var $temp$_v0 = second,
+						$temp$others = otherOthers,
+						$temp$countdown = countdown - $elm$core$Basics$abs(weight);
+					_v0 = $temp$_v0;
+					others = $temp$others;
+					countdown = $temp$countdown;
+					continue getByWeight;
+				}
+			}
+		}
+	});
+var $elm$core$List$sum = function (numbers) {
+	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
+};
+var $elm$random$Random$weighted = F2(
+	function (first, others) {
+		var normalize = function (_v0) {
+			var weight = _v0.a;
+			return $elm$core$Basics$abs(weight);
+		};
+		var total = normalize(first) + $elm$core$List$sum(
+			A2($elm$core$List$map, normalize, others));
+		return A2(
+			$elm$random$Random$map,
+			A2($elm$random$Random$getByWeight, first, others),
+			A2($elm$random$Random$float, 0, total));
+	});
+var $author$project$MergeSystemStrategy$init = function (_v0) {
 	return _Utils_Tuple2(
-		{
-			firstList: _List_fromArray(
-				[10, 40, 60, 20]),
-			mergedList: _List_Nil,
-			promptText: 'Click on LEFT or RIGHT buttons to move the first number from the corresponding list to the end of the \'merged\' list.',
-			secondList: _List_fromArray(
-				[50, 30])
-		},
+		{firstList: _List_Nil, mergedList: _List_Nil, promptText: 'Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'merged\' list.', secondList: _List_Nil},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
 					A2(
 					$elm$random$Random$generate,
-					$author$project$MergeSystem$GotRandomArray,
+					$author$project$MergeSystemStrategy$GotRandomArray,
 					A2(
 						$elm$random$Random$pair,
-						A3(
-							$elm_community$random_extra$Random$Array$rangeLengthArray,
-							2,
-							8,
-							A2($elm$random$Random$int, 10, 50)),
-						A3(
-							$elm_community$random_extra$Random$Array$rangeLengthArray,
-							2,
-							8,
-							A2($elm$random$Random$int, 30, 70))))
+						A2(
+							$elm$random$Random$pair,
+							A3(
+								$elm_community$random_extra$Random$Array$rangeLengthArray,
+								2,
+								8,
+								A2($elm$random$Random$int, 10, 50)),
+							A3(
+								$elm_community$random_extra$Random$Array$rangeLengthArray,
+								2,
+								8,
+								A2($elm$random$Random$int, 10, 50))),
+						A2(
+							$elm$random$Random$weighted,
+							_Utils_Tuple2(80, false),
+							_List_fromArray(
+								[
+									_Utils_Tuple2(20, true)
+								]))))
 				])));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$MergeSystem$move = F2(
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $author$project$MergeSystemStrategy$move = F2(
 	function (from, ml) {
 		if (!from.b) {
 			return _Utils_Tuple2(from, ml);
@@ -5554,9 +5628,11 @@ var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
-var $author$project$MergeSystem$update = F2(
+var $author$project$MergeSystemStrategy$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
+			case 'NoOp':
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			case 'Left':
 				var _v1 = _Utils_Tuple2(model.firstList, model.secondList);
 				if (!_v1.a.b) {
@@ -5564,7 +5640,7 @@ var $author$project$MergeSystem$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'Merging is complete.'}),
+								{promptText: 'The \'left\' list is empty.  Merging is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
@@ -5574,23 +5650,52 @@ var $author$project$MergeSystem$update = F2(
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
-					var _v2 = A2($author$project$MergeSystem$move, model.firstList, model.mergedList);
+					var _v2 = A2($author$project$MergeSystemStrategy$move, model.firstList, model.mergedList);
 					var fl = _v2.a;
 					var ml = _v2.b;
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{firstList: fl, mergedList: ml}),
+							{
+								firstList: fl,
+								mergedList: ml,
+								promptText: function () {
+									var rh = $elm$core$List$head(model.secondList);
+									var lh = $elm$core$List$head(fl);
+									var _v3 = _Utils_Tuple2(lh, rh);
+									if (_v3.a.$ === 'Just') {
+										if (_v3.b.$ === 'Just') {
+											var l = _v3.a.a;
+											var r = _v3.b.a;
+											return _Utils_eq(l, r) ? 'Click on LEFT or RIGHT buttons to move \n                                                   the first number from the corresponding \n                                                   list to the end of the \'merged\' list.' : ((_Utils_cmp(l, r) > 0) ? ($elm$core$String$fromInt(l) + (' > ' + ($elm$core$String$fromInt(r) + '.  Pick the next number from \'right\'.'))) : ($elm$core$String$fromInt(l) + (' < ' + ($elm$core$String$fromInt(r) + '.  Pick the next number from \'left\'.'))));
+										} else {
+											var l = _v3.a.a;
+											var _v4 = _v3.b;
+											return '\'right\' list is empty.  Pick the remaining numbers from \'left\'.';
+										}
+									} else {
+										if (_v3.b.$ === 'Just') {
+											var _v5 = _v3.a;
+											var r = _v3.b.a;
+											return '\'left\' list is empty.  Pick the remaining numbers from \'right\'.';
+										} else {
+											var _v6 = _v3.a;
+											var _v7 = _v3.b;
+											return 'Both lists are now empty.  Merging is complete.';
+										}
+									}
+								}()
+							}),
 						$elm$core$Platform$Cmd$none);
 				}
 			case 'Right':
-				var _v3 = _Utils_Tuple2(model.firstList, model.secondList);
-				if (!_v3.b.b) {
-					if (!_v3.a.b) {
+				var _v8 = _Utils_Tuple2(model.firstList, model.secondList);
+				if (!_v8.b.b) {
+					if (!_v8.a.b) {
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'Merging is complete.'}),
+								{promptText: 'The \'right\' list is empty.  Merging is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
@@ -5600,19 +5705,50 @@ var $author$project$MergeSystem$update = F2(
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
-					var _v4 = A2($author$project$MergeSystem$move, model.secondList, model.mergedList);
-					var sl = _v4.a;
-					var ml = _v4.b;
+					var _v9 = A2($author$project$MergeSystemStrategy$move, model.secondList, model.mergedList);
+					var sl = _v9.a;
+					var ml = _v9.b;
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
-							{mergedList: ml, secondList: sl}),
+							{
+								mergedList: ml,
+								promptText: function () {
+									var rh = $elm$core$List$head(sl);
+									var lh = $elm$core$List$head(model.firstList);
+									var _v10 = _Utils_Tuple2(lh, rh);
+									if (_v10.a.$ === 'Just') {
+										if (_v10.b.$ === 'Just') {
+											var l = _v10.a.a;
+											var r = _v10.b.a;
+											return _Utils_eq(l, r) ? 'Click on LEFT or RIGHT buttons to move \n                                                   the first number from the corresponding \n                                                   list to the end of the \'merged\' list.' : ((_Utils_cmp(l, r) > 0) ? ($elm$core$String$fromInt(l) + (' > ' + ($elm$core$String$fromInt(r) + '.  Pick the next number from \'right\'.'))) : ($elm$core$String$fromInt(l) + (' < ' + ($elm$core$String$fromInt(r) + '.  Pick the next number from \'left\'.'))));
+										} else {
+											var l = _v10.a.a;
+											var _v11 = _v10.b;
+											return '\'right\' list is empty.  Pick the remaining numbers from \'left\'.';
+										}
+									} else {
+										if (_v10.b.$ === 'Just') {
+											var _v12 = _v10.a;
+											var r = _v10.b.a;
+											return '\'left\' list is empty.  Pick the remaining numbers from \'right\'.';
+										} else {
+											var _v13 = _v10.a;
+											var _v14 = _v10.b;
+											return 'Both lists are now empty.  Merging is complete.';
+										}
+									}
+								}(),
+								secondList: sl
+							}),
 						$elm$core$Platform$Cmd$none);
 				}
 			default:
-				var _v5 = msg.a;
-				var a = _v5.a;
-				var b = _v5.b;
+				var _v15 = msg.a;
+				var _v16 = _v15.a;
+				var a = _v16.a;
+				var b = _v16.b;
+				var dosort = _v15.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -5634,8 +5770,9 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $author$project$MergeSystem$Left = {$: 'Left'};
-var $author$project$MergeSystem$Right = {$: 'Right'};
+var $author$project$MergeSystemStrategy$Left = {$: 'Left'};
+var $author$project$MergeSystemStrategy$NoOp = {$: 'NoOp'};
+var $author$project$MergeSystemStrategy$Right = {$: 'Right'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
@@ -5657,50 +5794,57 @@ var $elm$html$Html$Events$onClick = function (msg) {
 };
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$MergeSystem$controls = A2(
-	$elm$html$Html$div,
-	_List_fromArray(
-		[
-			$elm$html$Html$Attributes$class('flex-grow'),
-			$elm$html$Html$Attributes$class('flex'),
-			$elm$html$Html$Attributes$class('justify-evenly'),
-			$elm$html$Html$Attributes$class('items-start'),
-			$elm$html$Html$Attributes$class('bg-gray-300'),
-			$elm$html$Html$Attributes$class('py-4')
-		]),
-	_List_fromArray(
-		[
-			A2(
-			$elm$html$Html$button,
+var $author$project$MergeSystemStrategy$controls = F2(
+	function (leftState, rightState) {
+		return A2(
+			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$elm$html$Html$Events$onClick($author$project$MergeSystem$Left),
-					$elm$html$Html$Attributes$class('bg-gray-600'),
-					$elm$html$Html$Attributes$class('text-gray-100'),
-					$elm$html$Html$Attributes$class('p-2')
+					$elm$html$Html$Attributes$class('flex-grow'),
+					$elm$html$Html$Attributes$class('flex'),
+					$elm$html$Html$Attributes$class('justify-evenly'),
+					$elm$html$Html$Attributes$class('items-start'),
+					$elm$html$Html$Attributes$class('bg-gray-300'),
+					$elm$html$Html$Attributes$class('py-4')
 				]),
 			_List_fromArray(
 				[
-					$elm$html$Html$text('LEFT')
-				])),
-			A2(
-			$elm$html$Html$button,
-			_List_fromArray(
-				[
-					$elm$html$Html$Events$onClick($author$project$MergeSystem$Right),
-					$elm$html$Html$Attributes$class('bg-gray-600'),
-					$elm$html$Html$Attributes$class('text-gray-100'),
-					$elm$html$Html$Attributes$class('p-2')
-				]),
-			_List_fromArray(
-				[
-					$elm$html$Html$text('RIGHT')
-				]))
-		]));
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							leftState ? $author$project$MergeSystemStrategy$Left : $author$project$MergeSystemStrategy$NoOp),
+							$elm$html$Html$Attributes$class(
+							leftState ? 'bg-gray-600' : 'bg-gray-400'),
+							$elm$html$Html$Attributes$class('text-gray-100'),
+							$elm$html$Html$Attributes$class('p-2')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('LEFT')
+						])),
+					A2(
+					$elm$html$Html$button,
+					_List_fromArray(
+						[
+							$elm$html$Html$Events$onClick(
+							rightState ? $author$project$MergeSystemStrategy$Right : $author$project$MergeSystemStrategy$NoOp),
+							$elm$html$Html$Attributes$class(
+							rightState ? 'bg-gray-600' : 'bg-gray-400'),
+							$elm$html$Html$Attributes$class('text-gray-100'),
+							$elm$html$Html$Attributes$class('p-2')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('RIGHT')
+						]))
+				]));
+	});
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$MergeSystem$arrayItem = function (v) {
+var $author$project$MergeSystemStrategy$arrayItem = function (v) {
 	return A2(
 		$elm$html$Html$span,
 		_List_fromArray(
@@ -5790,7 +5934,7 @@ var $elm$core$List$all = F2(
 			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
 			list);
 	});
-var $author$project$MergeSystem$issorted = F2(
+var $author$project$MergeSystemStrategy$issorted = F2(
 	function (l1, l2) {
 		return A2(
 			$elm$core$List$all,
@@ -5806,7 +5950,7 @@ var $author$project$MergeSystem$issorted = F2(
 				l1,
 				l2));
 	});
-var $author$project$MergeSystem$listView = F2(
+var $author$project$MergeSystemStrategy$listView = F2(
 	function (label, lst) {
 		return A2(
 			$elm$html$Html$div,
@@ -5814,6 +5958,7 @@ var $author$project$MergeSystem$listView = F2(
 				[
 					A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
 					$elm$html$Html$Attributes$class('flex'),
+					$elm$html$Html$Attributes$class('flex-wrap'),
 					$elm$html$Html$Attributes$class('justify-center'),
 					$elm$html$Html$Attributes$class('items-center'),
 					$elm$html$Html$Attributes$class('text-xl'),
@@ -5838,13 +5983,13 @@ var $author$project$MergeSystem$listView = F2(
 									_Utils_Tuple2(
 									'bg-green-200',
 									A2(
-										$author$project$MergeSystem$issorted,
+										$author$project$MergeSystemStrategy$issorted,
 										lst,
 										$elm$core$List$sort(lst))),
 									_Utils_Tuple2(
 									'bg-red-200',
 									!A2(
-										$author$project$MergeSystem$issorted,
+										$author$project$MergeSystemStrategy$issorted,
 										lst,
 										$elm$core$List$sort(lst)))
 								])),
@@ -5878,7 +6023,7 @@ var $author$project$MergeSystem$listView = F2(
 										[
 											$elm$html$Html$text(',')
 										])),
-								A2($elm$core$List$map, $author$project$MergeSystem$arrayItem, lst)),
+								A2($elm$core$List$map, $author$project$MergeSystemStrategy$arrayItem, lst)),
 							_List_fromArray(
 								[
 									A2(
@@ -5895,7 +6040,7 @@ var $author$project$MergeSystem$listView = F2(
 				]));
 	});
 var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$MergeSystem$prompt = function (p) {
+var $author$project$MergeSystemStrategy$prompt = function (p) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5920,7 +6065,7 @@ var $author$project$MergeSystem$prompt = function (p) {
 					]))
 			]));
 };
-var $author$project$MergeSystem$view = function (model) {
+var $author$project$MergeSystemStrategy$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5943,21 +6088,22 @@ var $author$project$MergeSystem$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Merge System')
+						$elm$html$Html$text('Merge System: Strategy')
 					])),
-				$author$project$MergeSystem$prompt(model.promptText),
+				$author$project$MergeSystemStrategy$prompt(model.promptText),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
 						$elm$html$Html$Attributes$class('flex'),
 						$elm$html$Html$Attributes$class('flex-grow'),
+						$elm$html$Html$Attributes$class('flex-wrap'),
 						$elm$html$Html$Attributes$class('items-center')
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$MergeSystem$listView, 'left', model.firstList),
-						A2($author$project$MergeSystem$listView, 'right', model.secondList)
+						A2($author$project$MergeSystemStrategy$listView, 'left', model.firstList),
+						A2($author$project$MergeSystemStrategy$listView, 'right', model.secondList)
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -5967,19 +6113,44 @@ var $author$project$MergeSystem$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$MergeSystem$listView, 'merged', model.mergedList)
+						A2($author$project$MergeSystemStrategy$listView, 'merged', model.mergedList)
 					])),
-				$author$project$MergeSystem$controls
+				function () {
+				var rh = $elm$core$List$head(model.secondList);
+				var lh = $elm$core$List$head(model.firstList);
+				var _v0 = _Utils_Tuple2(lh, rh);
+				if (_v0.a.$ === 'Just') {
+					if (_v0.b.$ === 'Just') {
+						var l = _v0.a.a;
+						var r = _v0.b.a;
+						return _Utils_eq(l, r) ? A2($author$project$MergeSystemStrategy$controls, true, true) : ((_Utils_cmp(l, r) > 0) ? A2($author$project$MergeSystemStrategy$controls, false, true) : A2($author$project$MergeSystemStrategy$controls, true, false));
+					} else {
+						var l = _v0.a.a;
+						var _v1 = _v0.b;
+						return A2($author$project$MergeSystemStrategy$controls, true, false);
+					}
+				} else {
+					if (_v0.b.$ === 'Just') {
+						var _v2 = _v0.a;
+						var r = _v0.b.a;
+						return A2($author$project$MergeSystemStrategy$controls, false, true);
+					} else {
+						var _v3 = _v0.a;
+						var _v4 = _v0.b;
+						return A2($author$project$MergeSystemStrategy$controls, false, false);
+					}
+				}
+			}()
 			]));
 };
-var $author$project$MergeSystem$main = $elm$browser$Browser$element(
+var $author$project$MergeSystemStrategy$main = $elm$browser$Browser$element(
 	{
-		init: $author$project$MergeSystem$init,
+		init: $author$project$MergeSystemStrategy$init,
 		subscriptions: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		update: $author$project$MergeSystem$update,
-		view: $author$project$MergeSystem$view
+		update: $author$project$MergeSystemStrategy$update,
+		view: $author$project$MergeSystemStrategy$view
 	});
-_Platform_export({'MergeSystem':{'init':$author$project$MergeSystem$main(
+_Platform_export({'MergeSystemStrategy':{'init':$author$project$MergeSystemStrategy$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
