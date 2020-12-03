@@ -5629,7 +5629,7 @@ var $author$project$MergeSystem$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'Merging is complete.'}),
+								{promptText: 'The \'left\' list is empty.  Merging is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
@@ -5655,7 +5655,7 @@ var $author$project$MergeSystem$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'Merging is complete.'}),
+								{promptText: 'The \'right\' list is empty.  Merging is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
@@ -6011,7 +6011,7 @@ var $author$project$MergeSystem$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Merge System')
+						$elm$html$Html$text('Shuffle')
 					])),
 				$author$project$MergeSystem$prompt(model.promptText),
 				A2(

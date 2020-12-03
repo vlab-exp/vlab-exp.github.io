@@ -5753,10 +5753,10 @@ var $author$project$MergeSystemStrategy$update = F2(
 					_Utils_update(
 						model,
 						{
-							firstList: $elm$core$List$sort(
-								$elm$core$Array$toList(a)),
-							secondList: $elm$core$List$sort(
-								$elm$core$Array$toList(b))
+							firstList: dosort ? $elm$core$List$sort(
+								$elm$core$Array$toList(a)) : $elm$core$Array$toList(a),
+							secondList: dosort ? $elm$core$List$sort(
+								$elm$core$Array$toList(b)) : $elm$core$Array$toList(b)
 						}),
 					$elm$core$Platform$Cmd$none);
 		}

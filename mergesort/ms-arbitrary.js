@@ -5542,6 +5542,7 @@ var $author$project$MsArbitrary$init = function (flags) {
 		{
 			data: _List_Nil,
 			graph: $author$project$MsArbitrary$ig1(_List_Nil),
+			promptMsg: '',
 			selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 		},
 		$elm$core$Platform$Cmd$batch(
@@ -5552,8 +5553,8 @@ var $author$project$MsArbitrary$init = function (flags) {
 					$author$project$MsArbitrary$GotRandomArray,
 					A3(
 						$elm_community$random_extra$Random$Array$rangeLengthArray,
-						5,
-						7,
+						4,
+						6,
 						A2($elm$random$Random$int, 10, 50)))
 				])));
 };
@@ -5571,6 +5572,82 @@ var $elm$core$List$append = F2(
 			return xs;
 		} else {
 			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$List$member = F2(
+	function (x, xs) {
+		return A2(
+			$elm$core$List$any,
+			function (a) {
+				return _Utils_eq(a, x);
+			},
+			xs);
+	});
+var $author$project$MsArbitrary$addMergeNode = F3(
+	function (a, p, graph) {
+		if (A2(
+			$elm$core$List$member,
+			'merge_n_' + (a + ('_' + p)),
+			A2(
+				$elm$core$List$map,
+				function ($) {
+					return $.v;
+				},
+				graph.nodes)) || A2(
+			$elm$core$List$member,
+			'merge_n_' + (p + ('_' + a)),
+			A2(
+				$elm$core$List$map,
+				function ($) {
+					return $.v;
+				},
+				graph.nodes))) {
+			return graph;
+		} else {
+			var n_ = A2(
+				$elm$core$List$append,
+				graph.nodes,
+				_List_fromArray(
+					[
+						{
+						v: 'merge_n_' + (a + ('_' + p)),
+						value: _Utils_update(
+							$author$project$MsArbitraryGraph$defNodeVal,
+							{label: 'Merge'})
+					}
+					]));
+			var e_ = A2(
+				$elm$core$List$append,
+				graph.edges,
+				_List_fromArray(
+					[
+						{v: a, value: $author$project$MsArbitraryGraph$defEdVal, w: 'merge_n_' + (a + ('_' + p))},
+						{v: p, value: $author$project$MsArbitraryGraph$defEdVal, w: 'merge_n_' + (a + ('_' + p))}
+					]));
+			return _Utils_update(
+				graph,
+				{edges: e_, nodes: n_});
 		}
 	});
 var $author$project$NodeId$revordr = function (ord) {
@@ -5897,36 +5974,6 @@ var $author$project$NodeId$funcFromStr = function (funcstr) {
 			return $author$project$NodeId$NoOp;
 	}
 };
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
-var $elm$core$List$member = F2(
-	function (x, xs) {
-		return A2(
-			$elm$core$List$any,
-			function (a) {
-				return _Utils_eq(a, x);
-			},
-			xs);
-	});
 var $author$project$NodeId$isApp = function (astr) {
 	return A2(
 		$elm$core$List$member,
@@ -6089,69 +6136,18 @@ var $author$project$NodeId$compIds = F2(
 			$author$project$NodeId$getPath(
 				$author$project$NodeId$parseId(s2)));
 	});
-var $elm$core$List$sortWith = _List_sortWith;
-var $author$project$MsArbitrary$addMergeNode = F3(
-	function (a, p, graph) {
-		if (A2(
-			$elm$core$List$member,
-			'merge_n_' + (a + ('_' + p)),
-			A2(
-				$elm$core$List$map,
-				function ($) {
-					return $.v;
-				},
-				graph.nodes)) || A2(
-			$elm$core$List$member,
-			'merge_n_' + (p + ('_' + a)),
-			A2(
-				$elm$core$List$map,
-				function ($) {
-					return $.v;
-				},
-				graph.nodes))) {
-			return graph;
-		} else {
-			var n_ = A2(
-				$elm$core$List$append,
-				graph.nodes,
-				_List_fromArray(
-					[
-						{
-						v: 'merge_n_' + (a + ('_' + p)),
-						value: _Utils_update(
-							$author$project$MsArbitraryGraph$defNodeVal,
-							{label: 'Merge'})
-					}
-					]));
-			var e_ = A2(
-				$elm$core$List$append,
-				graph.edges,
-				_List_fromArray(
-					[
-						{v: a, value: $author$project$MsArbitraryGraph$defEdVal, w: 'merge_n_' + (a + ('_' + p))},
-						{v: p, value: $author$project$MsArbitraryGraph$defEdVal, w: 'merge_n_' + (a + ('_' + p))}
-					]));
-			return _Utils_update(
-				graph,
-				{
-					edges: A2(
-						$elm$core$List$sortWith,
-						F2(
-							function (m, n) {
-								return A2($author$project$NodeId$compIds, m.v, n.v);
-							}),
-						e_),
-					nodes: A2(
-						$elm$core$List$sortWith,
-						F2(
-							function (m, n) {
-								return A2($author$project$NodeId$compIds, m.v, n.v);
-							}),
-						n_)
-				});
-		}
-	});
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
 var $elm$json$Json$Encode$list = F2(
 	function (func, entries) {
 		return _Json_wrap(
@@ -6383,21 +6379,31 @@ var $author$project$MsArbitraryGraph$gdataDecoder = A5(
 		'edges',
 		$elm$json$Json$Decode$list($author$project$MsArbitraryGraph$gdEdgeDecoder)),
 	A2($elm$json$Json$Decode$field, 'value', $author$project$MsArbitraryGraph$gdimDecoder));
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var $author$project$MsArbitraryGraph$labelToData = function (slst) {
+	return A2(
+		$elm$core$List$map,
+		function (lv) {
+			return A2(
+				$elm$core$Maybe$withDefault,
+				-1,
+				$elm$core$String$toInt(lv));
+		},
+		A2($elm$core$String$split, ' ', slst));
+};
+var $elm$core$Debug$log = _Debug_log;
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
 			f(x));
-	});
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
 	});
 var $elm_community$list_extra$List$Extra$find = F2(
 	function (predicate, list) {
@@ -6420,26 +6426,6 @@ var $elm_community$list_extra$List$Extra$find = F2(
 			}
 		}
 	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
-var $author$project$MsArbitraryGraph$labelToData = function (slst) {
-	return A2(
-		$elm$core$List$map,
-		function (lv) {
-			return A2(
-				$elm$core$Maybe$withDefault,
-				-1,
-				$elm$core$String$toInt(lv));
-		},
-		A2($elm$core$String$split, ' ', slst));
-};
 var $author$project$MsArbitraryGraph$getData = F2(
 	function (p, nl) {
 		var _v0 = A2(
@@ -6598,6 +6584,7 @@ var $author$project$MsArbitraryGraph$mergeArbitrary = F4(
 	});
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$sortWith = _List_sortWith;
 var $author$project$MsArbitrary$removeSplitNode = F3(
 	function (a, p, graph) {
 		return _Utils_update(
@@ -6828,7 +6815,8 @@ var $author$project$MsArbitrary$update = F2(
 						model,
 						{
 							data: $elm$core$Array$toList(arr),
-							graph: gr_
+							graph: gr_,
+							promptMsg: 'Click on the \'Split\' node to split the given list.'
 						}),
 					$author$project$MsArbitrary$sendMessage(
 						$author$project$MsArbitraryGraph$gdEncode(gr_)));
@@ -6860,7 +6848,7 @@ var $author$project$MsArbitrary$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{graph: gr_}),
+						{graph: gr_, promptMsg: 'Click on any \'Split\' node to split the corresponding sublist.'}),
 					$author$project$MsArbitrary$sendMessage(
 						$author$project$MsArbitraryGraph$gdEncode(gr_)));
 			case 'Merge':
@@ -6899,6 +6887,19 @@ var $author$project$MsArbitrary$update = F2(
 						model,
 						{
 							graph: gr_,
+							promptMsg: (2 === A2(
+								$elm$core$Debug$log,
+								'l',
+								$elm$core$List$length(
+									A2(
+										$elm$core$List$filter,
+										function (n) {
+											return _Utils_eq(
+												$elm$core$List$length(
+													$author$project$MsArbitraryGraph$labelToData(n.value.label)),
+												$elm$core$List$length(model.data));
+										},
+										gr_.nodes)))) ? 'Mergesort Complete.' : '',
 							selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 						}),
 					$author$project$MsArbitrary$sendMessage(
@@ -6914,6 +6915,7 @@ var $author$project$MsArbitrary$update = F2(
 							_Utils_update(
 								model,
 								{
+									promptMsg: 'Click on another sublist to merge the two selected sublists.',
 									selectedNodes: _Utils_Tuple2(
 										$elm$core$Maybe$Just(p),
 										$elm$core$Maybe$Nothing)
@@ -6926,35 +6928,61 @@ var $author$project$MsArbitrary$update = F2(
 					if (_v6.b.$ === 'Nothing') {
 						var a = _v6.a.a;
 						var _v9 = _v6.b;
-						var _v10 = _Utils_eq(a, p) ? _Utils_Tuple2(
-							_Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
-							model.graph) : _Utils_Tuple2(
-							_Utils_Tuple2(
-								$elm$core$Maybe$Just(a),
-								$elm$core$Maybe$Just(p)),
-							A3(
+						if (_Utils_eq(a, p)) {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										graph: model.graph,
+										promptMsg: '',
+										selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
+									}),
+								$elm$core$Platform$Cmd$none);
+						} else {
+							var gr_ = A3(
 								$author$project$MsArbitrary$removeSplitNode,
 								a,
 								p,
-								A3($author$project$MsArbitrary$addMergeNode, a, p, model.graph)));
-						var sn_ = _v10.a;
-						var gr_ = _v10.b;
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{graph: gr_, selectedNodes: sn_}),
-							$author$project$MsArbitrary$sendMessage(
-								$author$project$MsArbitraryGraph$gdEncode(gr_)));
+								A3($author$project$MsArbitrary$addMergeNode, a, p, model.graph));
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										graph: gr_,
+										promptMsg: 'Click on \'Merge\' to merge the selected sublists.',
+										selectedNodes: _Utils_Tuple2(
+											$elm$core$Maybe$Just(a),
+											$elm$core$Maybe$Just(p))
+									}),
+								$author$project$MsArbitrary$sendMessage(
+									$author$project$MsArbitraryGraph$gdEncode(gr_)));
+						}
 					} else {
 						var a = _v6.a.a;
 						var b = _v6.b.a;
-						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{promptMsg: 'merge the selected sublists and then select other sublists to merge.'}),
+							$elm$core$Platform$Cmd$none);
 					}
 				}
 			default:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
@@ -7097,7 +7125,6 @@ var $elm$svg$Svg$Events$onClick = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
@@ -7327,7 +7354,44 @@ var $author$project$MsArbitrary$viewGraph = function (_v0) {
 var $author$project$MsArbitrary$view = function (model) {
 	var _v0 = model;
 	var graph = _v0.graph;
-	return $author$project$MsArbitrary$viewGraph(model);
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('flex-grow w-2/3 flex flex-col')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('flex bg-gray-100 justify-center p-4 m-2 rounded shadow')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$p,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('p-2')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(model.promptMsg)
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll')
+					]),
+				_List_fromArray(
+					[
+						$author$project$MsArbitrary$viewGraph(model)
+					]))
+			]));
 };
 var $author$project$MsArbitrary$main = $elm$browser$Browser$element(
 	{init: $author$project$MsArbitrary$init, subscriptions: $author$project$MsArbitrary$subscriptions, update: $author$project$MsArbitrary$update, view: $author$project$MsArbitrary$view});

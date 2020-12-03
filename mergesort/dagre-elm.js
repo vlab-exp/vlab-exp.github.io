@@ -5540,7 +5540,8 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 var $author$project$Dagre$init = function (flags) {
 	return _Utils_Tuple2(
 		{
-			graph: $author$project$Dagre$ig1(_List_Nil)
+			graph: $author$project$Dagre$ig1(_List_Nil),
+			promptMsg: ''
 		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
@@ -5550,8 +5551,8 @@ var $author$project$Dagre$init = function (flags) {
 					$author$project$Dagre$GotRandomArray,
 					A3(
 						$elm_community$random_extra$Random$Array$rangeLengthArray,
-						5,
-						10,
+						4,
+						6,
 						A2($elm$random$Random$int, 10, 50)))
 				])));
 };
@@ -5563,240 +5564,65 @@ var $author$project$Dagre$messageReceiver = _Platform_incomingPort('messageRecei
 var $author$project$Dagre$subscriptions = function (_v0) {
 	return $author$project$Dagre$messageReceiver($author$project$Dagre$Recv);
 };
-var $elm$json$Json$Decode$decodeString = _Json_runOnString;
-var $elm$json$Json$Encode$list = F2(
-	function (func, entries) {
-		return _Json_wrap(
-			A3(
-				$elm$core$List$foldl,
-				_Json_addEntry(func),
-				_Json_emptyArray(_Utils_Tuple0),
-				entries));
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
 	});
-var $elm$json$Json$Encode$object = function (pairs) {
-	return _Json_wrap(
-		A3(
-			$elm$core$List$foldl,
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
 			F2(
-				function (_v0, obj) {
-					var k = _v0.a;
-					var v = _v0.b;
-					return A3(_Json_addField, k, v, obj);
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
 				}),
-			_Json_emptyObject(_Utils_Tuple0),
-			pairs));
-};
-var $elm$json$Json$Encode$float = _Json_wrap;
-var $author$project$DG3$pointEncode = function (p) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'x',
-				$elm$json$Json$Encode$float(p.x)),
-				_Utils_Tuple2(
-				'y',
-				$elm$json$Json$Encode$float(p.y))
-			]));
-};
-var $elm$json$Json$Encode$string = _Json_wrap;
-var $author$project$DG3$evEncode = function (ev) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'label',
-				$elm$json$Json$Encode$string(ev.label)),
-				_Utils_Tuple2(
-				'points',
-				A2($elm$json$Json$Encode$list, $author$project$DG3$pointEncode, ev.points))
-			]));
-};
-var $author$project$DG3$gdEdgeEncode = function (gde) {
-	var _v0 = gde;
-	var value = _v0.value;
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'v',
-				$elm$json$Json$Encode$string(gde.v)),
-				_Utils_Tuple2(
-				'w',
-				$elm$json$Json$Encode$string(gde.w)),
-				_Utils_Tuple2(
-				'value',
-				$author$project$DG3$evEncode(value))
-			]));
-};
-var $author$project$DG3$nvEncode = function (nv) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'label',
-				$elm$json$Json$Encode$string(nv.label)),
-				_Utils_Tuple2(
-				'width',
-				$elm$json$Json$Encode$float(nv.width)),
-				_Utils_Tuple2(
-				'height',
-				$elm$json$Json$Encode$float(nv.height)),
-				_Utils_Tuple2(
-				'x',
-				$elm$json$Json$Encode$float(nv.x)),
-				_Utils_Tuple2(
-				'y',
-				$elm$json$Json$Encode$float(nv.y))
-			]));
-};
-var $author$project$DG3$gdNodeEncode = function (gdn) {
-	var _v0 = gdn;
-	var value = _v0.value;
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'v',
-				$elm$json$Json$Encode$string(gdn.v)),
-				_Utils_Tuple2(
-				'value',
-				$author$project$DG3$nvEncode(value))
-			]));
-};
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $author$project$DG3$gdOptionEncode = function (gdo) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'directed',
-				$elm$json$Json$Encode$bool(gdo.directed)),
-				_Utils_Tuple2(
-				'multigraph',
-				$elm$json$Json$Encode$bool(gdo.multigraph)),
-				_Utils_Tuple2(
-				'compound',
-				$elm$json$Json$Encode$bool(gdo.compound))
-			]));
-};
-var $author$project$DG3$gdEncode = function (gd) {
-	return $elm$json$Json$Encode$object(
-		_List_fromArray(
-			[
-				_Utils_Tuple2(
-				'options',
-				$author$project$DG3$gdOptionEncode(gd.options)),
-				_Utils_Tuple2(
-				'nodes',
-				$elm$json$Json$Encode$list($author$project$DG3$gdNodeEncode)(gd.nodes)),
-				_Utils_Tuple2(
-				'edges',
-				$elm$json$Json$Encode$list($author$project$DG3$gdEdgeEncode)(gd.edges)),
-				_Utils_Tuple2(
-				'value',
-				$elm$json$Json$Encode$object(
-					_List_fromArray(
-						[
-							_Utils_Tuple2(
-							'ranker',
-							$elm$json$Json$Encode$string('network-simplex'))
-						])))
-			]));
-};
-var $author$project$DG3$GData = F4(
-	function (options, nodes, edges, value) {
-		return {edges: edges, nodes: nodes, options: options, value: value};
+			_List_Nil,
+			list);
 	});
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$DG3$GDataEdge = F3(
-	function (v, w, value) {
-		return {v: v, value: value, w: w};
+var $author$project$Dagre$canapply = F2(
+	function (nid, el) {
+		return A2(
+			$elm$core$List$all,
+			function (e) {
+				return A2($elm$core$String$startsWith, '$', e.v);
+			},
+			A2(
+				$elm$core$List$filter,
+				function (e) {
+					return _Utils_eq(e.w, nid);
+				},
+				el));
 	});
-var $author$project$DG3$EdgeValue = F2(
-	function (label, points) {
-		return {label: label, points: points};
-	});
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $elm$json$Json$Decode$float = _Json_decodeFloat;
-var $author$project$DG3$pointDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$Point,
-	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
-var $author$project$DG3$evDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$EdgeValue,
-	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
-	A2(
-		$elm$json$Json$Decode$field,
-		'points',
-		$elm$json$Json$Decode$list($author$project$DG3$pointDecoder)));
-var $elm$json$Json$Decode$map3 = _Json_map3;
-var $author$project$DG3$gdEdgeDecoder = A4(
-	$elm$json$Json$Decode$map3,
-	$author$project$DG3$GDataEdge,
-	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'w', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$evDecoder));
-var $author$project$DG3$GDataNode = F2(
-	function (v, value) {
-		return {v: v, value: value};
-	});
-var $author$project$DG3$NodeValue = F5(
-	function (label, width, height, x, y) {
-		return {height: height, label: label, width: width, x: x, y: y};
-	});
-var $elm$json$Json$Decode$map5 = _Json_map5;
-var $author$project$DG3$nvDecoder = A6(
-	$elm$json$Json$Decode$map5,
-	$author$project$DG3$NodeValue,
-	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
-var $author$project$DG3$gdNodeDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$GDataNode,
-	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$nvDecoder));
-var $author$project$DG3$GDataOptions = F3(
-	function (directed, multigraph, compound) {
-		return {compound: compound, directed: directed, multigraph: multigraph};
-	});
-var $elm$json$Json$Decode$bool = _Json_decodeBool;
-var $author$project$DG3$gdOptionDecoder = A4(
-	$elm$json$Json$Decode$map3,
-	$author$project$DG3$GDataOptions,
-	A2($elm$json$Json$Decode$field, 'directed', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'multigraph', $elm$json$Json$Decode$bool),
-	A2($elm$json$Json$Decode$field, 'compound', $elm$json$Json$Decode$bool));
-var $author$project$DG3$Dims = F2(
-	function (width, height) {
-		return {height: height, width: width};
-	});
-var $author$project$DG3$gdimDecoder = A3(
-	$elm$json$Json$Decode$map2,
-	$author$project$DG3$Dims,
-	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
-	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float));
-var $elm$json$Json$Decode$map4 = _Json_map4;
-var $author$project$DG3$gdataDecoder = A5(
-	$elm$json$Json$Decode$map4,
-	$author$project$DG3$GData,
-	A2($elm$json$Json$Decode$field, 'options', $author$project$DG3$gdOptionDecoder),
-	A2(
-		$elm$json$Json$Decode$field,
-		'nodes',
-		$elm$json$Json$Decode$list($author$project$DG3$gdNodeDecoder)),
-	A2(
-		$elm$json$Json$Decode$field,
-		'edges',
-		$elm$json$Json$Decode$list($author$project$DG3$gdEdgeDecoder)),
-	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$gdimDecoder));
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Dagre$sendMessage = _Platform_outgoingPort('sendMessage', $elm$core$Basics$identity);
 var $author$project$NodeId$revordr = function (ord) {
 	switch (ord.$) {
 		case 'LT':
@@ -6129,27 +5955,6 @@ var $author$project$NodeId$funcFromStr = function (funcstr) {
 			return $author$project$NodeId$NoOp;
 	}
 };
-var $elm$core$List$any = F2(
-	function (isOkay, list) {
-		any:
-		while (true) {
-			if (!list.b) {
-				return false;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (isOkay(x)) {
-					return true;
-				} else {
-					var $temp$isOkay = isOkay,
-						$temp$list = xs;
-					isOkay = $temp$isOkay;
-					list = $temp$list;
-					continue any;
-				}
-			}
-		}
-	});
 var $elm$core$List$member = F2(
 	function (x, xs) {
 		return A2(
@@ -6321,17 +6126,7 @@ var $author$project$NodeId$compIds = F2(
 			$author$project$NodeId$getPath(
 				$author$project$NodeId$parseId(s2)));
 	});
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
-	});
+var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm_community$list_extra$List$Extra$find = F2(
 	function (predicate, list) {
 		find:
@@ -6373,7 +6168,6 @@ var $author$project$DG3$labelToData = function (slst) {
 		},
 		A2($elm$core$String$split, ' ', slst));
 };
-var $elm$core$Basics$not = _Basics_not;
 var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
@@ -6550,6 +6344,237 @@ var $author$project$DG3$expand = F3(
 			}
 		}
 	});
+var $elm$json$Json$Encode$list = F2(
+	function (func, entries) {
+		return _Json_wrap(
+			A3(
+				$elm$core$List$foldl,
+				_Json_addEntry(func),
+				_Json_emptyArray(_Utils_Tuple0),
+				entries));
+	});
+var $elm$json$Json$Encode$object = function (pairs) {
+	return _Json_wrap(
+		A3(
+			$elm$core$List$foldl,
+			F2(
+				function (_v0, obj) {
+					var k = _v0.a;
+					var v = _v0.b;
+					return A3(_Json_addField, k, v, obj);
+				}),
+			_Json_emptyObject(_Utils_Tuple0),
+			pairs));
+};
+var $elm$json$Json$Encode$float = _Json_wrap;
+var $author$project$DG3$pointEncode = function (p) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'x',
+				$elm$json$Json$Encode$float(p.x)),
+				_Utils_Tuple2(
+				'y',
+				$elm$json$Json$Encode$float(p.y))
+			]));
+};
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $author$project$DG3$evEncode = function (ev) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'label',
+				$elm$json$Json$Encode$string(ev.label)),
+				_Utils_Tuple2(
+				'points',
+				A2($elm$json$Json$Encode$list, $author$project$DG3$pointEncode, ev.points))
+			]));
+};
+var $author$project$DG3$gdEdgeEncode = function (gde) {
+	var _v0 = gde;
+	var value = _v0.value;
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'v',
+				$elm$json$Json$Encode$string(gde.v)),
+				_Utils_Tuple2(
+				'w',
+				$elm$json$Json$Encode$string(gde.w)),
+				_Utils_Tuple2(
+				'value',
+				$author$project$DG3$evEncode(value))
+			]));
+};
+var $author$project$DG3$nvEncode = function (nv) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'label',
+				$elm$json$Json$Encode$string(nv.label)),
+				_Utils_Tuple2(
+				'width',
+				$elm$json$Json$Encode$float(nv.width)),
+				_Utils_Tuple2(
+				'height',
+				$elm$json$Json$Encode$float(nv.height)),
+				_Utils_Tuple2(
+				'x',
+				$elm$json$Json$Encode$float(nv.x)),
+				_Utils_Tuple2(
+				'y',
+				$elm$json$Json$Encode$float(nv.y))
+			]));
+};
+var $author$project$DG3$gdNodeEncode = function (gdn) {
+	var _v0 = gdn;
+	var value = _v0.value;
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'v',
+				$elm$json$Json$Encode$string(gdn.v)),
+				_Utils_Tuple2(
+				'value',
+				$author$project$DG3$nvEncode(value))
+			]));
+};
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $author$project$DG3$gdOptionEncode = function (gdo) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'directed',
+				$elm$json$Json$Encode$bool(gdo.directed)),
+				_Utils_Tuple2(
+				'multigraph',
+				$elm$json$Json$Encode$bool(gdo.multigraph)),
+				_Utils_Tuple2(
+				'compound',
+				$elm$json$Json$Encode$bool(gdo.compound))
+			]));
+};
+var $author$project$DG3$gdEncode = function (gd) {
+	return $elm$json$Json$Encode$object(
+		_List_fromArray(
+			[
+				_Utils_Tuple2(
+				'options',
+				$author$project$DG3$gdOptionEncode(gd.options)),
+				_Utils_Tuple2(
+				'nodes',
+				$elm$json$Json$Encode$list($author$project$DG3$gdNodeEncode)(gd.nodes)),
+				_Utils_Tuple2(
+				'edges',
+				$elm$json$Json$Encode$list($author$project$DG3$gdEdgeEncode)(gd.edges)),
+				_Utils_Tuple2(
+				'value',
+				$elm$json$Json$Encode$object(
+					_List_fromArray(
+						[
+							_Utils_Tuple2(
+							'ranker',
+							$elm$json$Json$Encode$string('network-simplex'))
+						])))
+			]));
+};
+var $author$project$DG3$GData = F4(
+	function (options, nodes, edges, value) {
+		return {edges: edges, nodes: nodes, options: options, value: value};
+	});
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $author$project$DG3$GDataEdge = F3(
+	function (v, w, value) {
+		return {v: v, value: value, w: w};
+	});
+var $author$project$DG3$EdgeValue = F2(
+	function (label, points) {
+		return {label: label, points: points};
+	});
+var $elm$json$Json$Decode$list = _Json_decodeList;
+var $elm$json$Json$Decode$float = _Json_decodeFloat;
+var $author$project$DG3$pointDecoder = A3(
+	$elm$json$Json$Decode$map2,
+	$author$project$DG3$Point,
+	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
+var $author$project$DG3$evDecoder = A3(
+	$elm$json$Json$Decode$map2,
+	$author$project$DG3$EdgeValue,
+	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
+	A2(
+		$elm$json$Json$Decode$field,
+		'points',
+		$elm$json$Json$Decode$list($author$project$DG3$pointDecoder)));
+var $elm$json$Json$Decode$map3 = _Json_map3;
+var $author$project$DG3$gdEdgeDecoder = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$DG3$GDataEdge,
+	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'w', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$evDecoder));
+var $author$project$DG3$GDataNode = F2(
+	function (v, value) {
+		return {v: v, value: value};
+	});
+var $author$project$DG3$NodeValue = F5(
+	function (label, width, height, x, y) {
+		return {height: height, label: label, width: width, x: x, y: y};
+	});
+var $elm$json$Json$Decode$map5 = _Json_map5;
+var $author$project$DG3$nvDecoder = A6(
+	$elm$json$Json$Decode$map5,
+	$author$project$DG3$NodeValue,
+	A2($elm$json$Json$Decode$field, 'label', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$float));
+var $author$project$DG3$gdNodeDecoder = A3(
+	$elm$json$Json$Decode$map2,
+	$author$project$DG3$GDataNode,
+	A2($elm$json$Json$Decode$field, 'v', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$nvDecoder));
+var $author$project$DG3$GDataOptions = F3(
+	function (directed, multigraph, compound) {
+		return {compound: compound, directed: directed, multigraph: multigraph};
+	});
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
+var $author$project$DG3$gdOptionDecoder = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$DG3$GDataOptions,
+	A2($elm$json$Json$Decode$field, 'directed', $elm$json$Json$Decode$bool),
+	A2($elm$json$Json$Decode$field, 'multigraph', $elm$json$Json$Decode$bool),
+	A2($elm$json$Json$Decode$field, 'compound', $elm$json$Json$Decode$bool));
+var $author$project$DG3$Dims = F2(
+	function (width, height) {
+		return {height: height, width: width};
+	});
+var $author$project$DG3$gdimDecoder = A3(
+	$elm$json$Json$Decode$map2,
+	$author$project$DG3$Dims,
+	A2($elm$json$Json$Decode$field, 'height', $elm$json$Json$Decode$float),
+	A2($elm$json$Json$Decode$field, 'width', $elm$json$Json$Decode$float));
+var $elm$json$Json$Decode$map4 = _Json_map4;
+var $author$project$DG3$gdataDecoder = A5(
+	$elm$json$Json$Decode$map4,
+	$author$project$DG3$GData,
+	A2($elm$json$Json$Decode$field, 'options', $author$project$DG3$gdOptionDecoder),
+	A2(
+		$elm$json$Json$Decode$field,
+		'nodes',
+		$elm$json$Json$Decode$list($author$project$DG3$gdNodeDecoder)),
+	A2(
+		$elm$json$Json$Decode$field,
+		'edges',
+		$elm$json$Json$Decode$list($author$project$DG3$gdEdgeDecoder)),
+	A2($elm$json$Json$Decode$field, 'value', $author$project$DG3$gdimDecoder));
 var $author$project$DG3$getData = F2(
 	function (p, nl) {
 		var _v0 = A2(
@@ -6715,6 +6740,8 @@ var $author$project$DG3$merge = F3(
 			}
 		}
 	});
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Dagre$sendMessage = _Platform_outgoingPort('sendMessage', $elm$core$Basics$identity);
 var $elm$core$List$sortWith = _List_sortWith;
 var $elm$core$List$drop = F2(
 	function (n, list) {
@@ -6806,80 +6833,6 @@ var $author$project$DG3$split = F3(
 						},
 						edges))));
 	});
-var $author$project$DG3$update = F2(
-	function (msg, graph) {
-		switch (msg.$) {
-			case 'Split':
-				var np = msg.a;
-				var _v1 = A3($author$project$DG3$split, np, graph.nodes, graph.edges);
-				var n_ = _v1.a;
-				var e_ = _v1.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-			case 'Expand':
-				var np = msg.a;
-				var _v2 = A3($author$project$DG3$expand, np, graph.nodes, graph.edges);
-				var n_ = _v2.a;
-				var e_ = _v2.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-			default:
-				var np = msg.a;
-				var _v3 = A3($author$project$DG3$merge, np, graph.nodes, graph.edges);
-				var n_ = _v3.a;
-				var e_ = _v3.b;
-				return _Utils_update(
-					graph,
-					{
-						edges: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							e_),
-						nodes: A2(
-							$elm$core$List$sortWith,
-							F2(
-								function (m, n) {
-									return A2($author$project$NodeId$compIds, m.v, n.v);
-								}),
-							n_)
-					});
-		}
-	});
 var $author$project$Dagre$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
@@ -6902,39 +6855,174 @@ var $author$project$Dagre$update = F2(
 					var e = res.a;
 					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 				}
-			case 'GraphMsg':
-				var dm = msg.a;
-				var gr_ = A2($author$project$DG3$update, dm, model.graph);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{graph: gr_}),
-					$author$project$Dagre$sendMessage(
-						$author$project$DG3$gdEncode(gr_)));
-			default:
+			case 'GotRandomArray':
 				var arr = msg.a;
 				var gr_ = $author$project$Dagre$ig1(
 					$elm$core$Array$toList(arr));
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{graph: gr_}),
+						{graph: gr_, promptMsg: 'Click on the \'MS\' button to expand the graph.'}),
+					$author$project$Dagre$sendMessage(
+						$author$project$DG3$gdEncode(gr_)));
+			case 'Split':
+				var np = msg.a;
+				var graph = model.graph;
+				var _v2 = A3($author$project$DG3$split, np, graph.nodes, graph.edges);
+				var n_ = _v2.a;
+				var e_ = _v2.b;
+				var gr_ = _Utils_update(
+					graph,
+					{
+						edges: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							e_),
+						nodes: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							n_)
+					});
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							graph: gr_,
+							promptMsg: A2($author$project$Dagre$canapply, 'split_n_' + np, graph.edges) ? ('Split [ ' + (A2(
+								$elm$core$String$join,
+								' ',
+								A2(
+									$elm$core$List$map,
+									$elm$core$String$fromInt,
+									A2($author$project$DG3$getData, np, graph.nodes))) + ' ]')) : 'Cannpt Apply.'
+						}),
+					$author$project$Dagre$sendMessage(
+						$author$project$DG3$gdEncode(gr_)));
+			case 'Expand':
+				var np = msg.a;
+				var graph = model.graph;
+				var _v3 = A3($author$project$DG3$expand, np, graph.nodes, graph.edges);
+				var n_ = _v3.a;
+				var e_ = _v3.b;
+				var gr_ = _Utils_update(
+					graph,
+					{
+						edges: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							e_),
+						nodes: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							n_)
+					});
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							graph: gr_,
+							promptMsg: A2($author$project$Dagre$canapply, 'ms_n_' + np, graph.edges) ? ('Expanding the mergesort [ ' + (A2(
+								$elm$core$String$join,
+								' ',
+								A2(
+									$elm$core$List$map,
+									$elm$core$String$fromInt,
+									A2($author$project$DG3$getData, np, graph.nodes))) + ' ] node.')) : 'Cannot apply this mergesort operation.  Split first.'
+						}),
+					$author$project$Dagre$sendMessage(
+						$author$project$DG3$gdEncode(gr_)));
+			default:
+				var np = msg.a;
+				var graph = model.graph;
+				var medges = A2(
+					$elm$core$List$filter,
+					function (e) {
+						return _Utils_eq(e.w, 'merge_n_' + np);
+					},
+					graph.edges);
+				var mnodes = A2(
+					$elm$core$List$filter,
+					function (n) {
+						return A2(
+							$elm$core$List$member,
+							n.v,
+							A2(
+								$elm$core$List$map,
+								function ($) {
+									return $.v;
+								},
+								medges));
+					},
+					graph.nodes);
+				var _v4 = A3($author$project$DG3$merge, np, graph.nodes, graph.edges);
+				var n_ = _v4.a;
+				var e_ = _v4.b;
+				var gr_ = _Utils_update(
+					graph,
+					{
+						edges: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							e_),
+						nodes: A2(
+							$elm$core$List$sortWith,
+							F2(
+								function (m, n) {
+									return A2($author$project$NodeId$compIds, m.v, n.v);
+								}),
+							n_)
+					});
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							graph: gr_,
+							promptMsg: A2($author$project$Dagre$canapply, 'merge_n_' + np, graph.edges) ? ('merge [ ' + (A2(
+								$elm$core$String$join,
+								' ], [ ',
+								A2(
+									$elm$core$List$map,
+									function (n) {
+										return n.value.label;
+									},
+									mnodes)) + ' ]')) : 'Cannot apply this merge operation.'
+						}),
 					$author$project$Dagre$sendMessage(
 						$author$project$DG3$gdEncode(gr_)));
 		}
 	});
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Dagre$GraphMsg = function (a) {
-	return {$: 'GraphMsg', a: a};
-};
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
-var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
-var $elm$html$Html$map = $elm$virtual_dom$VirtualDom$map;
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
@@ -6993,7 +7081,7 @@ var $elm$svg$Svg$polygon = $elm$svg$Svg$trustedNode('polygon');
 var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
 var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
 var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
-var $author$project$DG3$viewEdge = function (edge) {
+var $author$project$Dagre$viewEdge = function (edge) {
 	var _v0 = edge;
 	var value = _v0.value;
 	var end = A2(
@@ -7020,7 +7108,16 @@ var $author$project$DG3$viewEdge = function (edge) {
 						$elm$svg$Svg$Attributes$strokeWidth('2'),
 						$elm$svg$Svg$Attributes$fill('none'),
 						$elm$svg$Svg$Attributes$points(
-						$author$project$DG3$pointsToString(value.points))
+						$author$project$DG3$pointsToString(
+							_Utils_ap(
+								A2(
+									$elm$core$List$take,
+									$elm$core$List$length(value.points) - 1,
+									value.points),
+								_List_fromArray(
+									[
+										A2($author$project$DG3$Point, end.x, end.y - 10)
+									]))))
 					]),
 				_List_Nil),
 				A2(
@@ -7036,8 +7133,7 @@ var $author$project$DG3$viewEdge = function (edge) {
 								[
 									end,
 									A2($author$project$DG3$Point, end.x + 5, end.y - 10),
-									A2($author$project$DG3$Point, end.x - 5, end.y - 10),
-									A2($author$project$DG3$Point, end.x, end.y)
+									A2($author$project$DG3$Point, end.x - 5, end.y - 10)
 								])))
 					]),
 				_List_Nil)
@@ -7050,18 +7146,18 @@ var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
 var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
 var $elm$core$String$endsWith = _String_endsWith;
 var $elm$svg$Svg$Attributes$fontSize = _VirtualDom_attribute('font-size');
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var $author$project$DG3$viewDataNode = function (node) {
+var $author$project$Dagre$viewDataNode = function (node) {
 	var _v0 = node;
 	var value = _v0.value;
 	var bx = $elm$core$String$fromFloat(value.x - (value.width / 2));
-	var by = $elm$core$String$fromFloat(value.y - (value.height / 2));
+	var by = $elm$core$String$fromFloat((value.y + 10) - (value.height / 2));
 	var h = $elm$core$String$fromFloat(value.height);
 	var pt = A2(
 		$elm$svg$Svg$circle,
@@ -7076,7 +7172,7 @@ var $author$project$DG3$viewDataNode = function (node) {
 			]),
 		_List_Nil);
 	var tx = $elm$core$String$fromFloat((value.x - (value.width / 2)) + $author$project$Config$nodeCfg.padding);
-	var ty = $elm$core$String$fromFloat(value.y);
+	var ty = $elm$core$String$fromFloat(value.y + 10);
 	var w = $elm$core$String$fromFloat(value.width);
 	var box = A2(
 		$elm$svg$Svg$rect,
@@ -7115,13 +7211,13 @@ var $author$project$DG3$viewDataNode = function (node) {
 		_List_fromArray(
 			[txt]));
 };
-var $author$project$DG3$Expand = function (a) {
+var $author$project$Dagre$Expand = function (a) {
 	return {$: 'Expand', a: a};
 };
-var $author$project$DG3$Merge = function (a) {
+var $author$project$Dagre$Merge = function (a) {
 	return {$: 'Merge', a: a};
 };
-var $author$project$DG3$Split = function (a) {
+var $author$project$Dagre$Split = function (a) {
 	return {$: 'Split', a: a};
 };
 var $elm$svg$Svg$Attributes$cursor = _VirtualDom_attribute('cursor');
@@ -7142,23 +7238,24 @@ var $elm$svg$Svg$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $author$project$DG3$viewOpNode = function (node) {
+var $elm$svg$Svg$Attributes$textAnchor = _VirtualDom_attribute('text-anchor');
+var $author$project$Dagre$viewOpNode = function (node) {
 	var attrs = A2($elm$core$String$contains, '_n_', node.v) ? (A2($elm$core$String$startsWith, 'ms_n_', node.v) ? _List_fromArray(
 		[
 			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Expand(
+			$author$project$Dagre$Expand(
 				A2($elm$core$String$dropLeft, 5, node.v))),
 			$elm$svg$Svg$Attributes$cursor('pointer')
 		]) : (A2($elm$core$String$startsWith, 'merge_n_', node.v) ? _List_fromArray(
 		[
 			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Merge(
+			$author$project$Dagre$Merge(
 				A2($elm$core$String$dropLeft, 8, node.v))),
 			$elm$svg$Svg$Attributes$cursor('pointer')
 		]) : (A2($elm$core$String$startsWith, 'split_n_', node.v) ? _List_fromArray(
 		[
 			$elm$svg$Svg$Events$onClick(
-			$author$project$DG3$Split(
+			$author$project$Dagre$Split(
 				A2($elm$core$String$dropLeft, 8, node.v))),
 			$elm$svg$Svg$Attributes$cursor('pointer')
 		]) : _List_Nil))) : _List_Nil;
@@ -7167,7 +7264,7 @@ var $author$project$DG3$viewOpNode = function (node) {
 	var bx = $elm$core$String$fromFloat(value.x - (value.width / 2));
 	var by = $elm$core$String$fromFloat(value.y - (value.height / 2));
 	var h = $elm$core$String$fromFloat(value.height);
-	var tx = $elm$core$String$fromFloat((value.x - (value.width / 2)) + $author$project$Config$nodeCfg.padding);
+	var tx = $elm$core$String$fromFloat(value.x);
 	var ty = $elm$core$String$fromFloat(value.y);
 	var w = $elm$core$String$fromFloat(value.width);
 	var box = A2(
@@ -7192,8 +7289,9 @@ var $author$project$DG3$viewOpNode = function (node) {
 				$elm$svg$Svg$Attributes$x(tx),
 				$elm$svg$Svg$Attributes$y(ty),
 				$elm$svg$Svg$Attributes$fontSize(
-				$elm$core$String$fromInt(50)),
-				$elm$svg$Svg$Attributes$alignmentBaseline('middle')
+				$elm$core$String$fromInt(30)),
+				$elm$svg$Svg$Attributes$alignmentBaseline('middle'),
+				$elm$svg$Svg$Attributes$textAnchor('middle')
 			]),
 		_List_fromArray(
 			[
@@ -7206,17 +7304,17 @@ var $author$project$DG3$viewOpNode = function (node) {
 			[box, txt]) : _List_fromArray(
 			[txt]));
 };
-var $author$project$DG3$viewNode = function (node) {
+var $author$project$Dagre$viewNode = function (node) {
 	var v = node.v;
 	var vl = A2($elm$core$String$split, '_', v);
 	if (vl.b) {
 		if (!vl.b.b) {
 			var kw = vl.a;
-			return $author$project$DG3$viewDataNode(node);
+			return $author$project$Dagre$viewDataNode(node);
 		} else {
 			var lw = vl.a;
 			var rest = vl.b;
-			return $author$project$DG3$viewOpNode(node);
+			return $author$project$Dagre$viewOpNode(node);
 		}
 	} else {
 		return A2($elm$svg$Svg$rect, _List_Nil, _List_Nil);
@@ -7224,7 +7322,7 @@ var $author$project$DG3$viewNode = function (node) {
 };
 var $author$project$Dagre$viewGraph = function (graph) {
 	var vw = A2($elm$core$Basics$max, 800, graph.value.width * 1.1);
-	var vh = A2($elm$core$Basics$max, 800, graph.value.height * 1.1);
+	var vh = 800;
 	return A2(
 		$elm$svg$Svg$svg,
 		_List_fromArray(
@@ -7232,31 +7330,18 @@ var $author$project$Dagre$viewGraph = function (graph) {
 				$elm$svg$Svg$Attributes$viewBox(
 				'0 0 ' + ($elm$core$String$fromFloat(vh) + (' ' + $elm$core$String$fromFloat(vw)))),
 				$elm$svg$Svg$Attributes$width('700px'),
-				$elm$svg$Svg$Attributes$height('500px'),
-				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
-				A2($elm$html$Html$Attributes$style, 'background', '#FFFFFF'),
 				A2($elm$html$Html$Attributes$style, 'height', '100%')
 			]),
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$map,
-				function (m) {
-					return $author$project$Dagre$GraphMsg(m);
-				},
+				$elm$svg$Svg$g,
+				_List_Nil,
+				A2($elm$core$List$map, $author$project$Dagre$viewNode, graph.nodes)),
 				A2(
-					$elm$svg$Svg$g,
-					_List_Nil,
-					A2($elm$core$List$map, $author$project$DG3$viewNode, graph.nodes))),
-				A2(
-				$elm$html$Html$map,
-				function (m) {
-					return $author$project$Dagre$GraphMsg(m);
-				},
-				A2(
-					$elm$svg$Svg$g,
-					_List_Nil,
-					A2($elm$core$List$map, $author$project$DG3$viewEdge, graph.edges)))
+				$elm$svg$Svg$g,
+				_List_Nil,
+				A2($elm$core$List$map, $author$project$Dagre$viewEdge, graph.edges))
 			]));
 };
 var $author$project$Dagre$view = function (model) {
@@ -7266,13 +7351,39 @@ var $author$project$Dagre$view = function (model) {
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
-				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2($elm$html$Html$Attributes$style, 'margin', '10px')
+				$elm$html$Html$Attributes$class('flex-grow w-2/3 flex flex-col')
 			]),
 		_List_fromArray(
 			[
-				$author$project$Dagre$viewGraph(graph)
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('flex bg-gray-100 justify-center p-4 m-2 rounded shadow')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$p,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('p-2')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text(model.promptMsg)
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll')
+					]),
+				_List_fromArray(
+					[
+						$author$project$Dagre$viewGraph(graph)
+					]))
 			]));
 };
 var $author$project$Dagre$main = $elm$browser$Browser$element(
