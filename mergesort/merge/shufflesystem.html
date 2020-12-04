@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="main.css" rel="stylesheet"/>
+    <script src="mergeSystem.js"></script>
+    <title> Shuffle </title>
+  </head>
+  <body style="height: 100vh;" class="flex">
+    <div id="merge"></div>
+    <script>
+      var app = Elm.MergeSystem.init({
+	  node: document.getElementById('merge'),
+      });
+    </script>
+  </body>
+</html>
