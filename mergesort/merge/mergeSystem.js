@@ -5567,7 +5567,7 @@ var $elm$random$Random$weighted = F2(
 	});
 var $author$project$MergeSystem$init = function (_v0) {
 	return _Utils_Tuple2(
-		{firstList: _List_Nil, mergedList: _List_Nil, promptText: 'Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'merged\' list.', secondList: _List_Nil},
+		{firstList: _List_Nil, mergedList: _List_Nil, promptText: 'Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'shuffled\' list.', secondList: _List_Nil},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
@@ -5629,13 +5629,13 @@ var $author$project$MergeSystem$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'left\' list is empty.  Merging is complete.'}),
+								{promptText: 'The \'left\' list is empty.  Shuffling is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'left\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise merging is complete.'}),
+								{promptText: 'The \'left\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
@@ -5655,13 +5655,13 @@ var $author$project$MergeSystem$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'right\' list is empty.  Merging is complete.'}),
+								{promptText: 'The \'right\' list is empty.  Shuffling is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'right\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise merging is complete.'}),
+								{promptText: 'The \'right\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.'}),
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
@@ -6036,7 +6036,7 @@ var $author$project$MergeSystem$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$MergeSystem$listView, 'merged', model.mergedList)
+						A2($author$project$MergeSystem$listView, 'shuffled', model.mergedList)
 					])),
 				$author$project$MergeSystem$controls
 			]));
