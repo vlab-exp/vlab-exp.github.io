@@ -123,19 +123,12 @@ stack of commands
 	    Once all the nodes are added to the tree, the spanning tree is complete and you will not see any candidate edges any more.
 	  </p>
 
-	  <h2 class="py-1 text-lg text-gray-800 underline">
-	    Backtracking
-	  </h2>
-
-	  <p class="mb-2">
-	    At any point while expanding the tree, you can click on a node that corresponds to a "leaf" in the spanning tree to remove the node from the tree.
-	  </p>	  
 	</div>
 	  
       </div>
-      <div class="flex-grow w-2/3 flex flex-col">
+      <div class="flex-grow w-2/3 flex flex-col overflow-scroll">
 	
-	<div class="flex bg-gray-100 justify-center p-4 m-2 
+	<div class="flex bg-gray-100 justify-center p-4 m-1 
 		    rounded shadow" id="prompt">
 	  <p class="p-2">
 	    <!-- Messages go here. -->
@@ -143,7 +136,7 @@ stack of commands
 	  </p>
 	</div>
 	
-	<div class="flex flex-grow">
+	<div class="flex-grow flex h-80">
 	  
 	  <div class="flex-grow w-1/2 flex flex-col">
 	    <span class="text-center"> Graph </span>
@@ -158,8 +151,11 @@ stack of commands
 	      
 	    </div>
 	  </div>
+	    
 	</div>
-	
+	<div class="flex-grow flex justify-center text-2xl" id="traversal">
+	  Traversal: 
+	</div>
       </div>      
     </div>
     <script src="connectedSpanningTree.js"></script>
