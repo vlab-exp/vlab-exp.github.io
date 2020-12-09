@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-12-09 Wed 23:22 -->
+<!-- 2020-12-10 Thu 00:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Building a Transition System based Experiment in Elm</title>
@@ -240,51 +240,51 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd9fc82c">1. Introduction</a></li>
-<li><a href="#org777c9f8">2. Basic Transition System</a>
+<li><a href="#org9e80f57">1. Introduction</a></li>
+<li><a href="#org99894f5">2. Basic Transition System</a>
 <ul>
-<li><a href="#org5f24539">2.1. State</a></li>
-<li><a href="#org389505f">2.2. Input</a></li>
-<li><a href="#org40e6c42">2.3. Transition Functions</a>
+<li><a href="#orgb3af8b4">2.1. State</a></li>
+<li><a href="#org38bdab3">2.2. Input</a></li>
+<li><a href="#org5f8aa55">2.3. Transition Functions</a>
 <ul>
-<li><a href="#org37fabf9">2.3.1. Order</a></li>
+<li><a href="#orgdf82222">2.3.1. Order</a></li>
 </ul>
 </li>
-<li><a href="#org6e81170">2.4. Output</a></li>
+<li><a href="#org4ab2870">2.4. Output</a></li>
 </ul>
 </li>
-<li><a href="#org69855f7">3. Experiment Level Transition System</a>
+<li><a href="#orgf6d05a1">3. Experiment Level Transition System</a>
 <ul>
-<li><a href="#org0e3bf14">3.1. State</a></li>
-<li><a href="#orge195129">3.2. Selections</a>
+<li><a href="#org8e70f22">3.1. State</a></li>
+<li><a href="#org63e6860">3.2. Selections</a>
 <ul>
-<li><a href="#orgf02bc97">3.2.1. Select</a></li>
-<li><a href="#org75b50a7">3.2.2. Deselect</a></li>
-<li><a href="#org3581ea4">3.2.3. Selection Check Predicate</a></li>
-<li><a href="#orgb151c7e">3.2.4. Get the list of Selected Indices</a></li>
+<li><a href="#org1b564cb">3.2.1. Select</a></li>
+<li><a href="#orgaad7c6e">3.2.2. Deselect</a></li>
+<li><a href="#org653340c">3.2.3. Selection Check Predicate</a></li>
+<li><a href="#org606d964">3.2.4. Get the list of Selected Indices</a></li>
 </ul>
 </li>
-<li><a href="#orge437bc4">3.3. Inputs</a></li>
-<li><a href="#org3cf8243">3.4. Transition Function</a></li>
-<li><a href="#org4f60e46">3.5. View</a>
+<li><a href="#org2487f1a">3.3. Inputs</a></li>
+<li><a href="#orgfa02bd5">3.4. Transition Function</a></li>
+<li><a href="#org7bafc26">3.5. View</a>
 <ul>
-<li><a href="#org92ddf66">3.5.1. List View</a></li>
-<li><a href="#orgca1e2db">3.5.2. Order Button</a></li>
+<li><a href="#org6c9dc1c">3.5.1. List View</a></li>
+<li><a href="#orgfbf4816">3.5.2. Order Button</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org1a90b1d">4. Incrementation Changes for Successive Refinement</a>
+<li><a href="#org467b6f0">4. Incrementation Changes for Successive Refinement</a>
 <ul>
-<li><a href="#org883d7c5">4.1. From Order Machine to Adjacent Order Machine</a>
+<li><a href="#orgb7771d7">4.1. From Order Machine to Adjacent Order Machine</a>
 <ul>
-<li><a href="#org34f6fba">4.1.1. State</a></li>
-<li><a href="#orge5072bd">4.1.2. Inputs</a></li>
-<li><a href="#org6adeb12">4.1.3. Transition Function</a></li>
-<li><a href="#org865870a">4.1.4. Adjacent Order</a></li>
-<li><a href="#orgbb7a161">4.1.5. Select Adjacent Items</a></li>
-<li><a href="#org2bf6617">4.1.6. Deselect Adjacent Selection</a></li>
-<li><a href="#orgc8ff375">4.1.7. View</a></li>
+<li><a href="#org6b83825">4.1.1. State</a></li>
+<li><a href="#orga4421d0">4.1.2. Inputs</a></li>
+<li><a href="#org683ed3f">4.1.3. Transition Function</a></li>
+<li><a href="#org052c786">4.1.4. Adjacent Order</a></li>
+<li><a href="#org3a4321d">4.1.5. Select Adjacent Items</a></li>
+<li><a href="#org7a6ac1c">4.1.6. Deselect Adjacent Selection</a></li>
+<li><a href="#org7b2872d">4.1.7. View</a></li>
 </ul>
 </li>
 </ul>
@@ -293,8 +293,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd9fc82c" class="outline-2">
-<h2 id="orgd9fc82c"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-org9e80f57" class="outline-2">
+<h2 id="org9e80f57"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Here we take the example of <i>Order Machine</i> to demonstrate how to
@@ -303,8 +303,8 @@ build a transition system based experiment.
 </div>
 </div>
 
-<div id="outline-container-org777c9f8" class="outline-2">
-<h2 id="org777c9f8"><span class="section-number-2">2</span> Basic Transition System</h2>
+<div id="outline-container-org99894f5" class="outline-2">
+<h2 id="org99894f5"><span class="section-number-2">2</span> Basic Transition System</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Components of a Transition System:
@@ -318,8 +318,8 @@ Components of a Transition System:
 </ol>
 </div>
 
-<div id="outline-container-org5f24539" class="outline-3">
-<h3 id="org5f24539"><span class="section-number-3">2.1</span> State</h3>
+<div id="outline-container-orgb3af8b4" class="outline-3">
+<h3 id="orgb3af8b4"><span class="section-number-3">2.1</span> State</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 State of a transition system consists of all the objects that are
@@ -337,14 +337,14 @@ numbers.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="orgb18c90d"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org8f68315"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org389505f" class="outline-3">
-<h3 id="org389505f"><span class="section-number-3">2.2</span> Input</h3>
+<div id="outline-container-org38bdab3" class="outline-3">
+<h3 id="org38bdab3"><span class="section-number-3">2.2</span> Input</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 The <code>Msg</code> type defines the set of inputs to the system.  These
@@ -355,14 +355,14 @@ triggered and it is handled by the <code>udpate</code> function.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org0f505c2"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">Order</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org4885e4f"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">Order</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org40e6c42" class="outline-3">
-<h3 id="org40e6c42"><span class="section-number-3">2.3</span> Transition Functions</h3>
+<div id="outline-container-org5f8aa55" class="outline-3">
+<h3 id="org5f8aa55"><span class="section-number-3">2.3</span> Transition Functions</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 The update function maps the messages in the system to the function
@@ -397,7 +397,7 @@ The <i>Order Machine</i> consists of the following input messages:
 </table>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org5008a09"><span style="color: #0000ff;">orderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span>
+<pre class="src src-elm" id="org1d83f81"><span style="color: #0000ff;">orderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span>
 <span style="color: #0000ff;">orderUpdate</span> msg model <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
         <span style="color: #228b22;">Order</span> i j <span style="color: #483d8b;">-&gt;</span> order i j model
@@ -405,8 +405,8 @@ The <i>Order Machine</i> consists of the following input messages:
 </div>
 </div>
 
-<div id="outline-container-org37fabf9" class="outline-4">
-<h4 id="org37fabf9"><span class="section-number-4">2.3.1</span> Order</h4>
+<div id="outline-container-orgdf82222" class="outline-4">
+<h4 id="orgdf82222"><span class="section-number-4">2.3.1</span> Order</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 The transition function for performing <code>order</code> operation on the
@@ -414,7 +414,7 @@ given list.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org64651d8"><span style="color: #0000ff;">order</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org166ad2e"><span style="color: #0000ff;">order</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
 <span style="color: #0000ff;">order</span> i j lst <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">if</span> (outOfOrder i j lst) <span style="color: #a020f0;">then</span>
         swap i j lst
@@ -429,7 +429,7 @@ two given indices in the list.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="orgf76bc3f"><span style="color: #0000ff;">swap</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org6857a34"><span style="color: #0000ff;">swap</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
 <span style="color: #0000ff;">swap</span> i j array <span style="color: #483d8b;">=</span>
     <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>swapAt i j array
 </pre>
@@ -437,7 +437,7 @@ two given indices in the list.
 </div>
 
 <ol class="org-ol">
-<li><a id="orgc85e3c8"></a>Out of Order<br />
+<li><a id="orgf1bca27"></a>Out of Order<br />
 <div class="outline-text-5" id="text-2-3-1-1">
 <p>
 Check if the values in the given indices <code>i</code> and <code>j</code> of the list are
@@ -445,7 +445,7 @@ out of order.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="orgef8652c"><span style="color: #0000ff;">outOfOrder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<pre class="src src-elm" id="orgd18d4bd"><span style="color: #0000ff;">outOfOrder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
 <span style="color: #0000ff;">outOfOrder</span> i j lst <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">let</span> ai <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt i lst
         aj <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt j lst
@@ -462,8 +462,8 @@ out of order.
 </div>
 </div>
 
-<div id="outline-container-org6e81170" class="outline-3">
-<h3 id="org6e81170"><span class="section-number-3">2.4</span> Output</h3>
+<div id="outline-container-org4ab2870" class="outline-3">
+<h3 id="org4ab2870"><span class="section-number-3">2.4</span> Output</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 The output of the transition system is Html code that is rendered by
@@ -487,8 +487,8 @@ the interface.
 </div>
 
 
-<div id="outline-container-org69855f7" class="outline-2">
-<h2 id="org69855f7"><span class="section-number-2">3</span> Experiment Level Transition System</h2>
+<div id="outline-container-orgf6d05a1" class="outline-2">
+<h2 id="orgf6d05a1"><span class="section-number-2">3</span> Experiment Level Transition System</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The Experiment Level Transition system is composed of the <i>Basic
@@ -497,8 +497,8 @@ interface and output.
 </p>
 </div>
 
-<div id="outline-container-org0e3bf14" class="outline-3">
-<h3 id="org0e3bf14"><span class="section-number-3">3.1</span> State</h3>
+<div id="outline-container-org8e70f22" class="outline-3">
+<h3 id="org8e70f22"><span class="section-number-3">3.1</span> State</h3>
 <div class="outline-text-3" id="text-3-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -528,7 +528,7 @@ interface and output.
 </table>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org6bb8afe"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">=</span>
+<pre class="src src-elm" id="org6ab483d"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">{</span> lst<span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineModel</span>
     <span style="color: #a020f0;">,</span> selections<span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span>
     <span style="color: #a020f0;">}</span>
@@ -538,8 +538,8 @@ interface and output.
 </div>
 
 
-<div id="outline-container-orge195129" class="outline-3">
-<h3 id="orge195129"><span class="section-number-3">3.2</span> Selections</h3>
+<div id="outline-container-org63e6860" class="outline-3">
+<h3 id="org63e6860"><span class="section-number-3">3.2</span> Selections</h3>
 <div class="outline-text-3" id="text-3-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -574,7 +574,7 @@ interface and output.
 </table>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org86a0641"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Selections</span>
+<pre class="src src-elm" id="org8b18fc5"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Selections</span>
     <span style="color: #483d8b;">=</span> <span style="color: #228b22;">NoneSelected</span>
     <span style="color: #483d8b;">|</span> <span style="color: #228b22;">OneSelected</span> <span style="color: #228b22;">Int</span>
     <span style="color: #483d8b;">|</span> <span style="color: #228b22;">BothSelected</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
@@ -582,11 +582,11 @@ interface and output.
 </div>
 </div>
 
-<div id="outline-container-orgf02bc97" class="outline-4">
-<h4 id="orgf02bc97"><span class="section-number-4">3.2.1</span> Select</h4>
+<div id="outline-container-org1b564cb" class="outline-4">
+<h4 id="org1b564cb"><span class="section-number-4">3.2.1</span> Select</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
-<pre class="src src-elm" id="org49401ad"><span style="color: #0000ff;">select</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<pre class="src src-elm" id="org8fe1751"><span style="color: #0000ff;">select</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
 <span style="color: #0000ff;">select</span> i selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
@@ -600,11 +600,11 @@ interface and output.
 </div>
 </div>
 
-<div id="outline-container-org75b50a7" class="outline-4">
-<h4 id="org75b50a7"><span class="section-number-4">3.2.2</span> Deselect</h4>
+<div id="outline-container-orgaad7c6e" class="outline-4">
+<h4 id="orgaad7c6e"><span class="section-number-4">3.2.2</span> Deselect</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <div class="org-src-container">
-<pre class="src src-elm" id="org3698d4d"><span style="color: #0000ff;">deselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<pre class="src src-elm" id="org937f608"><span style="color: #0000ff;">deselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
 <span style="color: #0000ff;">deselect</span> i selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
@@ -626,11 +626,11 @@ interface and output.
 </div>
 </div>
 
-<div id="outline-container-org3581ea4" class="outline-4">
-<h4 id="org3581ea4"><span class="section-number-4">3.2.3</span> Selection Check Predicate</h4>
+<div id="outline-container-org653340c" class="outline-4">
+<h4 id="org653340c"><span class="section-number-4">3.2.3</span> Selection Check Predicate</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <div class="org-src-container">
-<pre class="src src-elm" id="org4918e5d"><span style="color: #0000ff;">isSelected</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<pre class="src src-elm" id="org7dc6df2"><span style="color: #0000ff;">isSelected</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
 <span style="color: #0000ff;">isSelected</span> index selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
@@ -645,11 +645,11 @@ interface and output.
 </div>
 
 
-<div id="outline-container-orgb151c7e" class="outline-4">
-<h4 id="orgb151c7e"><span class="section-number-4">3.2.4</span> Get the list of Selected Indices</h4>
+<div id="outline-container-org606d964" class="outline-4">
+<h4 id="org606d964"><span class="section-number-4">3.2.4</span> Get the list of Selected Indices</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <div class="org-src-container">
-<pre class="src src-elm" id="org3b6b06b"><span style="color: #0000ff;">selectionsList</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="orgd0d736d"><span style="color: #0000ff;">selectionsList</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
 <span style="color: #0000ff;">selectionsList</span> selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
@@ -665,11 +665,11 @@ interface and output.
 
 
 
-<div id="outline-container-orge437bc4" class="outline-3">
-<h3 id="orge437bc4"><span class="section-number-3">3.3</span> Inputs</h3>
+<div id="outline-container-org2487f1a" class="outline-3">
+<h3 id="org2487f1a"><span class="section-number-3">3.3</span> Inputs</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
-<pre class="src src-elm" id="orge9a9f23"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">OrderMsg</span> <span style="color: #228b22;">OrderMachineMsg</span>
+<pre class="src src-elm" id="org3cbfe04"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">OrderMsg</span> <span style="color: #228b22;">OrderMachineMsg</span>
          <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Select</span> <span style="color: #228b22;">Int</span>
          <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Deselect</span> <span style="color: #228b22;">Int</span>
 </pre>
@@ -677,11 +677,11 @@ interface and output.
 </div>
 </div>
 
-<div id="outline-container-org3cf8243" class="outline-3">
-<h3 id="org3cf8243"><span class="section-number-3">3.4</span> Transition Function</h3>
+<div id="outline-container-orgfa02bd5" class="outline-3">
+<h3 id="orgfa02bd5"><span class="section-number-3">3.4</span> Transition Function</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
-<pre class="src src-elm" id="org505a223"><span style="color: #0000ff;">update</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span>
+<pre class="src src-elm" id="orgf3ae32a"><span style="color: #0000ff;">update</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span>
 <span style="color: #0000ff;">update</span> msg model <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">OrderMsg</span> m <span style="color: #483d8b;">-&gt;</span> { model <span style="color: #483d8b;">|</span> lst <span style="color: #483d8b;">=</span> orderUpdate m model<span style="color: #483d8b;">.</span>lst }
@@ -693,11 +693,11 @@ interface and output.
 </div>
 
 
-<div id="outline-container-org4f60e46" class="outline-3">
-<h3 id="org4f60e46"><span class="section-number-3">3.5</span> View</h3>
+<div id="outline-container-org7bafc26" class="outline-3">
+<h3 id="org7bafc26"><span class="section-number-3">3.5</span> View</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
-<pre class="src src-elm" id="org863394d"><span style="color: #0000ff;">view</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<pre class="src src-elm" id="org7536c04"><span style="color: #0000ff;">view</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
 <span style="color: #0000ff;">view</span> model <span style="color: #483d8b;">=</span>
     <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div
         []
@@ -709,36 +709,53 @@ interface and output.
 </div>
 
 
-<div id="outline-container-org92ddf66" class="outline-4">
-<h4 id="org92ddf66"><span class="section-number-4">3.5.1</span> List View</h4>
+<div id="outline-container-org6c9dc1c" class="outline-4">
+<h4 id="org6c9dc1c"><span class="section-number-4">3.5.1</span> List View</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <div class="org-src-container">
-<pre class="src src-elm" id="orgf8ce599"><span style="color: #0000ff;">listView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<pre class="src src-elm" id="org9671cfd"><span style="color: #0000ff;">listView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
 <span style="color: #0000ff;">listView</span> model <span style="color: #483d8b;">=</span>
-    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div [](<span style="color: #228b22;">List</span><span style="color: #483d8b;">.</span>indexedMap (<span style="color: #483d8b;">\</span>i v <span style="color: #483d8b;">-&gt;</span> itemView i v) model)
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div 
+        <span style="color: #a020f0;">[</span> style <span style="color: #8b2252;">"display"</span> <span style="color: #8b2252;">"flex"</span>
+        <span style="color: #a020f0;">]</span>
+        (<span style="color: #228b22;">List</span><span style="color: #483d8b;">.</span>indexedMap 
+            (<span style="color: #483d8b;">\</span>i v <span style="color: #483d8b;">-&gt;</span> itemView i v (isSelected i model<span style="color: #483d8b;">.</span>selections))
+            model<span style="color: #483d8b;">.</span>lst
+        )
 
-<span style="color: #0000ff;">itemView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
-<span style="color: #0000ff;">itemView</span> i v <span style="color: #483d8b;">=</span>
-    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
-        <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>span [] [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text v]
-        <span style="color: #a020f0;">,</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>span [] [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text i]
+<span style="color: #0000ff;">itemView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">itemView</span> i v selected <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div 
+        ([ style <span style="color: #8b2252;">"padding"</span> <span style="color: #8b2252;">"1em"</span> ] 
+         <span style="color: #483d8b;">++</span>
+         ( <span style="color: #a020f0;">if</span> selected <span style="color: #a020f0;">then</span>
+               <span style="color: #a020f0;">[</span> onClick (<span style="color: #228b22;">Deselect</span> i)
+               <span style="color: #a020f0;">,</span> style <span style="color: #8b2252;">"background"</span> <span style="color: #8b2252;">"#aed"</span>
+               <span style="color: #a020f0;">]</span>
+           <span style="color: #a020f0;">else</span>
+               <span style="color: #a020f0;">[</span> onClick (<span style="color: #228b22;">Select</span> i)
+               <span style="color: #a020f0;">]</span>
+         )
+        )
+        <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>span [] [(<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #483d8b;">&lt;&lt;</span> <span style="color: #228b22;">String</span><span style="color: #483d8b;">.</span>fromInt) v]
+        <span style="color: #a020f0;">,</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>span [] [(<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #483d8b;">&lt;&lt;</span> <span style="color: #228b22;">String</span><span style="color: #483d8b;">.</span>fromInt) i]
         <span style="color: #a020f0;">]</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgca1e2db" class="outline-4">
-<h4 id="orgca1e2db"><span class="section-number-4">3.5.2</span> Order Button</h4>
+<div id="outline-container-orgfbf4816" class="outline-4">
+<h4 id="orgfbf4816"><span class="section-number-4">3.5.2</span> Order Button</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <div class="org-src-container">
-<pre class="src src-elm" id="orgd47f3c5"><span style="color: #0000ff;">orderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<pre class="src src-elm" id="org3ea8a52"><span style="color: #0000ff;">orderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
 <span style="color: #0000ff;">orderButton</span> model <span style="color: #483d8b;">=</span> 
     <span style="color: #a020f0;">let</span>
         attrlst <span style="color: #483d8b;">=</span> <span style="color: #a020f0;">case</span> model<span style="color: #483d8b;">.</span>selections <span style="color: #a020f0;">of</span>
                       <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
                       <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> []
-                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">Order</span> i j) ]
+                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">OrderMsg</span> (<span style="color: #228b22;">Order</span> i j)) ]
     <span style="color: #a020f0;">in</span>
         <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
             <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>button 
@@ -753,8 +770,8 @@ interface and output.
 </div>
 
 
-<div id="outline-container-org1a90b1d" class="outline-2">
-<h2 id="org1a90b1d"><span class="section-number-2">4</span> Incrementation Changes for Successive Refinement</h2>
+<div id="outline-container-org467b6f0" class="outline-2">
+<h2 id="org467b6f0"><span class="section-number-2">4</span> Incrementation Changes for Successive Refinement</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 To develop a new experiment based on successive refinement of an
@@ -770,12 +787,12 @@ constraint to system.
 </p>
 </div>
 
-<div id="outline-container-org883d7c5" class="outline-3">
-<h3 id="org883d7c5"><span class="section-number-3">4.1</span> From Order Machine to Adjacent Order Machine</h3>
+<div id="outline-container-orgb7771d7" class="outline-3">
+<h3 id="orgb7771d7"><span class="section-number-3">4.1</span> From Order Machine to Adjacent Order Machine</h3>
 <div class="outline-text-3" id="text-4-1">
 </div>
-<div id="outline-container-org34f6fba" class="outline-4">
-<h4 id="org34f6fba"><span class="section-number-4">4.1.1</span> State</h4>
+<div id="outline-container-org6b83825" class="outline-4">
+<h4 id="org6b83825"><span class="section-number-4">4.1.1</span> State</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <p>
 The state space of the basic transition system for Adjacent Order
@@ -783,14 +800,23 @@ machine remains the same as that of Order Machine.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="org791124b"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org68c5cd9"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orge861d26"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">{</span> lst<span style="color: #483d8b;">:</span> <span style="color: #228b22;">AdjOrderMachineModel</span>
+    <span style="color: #a020f0;">,</span> selections<span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span>
+    <span style="color: #a020f0;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge5072bd" class="outline-4">
-<h4 id="orge5072bd"><span class="section-number-4">4.1.2</span> Inputs</h4>
+
+<div id="outline-container-orga4421d0" class="outline-4">
+<h4 id="orga4421d0"><span class="section-number-4">4.1.2</span> Inputs</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -815,31 +841,48 @@ machine remains the same as that of Order Machine.
 </table>
 
 <div class="org-src-container">
-<pre class="src src-elm" id="orgec0ed65"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">AdjOrder</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="orgd94a158"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">AdjOrder</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org4cdbb00"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">AdjOrderMsg</span> <span style="color: #228b22;">AdjOrderMachineMsg</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Select</span> <span style="color: #228b22;">Int</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Deselect</span> <span style="color: #228b22;">Int</span>
 </pre>
 </div>
 </div>
 </div>
 
-
-<div id="outline-container-org6adeb12" class="outline-4">
-<h4 id="org6adeb12"><span class="section-number-4">4.1.3</span> Transition Function</h4>
+<div id="outline-container-org683ed3f" class="outline-4">
+<h4 id="org683ed3f"><span class="section-number-4">4.1.3</span> Transition Function</h4>
 <div class="outline-text-4" id="text-4-1-3">
 <div class="org-src-container">
-<pre class="src src-elm" id="org8fa2ac8"><span style="color: #0000ff;">adjorderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span>
+<pre class="src src-elm" id="orgf8025f0"><span style="color: #0000ff;">adjorderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span>
 <span style="color: #0000ff;">adjorderUpdate</span> msg model <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
         <span style="color: #228b22;">AdjOrder</span> i <span style="color: #483d8b;">-&gt;</span> adjorder i model
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org7c584c1"><span style="color: #0000ff;">update</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span>
+<span style="color: #0000ff;">update</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">AdjOrderMsg</span> m <span style="color: #483d8b;">-&gt;</span> { model <span style="color: #483d8b;">|</span> lst <span style="color: #483d8b;">=</span> adjorderUpdate m model<span style="color: #483d8b;">.</span>lst }
+        <span style="color: #228b22;">Select</span> i <span style="color: #483d8b;">-&gt;</span> { model <span style="color: #483d8b;">|</span> selections <span style="color: #483d8b;">=</span> adjselect i model<span style="color: #483d8b;">.</span>selections }
+        <span style="color: #228b22;">Deselect</span> i <span style="color: #483d8b;">-&gt;</span> { model <span style="color: #483d8b;">|</span> selections <span style="color: #483d8b;">=</span> adjdeselect i model<span style="color: #483d8b;">.</span>selections }
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org865870a" class="outline-4">
-<h4 id="org865870a"><span class="section-number-4">4.1.4</span> Adjacent Order</h4>
+
+<div id="outline-container-org052c786" class="outline-4">
+<h4 id="org052c786"><span class="section-number-4">4.1.4</span> Adjacent Order</h4>
 <div class="outline-text-4" id="text-4-1-4">
 <div class="org-src-container">
-<pre class="src src-elm" id="org4cb102f"><span style="color: #0000ff;">adjorder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<pre class="src src-elm" id="org6e2eedd"><span style="color: #0000ff;">adjorder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
 <span style="color: #0000ff;">adjorder</span> i lst <span style="color: #483d8b;">=</span> order i (i <span style="color: #483d8b;">+</span> 1) lst
 </pre>
 </div>
@@ -847,26 +890,26 @@ machine remains the same as that of Order Machine.
 </div>
 
 
-<div id="outline-container-orgbb7a161" class="outline-4">
-<h4 id="orgbb7a161"><span class="section-number-4">4.1.5</span> Select Adjacent Items</h4>
+<div id="outline-container-org3a4321d" class="outline-4">
+<h4 id="org3a4321d"><span class="section-number-4">4.1.5</span> Select Adjacent Items</h4>
 <div class="outline-text-4" id="text-4-1-5">
 <div class="org-src-container">
-<pre class="src src-elm" id="org6782365"><span style="color: #0000ff;">adjselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<pre class="src src-elm" id="org862b812"><span style="color: #0000ff;">adjselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
 <span style="color: #0000ff;">adjselect</span> i selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
-            <span style="color: #228b22;">OneSelected</span> i (i <span style="color: #483d8b;">+</span> 1)
+            <span style="color: #228b22;">BothSelected</span> i (i <span style="color: #483d8b;">+</span> 1)
         _ <span style="color: #483d8b;">-&gt;</span> selections
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2bf6617" class="outline-4">
-<h4 id="org2bf6617"><span class="section-number-4">4.1.6</span> Deselect Adjacent Selection</h4>
+<div id="outline-container-org7a6ac1c" class="outline-4">
+<h4 id="org7a6ac1c"><span class="section-number-4">4.1.6</span> Deselect Adjacent Selection</h4>
 <div class="outline-text-4" id="text-4-1-6">
 <div class="org-src-container">
-<pre class="src src-elm" id="org1449def"><span style="color: #0000ff;">adjdeselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<pre class="src src-elm" id="org66e6135"><span style="color: #0000ff;">adjdeselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
 <span style="color: #0000ff;">adjdeselect</span> i selections <span style="color: #483d8b;">=</span>
     <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
         <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>    
@@ -874,33 +917,45 @@ machine remains the same as that of Order Machine.
                 <span style="color: #228b22;">NoneSelected</span>
             <span style="color: #a020f0;">else</span>
                 selections
+        _ <span style="color: #483d8b;">-&gt;</span> selections
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgc8ff375" class="outline-4">
-<h4 id="orgc8ff375"><span class="section-number-4">4.1.7</span> View</h4>
+<div id="outline-container-org7b2872d" class="outline-4">
+<h4 id="org7b2872d"><span class="section-number-4">4.1.7</span> View</h4>
 <div class="outline-text-4" id="text-4-1-7">
 </div>
 <ol class="org-ol">
-<li><a id="org8a2e875"></a>Adjacent Order Button<br />
+<li><a id="orgd42e79c"></a>Adjacent Order Button<br />
 <div class="outline-text-5" id="text-4-1-7-1">
 <div class="org-src-container">
-<pre class="src src-elm" id="orga2dca15"><span style="color: #0000ff;">adjorderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<pre class="src src-elm" id="orgbeb32f7"><span style="color: #0000ff;">adjorderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
 <span style="color: #0000ff;">adjorderButton</span> model <span style="color: #483d8b;">=</span> 
     <span style="color: #a020f0;">let</span>
         attrlst <span style="color: #483d8b;">=</span> <span style="color: #a020f0;">case</span> model<span style="color: #483d8b;">.</span>selections <span style="color: #a020f0;">of</span>
                       <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
                       <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> []
-                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">AdjOrder</span> i) ]
+                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">AdjOrderMsg</span> (<span style="color: #228b22;">AdjOrder</span> i)) ]
     <span style="color: #a020f0;">in</span>
         <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
             <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>button 
                 attrlst
                 [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #8b2252;">"ORDER"</span>]
             <span style="color: #a020f0;">]</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orga410a32"><span style="color: #0000ff;">view</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">view</span> model <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div
+        []
+        <span style="color: #a020f0;">[</span> listView model
+        <span style="color: #a020f0;">,</span> adjorderButton model
+        <span style="color: #a020f0;">]</span>
 </pre>
 </div>
 </div>
@@ -912,7 +967,7 @@ machine remains the same as that of Order Machine.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: ojas</p>
-<p class="date">Created: 2020-12-09 Wed 23:22</p>
+<p class="date">Created: 2020-12-10 Thu 00:10</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
