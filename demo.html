@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-12-09 Wed 16:56 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Building a Transition System based Experiment in Elm</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="ojas" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Building a Transition System based Experiment in Elm</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9aa0679">1. Introduction</a></li>
+<li><a href="#orga661ee9">2. Basic Transition System</a>
+<ul>
+<li><a href="#orge091667">2.1. State</a></li>
+<li><a href="#orgb72fa7a">2.2. Input</a></li>
+<li><a href="#org2ea68b5">2.3. Transition Functions</a>
+<ul>
+<li><a href="#orgd4370a4">2.3.1. Order</a></li>
+</ul>
+</li>
+<li><a href="#orgea6b855">2.4. Output</a></li>
+</ul>
+</li>
+<li><a href="#orgfed5763">3. Experiment Level Transition System</a>
+<ul>
+<li><a href="#org72f487a">3.1. State</a></li>
+<li><a href="#orgf4460c8">3.2. Selections</a>
+<ul>
+<li><a href="#org423cd6d">3.2.1. Select</a></li>
+<li><a href="#org9961dfb">3.2.2. Deselect</a></li>
+<li><a href="#org8ce0a84">3.2.3. Selection Check Predicate</a></li>
+<li><a href="#org30ba648">3.2.4. Get the list of Selected Indices</a></li>
+</ul>
+</li>
+<li><a href="#orgce74d18">3.3. Inputs</a></li>
+<li><a href="#org6cc045a">3.4. Transition Function</a></li>
+<li><a href="#org605d5c8">3.5. View</a>
+<ul>
+<li><a href="#org8d49219">3.5.1. List View</a></li>
+<li><a href="#org741335b">3.5.2. Order Button</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orga8483bc">4. Complete Code for an Experiment</a></li>
+<li><a href="#org3d4a464">5. Incrementation Changes for Successive Refinement</a>
+<ul>
+<li><a href="#org6e651b9">5.1. From Order Machine to Adjacent Order Machine</a>
+<ul>
+<li><a href="#orgf0ed7f3">5.1.1. State</a></li>
+<li><a href="#org555904d">5.1.2. Inputs</a></li>
+<li><a href="#org462f8bb">5.1.3. Transition Function</a></li>
+<li><a href="#org341716b">5.1.4. Adjacent Order</a></li>
+<li><a href="#org252aebd">5.1.5. Select Adjacent Items</a></li>
+<li><a href="#org339d4d5">5.1.6. Deselect Adjacent Selection</a></li>
+<li><a href="#org150b60e">5.1.7. View</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9aa0679" class="outline-2">
+<h2 id="org9aa0679"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Here we take the example of <i>Order Machine</i> to demonstrate how to
+build a transition system based experiment.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga661ee9" class="outline-2">
+<h2 id="orga661ee9"><span class="section-number-2">2</span> Basic Transition System</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Components of a Transition System:
+</p>
+
+<ol class="org-ol">
+<li>State</li>
+<li>Input</li>
+<li>Transition Function</li>
+<li>Output</li>
+</ol>
+</div>
+
+<div id="outline-container-orge091667" class="outline-3">
+<h3 id="orge091667"><span class="section-number-3">2.1</span> State</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+State of a transition system consists of all the objects that are
+relevant to computations involved in the transition system.
+</p>
+
+<p>
+We define a <code>OrderMachineModel</code> type in Elm that defines the state of the
+system.
+</p>
+
+<p>
+In the <i>Order Machine</i> system, the state consists of a list of
+numbers.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org07a1dce"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb72fa7a" class="outline-3">
+<h3 id="orgb72fa7a"><span class="section-number-3">2.2</span> Input</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The <code>Msg</code> type defines the set of inputs to the system.  These
+messages are triggered by the <code>Elm Runtime</code> that executes in the
+browser.  when a user interacts with the interface by clicking on any
+input button, the corresponding message that is defined in the view is
+triggered and it is handled by the <code>udpate</code> function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org1d0fb3b"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">Order</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ea68b5" class="outline-3">
+<h3 id="org2ea68b5"><span class="section-number-3">2.3</span> Transition Functions</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+The update function maps the messages in the system to the function
+that actually performs the transition.  In this function we map each
+<code>Msg</code> variant to a transition function.
+</p>
+
+<p>
+The <i>Order Machine</i> consists of the following input messages:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Message</th>
+<th scope="col" class="org-left">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>Order i j</code></td>
+<td class="org-left">Order the numbers at i and j indices in the list.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orgcc7ab94"><span style="color: #0000ff;">orderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span>
+<span style="color: #0000ff;">orderUpdate</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
+        <span style="color: #228b22;">Order</span> i j <span style="color: #483d8b;">-&gt;</span> order i j model
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd4370a4" class="outline-4">
+<h4 id="orgd4370a4"><span class="section-number-4">2.3.1</span> Order</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+The transition function for performing <code>order</code> operation on the
+given list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orge50aad8"><span style="color: #0000ff;">order</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">order</span> i j lst <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">if</span> (outOfOrder i j lst) <span style="color: #a020f0;">then</span>
+        swap i j lst
+    <span style="color: #a020f0;">else</span>
+        lst
+</pre>
+</div>
+
+<p>
+The order function makes use of the swap function that swaps items at
+two given indices in the list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orge4ddb2c"><span style="color: #0000ff;">swap</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">swap</span> array selections <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>swapAt i j array
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgd7b03d2"></a>Out of Order<br />
+<div class="outline-text-5" id="text-2-3-1-1">
+<p>
+Check if the values in the given indices <code>i</code> and <code>j</code> of the list are
+out of order.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orga3e6ab4"><span style="color: #0000ff;">outOfOrder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<span style="color: #0000ff;">outOfOrder</span> i j lst <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">let</span> ai <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt i lst
+        aj <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt j lst
+    <span style="color: #a020f0;">in</span>
+        <span style="color: #a020f0;">case</span> (ai<span style="color: #483d8b;">,</span> aj) <span style="color: #a020f0;">of</span>
+            (<span style="color: #228b22;">Just</span> x<span style="color: #483d8b;">,</span> <span style="color: #228b22;">Just</span> y) <span style="color: #483d8b;">-&gt;</span>
+                ((i <span style="color: #483d8b;">&gt;</span> j) <span style="color: #483d8b;">&amp;&amp;</span> (x <span style="color: #483d8b;">&lt;</span> y)) <span style="color: #483d8b;">||</span> ((i <span style="color: #483d8b;">&lt;</span> j) <span style="color: #483d8b;">&amp;&amp;</span> (x <span style="color: #483d8b;">&gt;</span> y))
+            _ <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">False</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgea6b855" class="outline-3">
+<h3 id="orgea6b855"><span class="section-number-3">2.4</span> Output</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+The output of the transition system is Html code that is rendered by
+the browser.
+</p>
+
+<p>
+The view needs to trigger messages that are not a part of the <i>Order
+Machine's</i> basic transition system.  These messages correspond to the
+transition system that is required to make the interface work.  So, we
+will define the view later when we define that system.  
+</p>
+
+<p>
+The top level system will consist of the transition system for the
+<i>Order Machine</i> as well as the some additional machinery required for
+the interface.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgfed5763" class="outline-2">
+<h2 id="orgfed5763"><span class="section-number-2">3</span> Experiment Level Transition System</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The Experiment Level Transition system is composed of the <i>Basic
+Transition System</i> and additional actions to handle the input
+interface and output.
+</p>
+</div>
+
+<div id="outline-container-org72f487a" class="outline-3">
+<h3 id="org72f487a"><span class="section-number-3">3.1</span> State</h3>
+<div class="outline-text-3" id="text-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Field</th>
+<th scope="col" class="org-left">Desciription</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">lst</td>
+<td class="org-left">The <code>Order Machine Model</code> represents the state space of <i>Order Machine</i>.</td>
+</tr>
+
+<tr>
+<td class="org-left">selections</td>
+<td class="org-left">Used to keep track of selected indices.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="orga4b1a3b"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">=</span>
+<span style="color: #a020f0;">{</span> lst<span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineModel</span>
+<span style="color: #a020f0;">,</span> selections<span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #a020f0;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf4460c8" class="outline-3">
+<h3 id="orgf4460c8"><span class="section-number-3">3.2</span> Selections</h3>
+<div class="outline-text-3" id="text-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Variant</th>
+<th scope="col" class="org-left">Desctiption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">NoneSelected</td>
+<td class="org-left">No list item is selected.</td>
+</tr>
+
+<tr>
+<td class="org-left">OneSelected i</td>
+<td class="org-left">One list item at index i is selected.</td>
+</tr>
+
+<tr>
+<td class="org-left">BothSelected i j</td>
+<td class="org-left">Two list items at index i and j are selected.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org08f0613"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Selections</span>
+    <span style="color: #483d8b;">=</span> <span style="color: #228b22;">NoneSelected</span>
+    <span style="color: #483d8b;">|</span> <span style="color: #228b22;">OneSelected</span> <span style="color: #228b22;">Int</span>
+    <span style="color: #483d8b;">|</span> <span style="color: #228b22;">BothSelected</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org423cd6d" class="outline-4">
+<h4 id="org423cd6d"><span class="section-number-4">3.2.1</span> Select</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<div class="org-src-container">
+<pre class="src src-elm" id="org97235ef"><span style="color: #0000ff;">select</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">select</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">OneSelected</span> i
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">BothSelected</span> j i
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">BothSelected</span> j k
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9961dfb" class="outline-4">
+<h4 id="org9961dfb"><span class="section-number-4">3.2.2</span> Deselect</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<div class="org-src-container">
+<pre class="src src-elm" id="org5053936"><span style="color: #0000ff;">deselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">deselect</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">NoneSelected</span>
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> j) <span style="color: #a020f0;">then</span> 
+                <span style="color: #228b22;">NoneSelected</span>
+            <span style="color: #a020f0;">else</span>
+                <span style="color: #228b22;">OneSelected</span> j
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> j) <span style="color: #a020f0;">then</span>
+                <span style="color: #228b22;">OneSelected</span> k
+            <span style="color: #a020f0;">else</span>
+                <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> k) <span style="color: #a020f0;">then</span>
+                    <span style="color: #228b22;">OneSelected</span> j
+                <span style="color: #a020f0;">else</span> (<span style="color: #228b22;">BothSelected</span> j k)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8ce0a84" class="outline-4">
+<h4 id="org8ce0a84"><span class="section-number-4">3.2.3</span> Selection Check Predicate</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<div class="org-src-container">
+<pre class="src src-elm" id="org2be2036"><span style="color: #0000ff;">isSelected</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<span style="color: #0000ff;">isSelected</span> index selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">False</span>
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> j <span style="color: #483d8b;">==</span> index <span style="color: #a020f0;">then</span> <span style="color: #228b22;">True</span> <span style="color: #a020f0;">else</span> <span style="color: #228b22;">False</span>
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (j <span style="color: #483d8b;">==</span> index <span style="color: #483d8b;">||</span> k <span style="color: #483d8b;">==</span> index) <span style="color: #a020f0;">then</span> <span style="color: #228b22;">True</span> <span style="color: #a020f0;">else</span> <span style="color: #228b22;">False</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org30ba648" class="outline-4">
+<h4 id="org30ba648"><span class="section-number-4">3.2.4</span> Get the list of Selected Indices</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<div class="org-src-container">
+<pre class="src src-elm" id="org4250834"><span style="color: #0000ff;">selectionsList</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">selectionsList</span> selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+       <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
+       <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> [i]
+       <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [i<span style="color: #483d8b;">,</span> j]
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orgce74d18" class="outline-3">
+<h3 id="orgce74d18"><span class="section-number-3">3.3</span> Inputs</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-elm" id="orgf8cf135"><span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">OrderMsg</span> <span style="color: #228b22;">OrderMachineMsg</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Select</span> <span style="color: #228b22;">Int</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Deselect</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6cc045a" class="outline-3">
+<h3 id="org6cc045a"><span class="section-number-3">3.4</span> Transition Function</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+<pre class="src src-elm" id="orge15f481"><span style="color: #0000ff;">update</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span>
+<span style="color: #0000ff;">update</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">OrderMsg</span> m <span style="color: #483d8b;">-&gt;</span> orderUpdate m model<span style="color: #483d8b;">.</span>lst   
+        <span style="color: #228b22;">Select</span> i <span style="color: #483d8b;">-&gt;</span> select i model<span style="color: #483d8b;">.</span>selections
+        <span style="color: #228b22;">Deselect</span> i <span style="color: #483d8b;">-&gt;</span> deselect i model<span style="color: #483d8b;">.</span>selections            
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org605d5c8" class="outline-3">
+<h3 id="org605d5c8"><span class="section-number-3">3.5</span> View</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="org-src-container">
+<pre class="src src-elm" id="orgbe1f7b6"><span style="color: #0000ff;">view</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">view</span> model <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div
+        []
+        <span style="color: #a020f0;">[</span> listView model
+        <span style="color: #a020f0;">,</span> orderButton model
+        <span style="color: #a020f0;">]</span>
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org8d49219" class="outline-4">
+<h4 id="org8d49219"><span class="section-number-4">3.5.1</span> List View</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<div class="org-src-container">
+<pre class="src src-elm" id="org654b265"><span style="color: #0000ff;">listView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">listView</span> model <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div [](<span style="color: #228b22;">List</span><span style="color: #483d8b;">.</span>indexedMap (<span style="color: #483d8b;">\</span>i v <span style="color: #483d8b;">-&gt;</span> itemView i v) model)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org741335b" class="outline-4">
+<h4 id="org741335b"><span class="section-number-4">3.5.2</span> Order Button</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<div class="org-src-container">
+<pre class="src src-elm" id="orgba58e91"><span style="color: #0000ff;">orderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">orderButton</span> model <span style="color: #483d8b;">=</span> 
+    <span style="color: #a020f0;">let</span>
+        attrlst <span style="color: #483d8b;">=</span> <span style="color: #a020f0;">case</span> model<span style="color: #483d8b;">.</span>selections <span style="color: #a020f0;">of</span>
+                      <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">Order</span> i j) ]
+    <span style="color: #a020f0;">in</span>
+        <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
+            <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>button 
+                attrlst
+                [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #8b2252;">"ORDER"</span>]
+            <span style="color: #a020f0;">]</span> 
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga8483bc" class="outline-2">
+<h2 id="orga8483bc"><span class="section-number-2">4</span> Complete Code for an Experiment</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-elm"><span style="color: #a020f0;">module</span> <span style="color: #228b22;">Demo</span><span style="color: #483d8b;">.</span><span style="color: #228b22;">Order</span> <span style="color: #a020f0;">exposing</span> (<span style="color: #483d8b;">..</span>)
+
+<span style="color: #a020f0;">import</span> <span style="color: #228b22;">List</span><span style="color: #483d8b;">.</span><span style="color: #228b22;">Extra</span> <span style="color: #a020f0;">as</span> <span style="color: #228b22;">LE</span>
+<span style="color: #a020f0;">import</span> <span style="color: #228b22;">Html</span> <span style="color: #a020f0;">exposing</span> (<span style="color: #228b22;">Html</span>)
+<span style="color: #a020f0;">import</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span><span style="color: #228b22;">Events</span> <span style="color: #a020f0;">exposing</span> (onClick)
+
+
+<span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+
+<span style="color: #a020f0;">type</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">Order</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+<span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">OrderMsg</span> <span style="color: #228b22;">OrderMachineMsg</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Select</span> <span style="color: #228b22;">Int</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Deselect</span> <span style="color: #228b22;">Int</span>
+
+<span style="color: #0000ff;">orderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">OrderMachineModel</span>
+<span style="color: #0000ff;">orderUpdate</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
+        <span style="color: #228b22;">Order</span> i j <span style="color: #483d8b;">-&gt;</span> order i j model
+<span style="color: #0000ff;">adjorderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span>
+<span style="color: #0000ff;">orderUpdate</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
+        <span style="color: #228b22;">AdjOrder</span> i <span style="color: #483d8b;">-&gt;</span> adjorder i model
+
+<span style="color: #0000ff;">order</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">order</span> i j lst <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">if</span> (outOfOrder i j lst) <span style="color: #a020f0;">then</span>
+        swap i j lst
+    <span style="color: #a020f0;">else</span>
+        lst
+
+<span style="color: #0000ff;">swap</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">swap</span> array selections <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>swapAt i j array
+
+<span style="color: #0000ff;">outOfOrder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<span style="color: #0000ff;">outOfOrder</span> i j lst <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">let</span> ai <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt i lst
+        aj <span style="color: #483d8b;">=</span> <span style="color: #228b22;">LE</span><span style="color: #483d8b;">.</span>getAt j lst
+    <span style="color: #a020f0;">in</span>
+        <span style="color: #a020f0;">case</span> (ai<span style="color: #483d8b;">,</span> aj) <span style="color: #a020f0;">of</span>
+            (<span style="color: #228b22;">Just</span> x<span style="color: #483d8b;">,</span> <span style="color: #228b22;">Just</span> y) <span style="color: #483d8b;">-&gt;</span>
+                ((i <span style="color: #483d8b;">&gt;</span> j) <span style="color: #483d8b;">&amp;&amp;</span> (x <span style="color: #483d8b;">&lt;</span> y)) <span style="color: #483d8b;">||</span> ((i <span style="color: #483d8b;">&lt;</span> j) <span style="color: #483d8b;">&amp;&amp;</span> (x <span style="color: #483d8b;">&gt;</span> y))
+            _ <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">False</span>
+
+<span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">=</span>
+<span style="color: #a020f0;">{</span> lst<span style="color: #483d8b;">:</span> <span style="color: #228b22;">OrderMachineModel</span>
+<span style="color: #a020f0;">,</span> selections<span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #a020f0;">}</span>
+
+
+<span style="color: #a020f0;">type</span> <span style="color: #228b22;">Selections</span>
+    <span style="color: #483d8b;">=</span> <span style="color: #228b22;">NoneSelected</span>
+    <span style="color: #483d8b;">|</span> <span style="color: #228b22;">OneSelected</span> <span style="color: #228b22;">Int</span>
+    <span style="color: #483d8b;">|</span> <span style="color: #228b22;">BothSelected</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+
+<span style="color: #0000ff;">select</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">select</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">OneSelected</span> i
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">BothSelected</span> j i
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">BothSelected</span> j k
+
+<span style="color: #0000ff;">deselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">deselect</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">NoneSelected</span>
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> j) <span style="color: #a020f0;">then</span> 
+                <span style="color: #228b22;">NoneSelected</span>
+            <span style="color: #a020f0;">else</span>
+                <span style="color: #228b22;">OneSelected</span> j
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> j) <span style="color: #a020f0;">then</span>
+                <span style="color: #228b22;">OneSelected</span> k
+            <span style="color: #a020f0;">else</span>
+                <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> k) <span style="color: #a020f0;">then</span>
+                    <span style="color: #228b22;">OneSelected</span> j
+                <span style="color: #a020f0;">else</span> (<span style="color: #228b22;">BothSelected</span> j k)
+
+<span style="color: #0000ff;">isSelected</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<span style="color: #0000ff;">isSelected</span> index selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">False</span>
+        <span style="color: #228b22;">OneSelected</span> j <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> j <span style="color: #483d8b;">==</span> index <span style="color: #a020f0;">then</span> <span style="color: #228b22;">True</span> <span style="color: #a020f0;">else</span> <span style="color: #228b22;">False</span>
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #a020f0;">if</span> (j <span style="color: #483d8b;">==</span> index <span style="color: #483d8b;">||</span> k <span style="color: #483d8b;">==</span> index) <span style="color: #a020f0;">then</span> <span style="color: #228b22;">True</span> <span style="color: #a020f0;">else</span> <span style="color: #228b22;">False</span>
+
+<span style="color: #0000ff;">selectionsList</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">selectionsList</span> selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+       <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
+       <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> [i]
+       <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [i<span style="color: #483d8b;">,</span> j]
+
+<span style="color: #a020f0;">type</span> <span style="color: #228b22;">OrderMachineMsg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">Order</span> <span style="color: #228b22;">Int</span> <span style="color: #228b22;">Int</span>
+<span style="color: #a020f0;">type</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">OrderMsg</span> <span style="color: #228b22;">OrderMachineMsg</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Select</span> <span style="color: #228b22;">Int</span>
+         <span style="color: #483d8b;">|</span> <span style="color: #228b22;">Deselect</span> <span style="color: #228b22;">Int</span>
+
+<span style="color: #0000ff;">update</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Msg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Model</span>
+<span style="color: #0000ff;">update</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">OrderMsg</span> m <span style="color: #483d8b;">-&gt;</span> orderUpdate m model<span style="color: #483d8b;">.</span>lst   
+        <span style="color: #228b22;">Select</span> i <span style="color: #483d8b;">-&gt;</span> select i model<span style="color: #483d8b;">.</span>selections
+        <span style="color: #228b22;">Deselect</span> i <span style="color: #483d8b;">-&gt;</span> deselect i model<span style="color: #483d8b;">.</span>selections            
+
+<span style="color: #0000ff;">view</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">view</span> model <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div
+        []
+        <span style="color: #a020f0;">[</span> listView model
+        <span style="color: #a020f0;">,</span> orderButton model
+        <span style="color: #a020f0;">]</span>
+
+<span style="color: #0000ff;">listView</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">listView</span> model <span style="color: #483d8b;">=</span>
+    <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div [](<span style="color: #228b22;">List</span><span style="color: #483d8b;">.</span>indexedMap (<span style="color: #483d8b;">\</span>i v <span style="color: #483d8b;">-&gt;</span> itemView i v) model)
+
+<span style="color: #0000ff;">orderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">orderButton</span> model <span style="color: #483d8b;">=</span> 
+    <span style="color: #a020f0;">let</span>
+        attrlst <span style="color: #483d8b;">=</span> <span style="color: #a020f0;">case</span> model<span style="color: #483d8b;">.</span>selections <span style="color: #a020f0;">of</span>
+                      <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">Order</span> i j) ]
+    <span style="color: #a020f0;">in</span>
+        <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
+            <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>button 
+                attrlst
+                [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #8b2252;">"ORDER"</span>]
+            <span style="color: #a020f0;">]</span> 
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3d4a464" class="outline-2">
+<h2 id="org3d4a464"><span class="section-number-2">5</span> Incrementation Changes for Successive Refinement</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+To develop a new experiment based on successive refinement of an
+already implemented system, we need to make small changes to the
+existing system and we can leverage the existing system to build the
+new one.
+</p>
+
+<p>
+To demonstrate this, we take an example of building the <code>Adjacent
+Order Machine</code> that is similar the order machine but adds one more
+constraint to system.
+</p>
+</div>
+
+<div id="outline-container-org6e651b9" class="outline-3">
+<h3 id="org6e651b9"><span class="section-number-3">5.1</span> From Order Machine to Adjacent Order Machine</h3>
+<div class="outline-text-3" id="text-5-1">
+</div>
+<div id="outline-container-orgf0ed7f3" class="outline-4">
+<h4 id="orgf0ed7f3"><span class="section-number-4">5.1.1</span> State</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<p>
+The state space of the basic transition system for Adjacent Order
+machine remains the same as that of Order Machine.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elm" id="org48d4c08"><span style="color: #a020f0;">type</span> <span style="color: #a020f0;">alias</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">=</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org555904d" class="outline-4">
+<h4 id="org555904d"><span class="section-number-4">5.1.2</span> Inputs</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Input</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">AdjOrder i</td>
+<td class="org-left">Perform Adjacent Order operation at index i on the list.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org462f8bb" class="outline-4">
+<h4 id="org462f8bb"><span class="section-number-4">5.1.3</span> Transition Function</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<div class="org-src-container">
+<pre class="src src-elm" id="orgff1a86c"><span style="color: #0000ff;">adjorderUpdate</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">AdjOrderMachineMsg</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">AdjOrderMachineModel</span>
+<span style="color: #0000ff;">orderUpdate</span> msg model <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> msg <span style="color: #a020f0;">of</span>    
+        <span style="color: #228b22;">AdjOrder</span> i <span style="color: #483d8b;">-&gt;</span> adjorder i model
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org341716b" class="outline-4">
+<h4 id="org341716b"><span class="section-number-4">5.1.4</span> Adjacent Order</h4>
+<div class="outline-text-4" id="text-5-1-4">
+<div class="org-src-container">
+<pre class="src src-elm" id="org5a0dfed"><span style="color: #0000ff;">adjorder</span><span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">List</span> <span style="color: #228b22;">Int</span>
+<span style="color: #0000ff;">adjorder</span> i lst <span style="color: #483d8b;">=</span> order i (i <span style="color: #483d8b;">+</span> 1)
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org252aebd" class="outline-4">
+<h4 id="org252aebd"><span class="section-number-4">5.1.5</span> Select Adjacent Items</h4>
+<div class="outline-text-4" id="text-5-1-5">
+<div class="org-src-container">
+<pre class="src src-elm" id="orge829be2"><span style="color: #0000ff;">adjselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">adjselect</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span>
+            <span style="color: #228b22;">OneSelected</span> i (i <span style="color: #483d8b;">+</span> 1)
+        _ <span style="color: #483d8b;">-&gt;</span> selections
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org339d4d5" class="outline-4">
+<h4 id="org339d4d5"><span class="section-number-4">5.1.6</span> Deselect Adjacent Selection</h4>
+<div class="outline-text-4" id="text-5-1-6">
+<div class="org-src-container">
+<pre class="src src-elm" id="orgb8526b4"><span style="color: #0000ff;">deselect</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Int</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Selections</span>
+<span style="color: #0000ff;">deselect</span> i selections <span style="color: #483d8b;">=</span>
+    <span style="color: #a020f0;">case</span> selections <span style="color: #a020f0;">of</span>
+        <span style="color: #228b22;">BothSelected</span> j k <span style="color: #483d8b;">-&gt;</span>
+
+            <span style="color: #a020f0;">if</span> (i <span style="color: #483d8b;">==</span> j) <span style="color: #483d8b;">||</span> (i <span style="color: #483d8b;">==</span> k) <span style="color: #a020f0;">then</span>
+                <span style="color: #228b22;">NoneSelected</span>
+            <span style="color: #a020f0;">else</span>
+                selections
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org150b60e" class="outline-4">
+<h4 id="org150b60e"><span class="section-number-4">5.1.7</span> View</h4>
+<div class="outline-text-4" id="text-5-1-7">
+</div>
+<ol class="org-ol">
+<li><a id="org8c148a7"></a>Adjacent Order Button<br />
+<div class="outline-text-5" id="text-5-1-7-1">
+<div class="org-src-container">
+<pre class="src src-elm" id="org1cc9a4e"><span style="color: #0000ff;">adjorderButton</span> <span style="color: #483d8b;">:</span> <span style="color: #228b22;">Model</span> <span style="color: #483d8b;">-&gt;</span> <span style="color: #228b22;">Html</span> <span style="color: #228b22;">Msg</span>
+<span style="color: #0000ff;">adjorderButton</span> model <span style="color: #483d8b;">=</span> 
+    <span style="color: #a020f0;">let</span>
+        attrlst <span style="color: #483d8b;">=</span> <span style="color: #a020f0;">case</span> model<span style="color: #483d8b;">.</span>selections <span style="color: #a020f0;">of</span>
+                      <span style="color: #228b22;">NoneSelected</span> <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">OneSelected</span> i <span style="color: #483d8b;">-&gt;</span> []
+                      <span style="color: #228b22;">BothSelected</span> i j <span style="color: #483d8b;">-&gt;</span> [ onClick (<span style="color: #228b22;">AdjOrder</span> i) ]
+    <span style="color: #a020f0;">in</span>
+        <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>div []
+            <span style="color: #a020f0;">[</span> <span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>button 
+                attrlst
+                [<span style="color: #228b22;">Html</span><span style="color: #483d8b;">.</span>text <span style="color: #8b2252;">"ORDER"</span>]
+            <span style="color: #a020f0;">]</span> 
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: ojas</p>
+<p class="date">Created: 2020-12-09 Wed 16:56</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
