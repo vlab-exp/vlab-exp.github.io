@@ -1,24 +1,67 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Merge Sort</title>
-  <script type="text/javascript" src="dagre-elm.js"></script>
-  <style>
-    body {
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="main.css" rel="stylesheet"/>    
+    <title> Mergesort </title>
+  </head>
 
-<body>
-    <div id="myapp"></div>
-</body>
+  <body class="flex h-screen flex-col">
+    <div class="bg-gray-800 py-4 px-2 text-3xl text-gray-100 font-bold">
+      Mergesort
+    </div>
+    <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900 text-xl">
 
-<script type="text/javascript" src="dagre.js"></script>
+      <p class="py-3">
+	This page lists the transition systems that lead to the
+	mergesort algorithm through successive refinement of systems
+	based on merging and splitting of lists.
+      </p>
+
+      <ol class="list-decimal 
+		 list-inside text-2xl 
+		 text-blue-600 bg-gray-100
+		 p-10 rounded-lg shadow-md">
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/merge/mergesystem">
+	    Shuffle
+	  </a>
+	</li>
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/merge/msStrategy">
+	    Merge Strategy
+	  </a>
+	</li>
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/merge/msAlgo">
+	    Merge Algorithm
+	  </a>
+	</li>
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/merge">
+	    Merging Sublists
+	  </a>
+	</li>
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/recursive">
+	    Mergesort Recursive
+	  </a>
+	</li>
+	<li>
+	  <a target="_blank"
+	     href="http://algodynamics.io/mergesort/msarbitrary">
+	    Mergesort Arbitrary Merge
+	  </a>
+	</li>
+      </ol>
+      
+    </div>
+  </body>
+
 </html>
