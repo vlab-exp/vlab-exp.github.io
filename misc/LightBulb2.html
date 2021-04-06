@@ -5710,6 +5710,7 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 			_VirtualDom_noJavaScriptOrHtmlUri(value));
 	});
 var $elm_community$typed_svg$TypedSvg$Core$attribute = $elm$virtual_dom$VirtualDom$attribute;
+var $elm_community$typed_svg$TypedSvg$Attributes$d = $elm_community$typed_svg$TypedSvg$Core$attribute('d');
 var $elm$core$String$concat = function (strings) {
 	return A2($elm$core$String$join, '', strings);
 };
@@ -5814,28 +5815,16 @@ var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
 		'height',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
-var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
 var $elm$virtual_dom$VirtualDom$nodeNS = function (tag) {
 	return _VirtualDom_nodeNS(
 		_VirtualDom_noScript(tag));
 };
 var $elm_community$typed_svg$TypedSvg$Core$node = $elm$virtual_dom$VirtualDom$nodeNS('http://www.w3.org/2000/svg');
-var $elm_community$typed_svg$TypedSvg$rect = $elm_community$typed_svg$TypedSvg$Core$node('rect');
-var $elm_community$typed_svg$TypedSvg$Attributes$rx = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'rx',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
+var $elm_community$typed_svg$TypedSvg$path = $elm_community$typed_svg$TypedSvg$Core$node('path');
+var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
+	return {$: 'Px', a: a};
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$ry = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'ry',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
+var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
 var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
@@ -5861,18 +5850,6 @@ var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {
 		'width',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$x = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'x',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$y = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'y',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
 var $author$project$LightBulb2$view = function (model) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$svg,
@@ -5887,41 +5864,19 @@ var $author$project$LightBulb2$view = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$elm_community$typed_svg$TypedSvg$rect,
+				$elm_community$typed_svg$TypedSvg$path,
 				_List_fromArray(
 					[
-						$elm_community$typed_svg$TypedSvg$Attributes$x(
-						$elm_community$typed_svg$TypedSvg$Types$px(10)),
-						$elm_community$typed_svg$TypedSvg$Attributes$y(
-						$elm_community$typed_svg$TypedSvg$Types$px(10)),
-						$elm_community$typed_svg$TypedSvg$Attributes$width(
-						$elm_community$typed_svg$TypedSvg$Types$px(100)),
-						$elm_community$typed_svg$TypedSvg$Attributes$height(
-						$elm_community$typed_svg$TypedSvg$Types$px(100)),
-						$elm_community$typed_svg$TypedSvg$Attributes$rx(
-						$elm_community$typed_svg$TypedSvg$Types$px(15)),
-						$elm_community$typed_svg$TypedSvg$Attributes$ry(
-						$elm_community$typed_svg$TypedSvg$Types$px(15)),
+						$elm_community$typed_svg$TypedSvg$Attributes$d('M100,100 a1,1 0 0,1 0,100'),
 						$elm_community$typed_svg$TypedSvg$Attributes$fill(
 						$elm_community$typed_svg$TypedSvg$Types$Paint(model.colors.a))
 					]),
 				_List_Nil),
 				A2(
-				$elm_community$typed_svg$TypedSvg$rect,
+				$elm_community$typed_svg$TypedSvg$path,
 				_List_fromArray(
 					[
-						$elm_community$typed_svg$TypedSvg$Attributes$x(
-						$elm_community$typed_svg$TypedSvg$Types$px(150)),
-						$elm_community$typed_svg$TypedSvg$Attributes$y(
-						$elm_community$typed_svg$TypedSvg$Types$px(10)),
-						$elm_community$typed_svg$TypedSvg$Attributes$width(
-						$elm_community$typed_svg$TypedSvg$Types$px(100)),
-						$elm_community$typed_svg$TypedSvg$Attributes$height(
-						$elm_community$typed_svg$TypedSvg$Types$px(100)),
-						$elm_community$typed_svg$TypedSvg$Attributes$rx(
-						$elm_community$typed_svg$TypedSvg$Types$px(15)),
-						$elm_community$typed_svg$TypedSvg$Attributes$ry(
-						$elm_community$typed_svg$TypedSvg$Types$px(15)),
+						$elm_community$typed_svg$TypedSvg$Attributes$d('M100,100 a1,1 0 0,0 0,100'),
 						$elm_community$typed_svg$TypedSvg$Attributes$fill(
 						$elm_community$typed_svg$TypedSvg$Types$Paint(model.colors.b))
 					]),
