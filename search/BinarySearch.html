@@ -6173,11 +6173,11 @@ var $author$project$Nav$hostedpages = function () {
 	var host = remotehost;
 	return _List_fromArray(
 		[
-			_Utils_Tuple3('Home', host + '/search/index.html', false),
-			_Utils_Tuple3('Random Search With Replacement', host + '/search/RandomWithReplacement.html', false),
-			_Utils_Tuple3('Random Search Without Replacement', host + '/search/RandomWithoutReplacement.html', false),
-			_Utils_Tuple3('Linear Search', host + '/search/LinearSearch.html', false),
-			_Utils_Tuple3('Binary Search', host + '/search/BinarySearch.html', false)
+			_Utils_Tuple3('Home', './index.html', false),
+			_Utils_Tuple3('Random Search With Replacement', './RandomWithReplacement.html', false),
+			_Utils_Tuple3('Random Search Without Replacement', './RandomWithoutReplacement.html', false),
+			_Utils_Tuple3('Linear Search', './LinearSearch.html', false),
+			_Utils_Tuple3('Binary Search', './BinarySearch.html', false)
 		]);
 }();
 var $author$project$Nav$pages = $author$project$Nav$hostedpages;
@@ -6269,7 +6269,7 @@ var $author$project$BinarySearch$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             Demonstrate the process of searching for an item in a \n                             sorted/ordered list using the binary search \n                             strategy.')
+					$elm$html$Html$text('\n                             Search for the target element in the sorted/ordered list, \n                             which might be present. To search, use binary search strategy.\n                             ')
 				])),
 			A2(
 			$elm$html$Html$h3,
@@ -6283,14 +6283,14 @@ var $author$project$BinarySearch$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             The Binary Search experiment consists of a list of numbers \n                             which are hidden. The selectable items are in "GREY".  \n                             You can select atmost log(N) items from the list in succession.\n                             At the end of the process, you will be able to verify the process \n                             using the "Show All" control.\n                             ')
+					$elm$html$Html$text('\n                             The Binary Search experiment consists of a list of numbers \n                             which are hidden. The selectable items are in "GREY".  \n                             You can select atmost log(N) items from the list in succession.\n                             At the end of the process, you will be able to verify the process \n                             using the "Show All" control button.\n                             ')
 				])),
 			A2(
 			$elm$html$Html$p,
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             On clicking one item, the selectable array will be changed, \n                             based on the index chosen, number will be shown. \n                             Non selectable items will become "RED"                           \n                             and the background will indicate whether the number is the \n                             search target\n                             ')
+					$elm$html$Html$text('\n                             On clicking one item, the selectable array will be changed  \n                             according to the chosen index, associated number will be shown. \n                             Non selectable items will become "RED"                           \n                             and the background will indicate whether the number is the \n                             search target.\n                             ')
 				])),
 			A2(
 			$elm$html$Html$h3,

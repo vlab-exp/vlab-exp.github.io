@@ -5889,11 +5889,11 @@ var $author$project$Nav$hostedpages = function () {
 	var host = remotehost;
 	return _List_fromArray(
 		[
-			_Utils_Tuple3('Home', host + '/search/index.html', false),
-			_Utils_Tuple3('Random Search With Replacement', host + '/search/RandomWithReplacement.html', false),
-			_Utils_Tuple3('Random Search Without Replacement', host + '/search/RandomWithoutReplacement.html', false),
-			_Utils_Tuple3('Linear Search', host + '/search/LinearSearch.html', false),
-			_Utils_Tuple3('Binary Search', host + '/search/BinarySearch.html', false)
+			_Utils_Tuple3('Home', './index.html', false),
+			_Utils_Tuple3('Random Search With Replacement', './RandomWithReplacement.html', false),
+			_Utils_Tuple3('Random Search Without Replacement', './RandomWithoutReplacement.html', false),
+			_Utils_Tuple3('Linear Search', './LinearSearch.html', false),
+			_Utils_Tuple3('Binary Search', './BinarySearch.html', false)
 		]);
 }();
 var $author$project$Nav$pages = $author$project$Nav$hostedpages;
@@ -5985,7 +5985,7 @@ var $author$project$LinearSearch$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             Search for the target element in a list by linearly scanning items\n                             from the list until the search item is found.\n                             ')
+					$elm$html$Html$text('\n                             Search for the target element in the list, which might be \n                             present. To search, linearly scan items from the list.\n                             ')
 				])),
 			A2(
 			$elm$html$Html$h3,
@@ -6006,7 +6006,7 @@ var $author$project$LinearSearch$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             On clicking increment one item, the index will be incremented, \n                             number will be shown, \n                             and the background will indicate whether the number is the \n                             search target\n                             ')
+					$elm$html$Html$text('\n                             On clicking increment once, the index will be incremented, \n                             associated number will be shown, \n                             and the background will indicate whether the number is the \n                             search target\n                             ')
 				])),
 			A2(
 			$elm$html$Html$h3,
