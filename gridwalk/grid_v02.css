@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFF59D;
+}
+
+.header {
+    padding: 0.5rem;
+    color: #5D4037;
+}
+
+.draw_area {
+    width: max-content;
+    background: #ffffff;
+    box-shadow: 1px 1px 1px 1px #999999
+}
+
+.clickable:hover {
+    cursor: pointer;
+    filter: brightness(20%);
+}
+.clickable:active {
+//    cursor: pointer;
+    filter: brightness(70%);
+    transform: translate(0.05%, 0.05%);
+}
+
+.clickable {
+    fill: #121;
+}
+
+#view {
+    font-size: 0.15rem;
+    font-family: monospace;
+}
+
+#manhattan_dist {
+    font-size: 0.2rem;
+}
