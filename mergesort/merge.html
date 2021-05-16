@@ -4,10 +4,69 @@
     <meta charset="UTF-8"/>
     <link href="./css/main.css" rel="stylesheet"/>
     <script src="./js/mergeSublists.js"></script>
-    <title> Merging Sublists </title>
+    <title> Merge Sublists </title>
   </head>
-  <body style="height: 100vh;" class="flex">
-    <div id="merge-sublists"></div>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Merge Sublists
+    </div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment it to demonstrate to the user that is
+      possible to sort a list by repeatedly merging adjacent sorted
+      subarray.
+	  </p>
+	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+	    You are provided with one array , the each element in the array has indices
+      marked on either side of it. The number on the left side of element indicates its 
+      index.
+	  </p>
+
+    <p class="py-1">
+      Clicking on the index boundary selects that index, clicking a selected boundary will 
+      deselect it.
+    </p>
+
+	  <p class="py-1">
+	    You can select three of these indices. If you choose three indices "i","j"and "k", 
+      such that "i" &lt; "j" &lt; "k" , then the two sublists will be "i" to "j", 
+      and "j" to "k", both excluding the the element at the last index, that is first list does 
+      not have jth element and second sublist will not have kth element. 
+	  </p>
+
+	  <p class="py-1">
+	    The selected sublist will be highlighted. The "Merge" button will merge the 
+      selected sublists. Merging unsorted sublist will not give sorted result.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <ol class="list-decimal list-inside">
+	    <li class="py-1">
+	      Pick the first index by clicking on the index boundaries. Similarly pick second 
+        index, make sure all elements between first and second index are sorted. Third index 
+        should be picked in the same fashion. 
+	    </li>
+	    <li class="py-1">
+	      Click "Merge" and observe the sublists. See if the whole array becomes sorted or not.
+        If array is not sorted repeat the above steps. 
+	    </li>
+	    
+	  </ol>
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow flex w-2/3">
+	<div id="merge-sublists"></div>
+      </div>
+    </div>      
+</div>
     <script>
       var app = Elm.MergeSublists.init({
 	  node: document.getElementById('merge-sublists'),

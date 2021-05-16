@@ -6394,7 +6394,8 @@ var $author$project$MergeSublists$itemview = F4(
 					$elm$html$Html$div,
 					_List_fromArray(
 						[
-							A2($elm$html$Html$Attributes$style, 'margin', '1em'),
+							A2($elm$html$Html$Attributes$style, 'margin', '0.25em'),
+							A2($elm$html$Html$Attributes$style, 'margin-bottom', '1.5em'),
 							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
 							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
 							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
@@ -6409,7 +6410,7 @@ var $author$project$MergeSublists$itemview = F4(
 							$elm$html$Html$span,
 							_List_fromArray(
 								[
-									A2($elm$html$Html$Attributes$style, 'padding', '0.5em'),
+									A2($elm$html$Html$Attributes$style, 'padding', '0.4em'),
 									$elm$html$Html$Attributes$class('text-2xl')
 								]),
 							_List_fromArray(
@@ -6438,7 +6439,8 @@ var $author$project$MergeSublists$itemview = F4(
 					$elm$html$Html$div,
 					_List_fromArray(
 						[
-							A2($elm$html$Html$Attributes$style, 'margin', '1em'),
+							A2($elm$html$Html$Attributes$style, 'margin', '0.25em'),
+							A2($elm$html$Html$Attributes$style, 'margin-bottom', '1.5em'),
 							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
 							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
 							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
@@ -6453,7 +6455,7 @@ var $author$project$MergeSublists$itemview = F4(
 							$elm$html$Html$span,
 							_List_fromArray(
 								[
-									A2($elm$html$Html$Attributes$style, 'padding', '0.5em'),
+									A2($elm$html$Html$Attributes$style, 'padding', '0.4em'),
 									$elm$html$Html$Attributes$class('text-2xl')
 								]),
 							_List_fromArray(
@@ -6483,7 +6485,8 @@ var $author$project$MergeSublists$view = function (model) {
 						$elm$html$Html$Attributes$class('bg-indigo-200'),
 						$elm$html$Html$Attributes$class('text-xl'),
 						$elm$html$Html$Attributes$class('px-2'),
-						$elm$html$Html$Attributes$class('py-4')
+						$elm$html$Html$Attributes$class('py-4'),
+						$elm$html$Html$Attributes$class('invisible')
 					]),
 				_List_fromArray(
 					[
