@@ -56,6 +56,14 @@
 		<td class="p-2"> Selected Node </td>
 	      </tr>
 	      
+		  <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #A5D6A7;"
+			class="h-0.5 w-0.5 p-2 border-2 border-black"> </span>
+		</td>
+		<td class="p-2"> Active Node </td>
+		  </tr>
+
 	      <tr class="">
 		<td class="flex items-stretch justify-center p-2">
 		  <span style="background: #E0E0E0;"
@@ -82,9 +90,55 @@
 	    </tbody>
 	  </table>
 	</div>
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
+
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
+	  
+	  <p class="mb-2">
+	    This traversal process traverses deeper into the graph, 
+		by exploring unvisited edges leaving out from the most recently 
+		visited vertex. When there is no deeper level to go in the graph, 
+		the algorithm moves back (backtrack) to the vertex from which current
+		vertex was discovered,.
+	  </p>
+
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
+	  
+	  <p class="mb-2">
+	    In this system, you are provided with a connected graph.
+ 	    You can click any node to select it.  By selecting the first node you select the root node for 
+		DFS and start building the spanning tree.
+	  </p>
+	  
+	  <h2 class="py-1 text-lg text-gray-800 underline">
+	    Expanding the Spanning Tree
+	  </h2>
+
+	  <p class="mb-2">
+	    After selecting the first node, you will see spanning tree beside the graph.  At this point the tree has just the one selected node, which is also the active node.  Now, you will observe that the edges connected to the active node are marked as "candidates" (See the color codes table).
+	  </p>
+	  
+	  <p class="mb-2">
+	    You can now click on "Next" button and the algorithm will select any of the candidate edges randomly, to add that edge to the spanning tree.	    
+	  </p>
+
+	  <p class="mb-2">
+		The simulator will loop through the steps of DFS, printing instructions at every step.  
+	  </p>
+
+	  <p class="mb-2">
+		
+	  </p>
+
+	  <p class="mb-2">
+	    Once all the nodes are added to the tree and stack is empty, the DFS is finished and spanning tree is complete and you will not be able to click on "Next" any more.
+	  </p>
+
+	</div>
 	  
       </div>
-      <div class="flex-grow w-2/3 flex flex-col overflow-scroll">
+      <div class="flex-grow w-2/3 flex flex-col overflow-y-scroll">
 	
 	<div class="flex bg-gray-100 justify-center p-4 m-1 
 		    rounded shadow" id="prompt">
@@ -111,7 +165,29 @@
 	  </div>
 	    
 	</div>
-	<div class="flex-grow flex justify-center text-2xl" id="traversal">
+    <div class="flex-grow flex text-2xl flex-row">
+        <div class="flex-grow w-1/4 flex items-center justify-center">
+            <button class="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-md disabled:opacity-50 " id="next">
+                Next
+            </button>
+        </div>
+		<div class="flex-grow w-3/4 flex flex-col" >
+			<div class="flex-grow flex flex-row">
+				<div>
+					<span class="px-2 mx-2">Stack : </span>
+				</div>
+				<div class="" id="stack">
+				</div>
+			</div>
+			<div class="flex-grow flex flex-row">
+				<div >
+					<span class="px-2 mx-2 ">Visited : </span>
+				</div>
+				<div id="traversal">
+				</div>
+		
+			</div>
+		</div>
 	</div>
       </div>      
     </div>

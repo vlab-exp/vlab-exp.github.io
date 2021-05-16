@@ -1,28 +1,13 @@
-<!--
-merge: 
-
-ms:
-1. adjacent sorted merging.
-2. 
-
-split-and-merge:
-
-algorithmic version:
-stack of commands
-
-
--->
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> Spanning Tree via Traversal</title>
+    <title> Spanning Tree via BFS </title>
     <link href="../css/main.css" rel="stylesheet"/>    
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      Spanning Tree via Traversal 
+      Spanning Tree via BFS
     </div>
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
@@ -32,8 +17,7 @@ stack of commands
 	  
 	  <p>
 	    Given a connected graph, the objective of this system is to
-	    build a (any) spanning tree of the graph, unlike construction experiment
-		forests are not allowed.
+	    build a spanning tree of the graph via BFS traversal of the graph.
 	  </p>
 	  
 	</div>
@@ -63,6 +47,13 @@ stack of commands
 		<td class="p-2"> Unselected Node </td>
 	      </tr>
 	      
+		  <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #FFC0CB;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Discovered Node </td>
+		  </tr>
 	      
 	      <tr class="">
 		<td class="flex items-stretch justify-center p-2">
@@ -100,22 +91,22 @@ stack of commands
 	</div>
 	<div class="my-2 text-gray-700">
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
-	  
-	  <h2 class="py-1 text-lg text-gray-800 underline"> 
-		  Traversal  
-	  </h2>
+
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Breadth First Traversal </h2>
 	  
 	  <p class="mb-2">
-	     Starting from a vertex s, visiting each vertex of a graph
-		 , and not exploring anything twice. This process is called a graph traversal.
-		 A graph traversal outputs a spanning tree of the associated graph.
-	  </p>
+	    This traversal process traverses graph level by level, 
+		by exploring all unvisited edges leaving out from the most recently 
+		visited vertex. It discovers the nodes at the next level, and keeps track of them using Queue.
+		Visiting the newly dicovered will only occur after all the nodes at current level are explored.
+	  </p>	
 
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
 	  <p class="mb-2">
 	    In this system, you are provided with a connected graph.
- 	    You can click any node to select it.  By selecting the first node you start building the spanning tree.
+ 	    You can click any node to select it.  By selecting the first node you select the root node for 
+		BFS and start building the spanning tree.
 	  </p>
 	  
 	  <h2 class="py-1 text-lg text-gray-800 underline">
@@ -123,21 +114,29 @@ stack of commands
 	  </h2>
 
 	  <p class="mb-2">
-	    After selecting the first node, you will see spanning tree beside the graph.  At this point the tree has just the one selected node.  Now, you will observe that the edges connected to the selected node(s) are marked as "candidates" (See the color codes table).
+	    After selecting the first node, you will see spanning tree beside the graph.  At this point the tree has just the one selected node.  Now, you will observe that the edges connected to the active node are marked as "candidates" (See the color codes table).
 	  </p>
-	  
+	 
 	  <p class="mb-2">
-	    You can select any of the candidate edges to add that edge to the spanning tree.	    
+		All the unexplored nodes reachable from current level are marked as "discovered"(See Color Code), and are pushed into the Queue.
 	  </p>
 
 	  <p class="mb-2">
-	    Once all the nodes are added to the tree, the spanning tree is complete and you will not see any candidate edges any more.
+	    You can select any of the candidate edges to visit that node, and add that edge to the spanning tree. The newly visited node will be removed from the Queue. 	    
+	  </p>
+
+	  <p class="mb-2">
+		You need to visit all the unexplored nodes at a level to start visiting the discovered nodes at the next level.
+	  </p>
+
+	  <p class="mb-2">
+	    Once all the nodes are added to the tree and the Queue is empty, the BFS is finished and spanning tree is complete and you will not see any candidate edges any more.
 	  </p>
 
 	</div>
 	  
       </div>
-      <div class="flex-grow w-2/3 flex flex-col overflow-scroll">
+      <div class="flex-grow w-2/3 flex flex-col overflow-y-scroll">
 	
 	<div class="flex bg-gray-100 justify-center p-4 m-1 
 		    rounded shadow" id="prompt">
@@ -164,10 +163,27 @@ stack of commands
 	  </div>
 	    
 	</div>
-	<div class="flex-grow flex justify-center text-2xl" id="traversal">
+    <div class="flex-grow flex text-2xl flex-row">
+        <div class="flex-grow flex flex-col" >
+			<div class="flex-grow flex px-20 flex-row">
+				<div>
+					<span class="px-2 mx-2">Queue : </span>
+				</div>
+				<div class="" id="queue">
+				</div>
+			</div>
+			<div class="flex-grow flex px-20 flex-row">
+				<div >
+					<span class="px-2 mx-2 ">Visited : </span>
+				</div>
+				<div id="traversal">
+				</div>
+		
+			</div>
+		</div>
 	</div>
       </div>      
     </div>
-    <script src="connectedSpanningTree.js"></script>
+    <script src="bfsAlgo.js"></script>
   </body>
 </html>

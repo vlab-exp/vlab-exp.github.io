@@ -17,12 +17,12 @@ stack of commands
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> Spanning Tree Construction </title>
+    <title>Minimum Spanning Tree (Prim's Algorithm)</title>
     <link href="../css/main.css" rel="stylesheet"/>    
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      Spanning Tree Construction
+		Minimum Spanning Tree (Prim's Algorithm)
     </div>
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
@@ -32,7 +32,7 @@ stack of commands
 	  
 	  <p>
 	    Given a connected graph, the objective of this system is to
-	    build a spanning tree of the graph by selecting a subset of its edges.
+	    build a (any) minimum spanning tree of the graph using Prim's Algorithm.
 	  </p>
 	  
 	</div>
@@ -81,47 +81,71 @@ stack of commands
 	      
 	      <tr class="">
 		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #FFD54F;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Candidate Edge </td>
+	      </tr>
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
 		  <span style="background: #757575;"
 			class="h-0.5 w-0.5 p-2"> </span>
 		</td>
 		<td class="p-2"> Selected Edge </td>
 	      </tr>
-
 		  <tr class="">
 		<td class="flex items-stretch justify-center p-2">
-			<span style="background: #FF4D26;"
+		  <span style="background: #A500FF;"
 			class="h-0.5 w-0.5 p-2"> </span>
 		</td>
-		<td class="p-2"> Cycle Forming Edge </td>
+		<td class="p-2"> Incorrect Candidate Edge </td>
 		  </tr>
 	    </tbody>
 	  </table>
 	</div>
 	<div class="my-2 text-gray-700">
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
+
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
 	  <p class="mb-2">
-	    In this system, you are provided with a connected graph.
-	    You can click on any edge to add the edge (and connecting nodes) to the sub-graph.
+	    In this system, you are provided with a connected graph. 
+		The labels on the edges indicates the weight of the associated edge.
+ 	    You can click any node to select it.  By selecting the first 
+		node you select the root node and start building the minimum spanning tree.
+	  </p>
+	  
+	  <h2 class="py-1 text-lg text-gray-800 underline">
+	    Growing the Minimum Spanning Tree
+	  </h2>
+
+	  <p class="mb-2">
+	    After selecting the first node, you will see the minimum spanning tree beside the graph.  At this point the tree has just the one selected node.  Now, you will observe that the edges connected to the selected node(s) are marked as "candidates" (See the color codes table).
 	  </p>
 	  
 	  <p class="mb-2">
-	    At any point while building the sub-graph, you can click on any
-	    edge to remove it from the tree.
-	  </p>	  
+	    You need to select any of the minimum weighted candidate edges to add that edge to the minimum spanning tree.	    
+	  </p>
+
+	  <p class="mb-2">
+	    Once all the nodes are added to the tree, the minimum spanning tree is complete and you will not see any candidate edges any more.
+	  </p>
+
 	</div>
 	  
       </div>
-      <div class="flex-grow w-2/3 flex flex-col">
+      <div class="flex-grow w-2/3 flex flex-col overflow-scroll">
 	
-	<div class="flex bg-gray-100 justify-center p-4 m-2 
+	<div class="flex bg-gray-100 justify-center p-4 m-1 
 		    rounded shadow" id="prompt">
 	  <p class="p-2">
 	    <!-- Messages go here. -->
+	    Select any node to add it to the tree.
 	  </p>
 	</div>
 	
-	<div class="flex flex-grow">
+	<div class="flex-grow flex h-80">
 	  
 	  <div class="flex-grow w-1/2 flex flex-col">
 	    <span class="text-center"> Graph </span>
@@ -131,16 +155,15 @@ stack of commands
 	  </div>
 	  
 	  <div class="flex-grow w-1/2 flex flex-col">
-	    <span class="text-center"> Spanning Tree </span>
+	    <span class="text-center"> Minimum Spanning Tree </span>
 	    <div id="tree" class="flex-grow border-l-2">
 	      
 	    </div>
 	  </div>
+	    
 	</div>
-
-	
       </div>      
     </div>
-    <script src="spanningTree.js"></script>
+    <script src="primsAlgo.js"></script>
   </body>
 </html>
