@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> Merge Sort </title>
+    <title> Merge Sort Recursive </title>
     <link href="./css/main.css" rel="stylesheet"/>
-    <script type="text/javascript" src="dagre-elm.js"></script>
+    <script type="text/javascript" src="./js/mergeSortRecursive.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
@@ -13,19 +13,64 @@
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
 	<div class="my-2 text-gray-700">
-	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    Sort the given list by applying split and merge operations.
+	    The objective of this experiment is to demonstrate the
+	    recursive nature of the mergesort algorithm by interacting
+	    with the recursive substructures that emerge from the
+	    split and merge operations.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <h2 class="font-semibold text-lg"> Initial </h2>
+	  <p class="py-1">
+	    Initially this experiment presents you with a directed
+	    graph having two nodes. The root node that contains the
+	    list to be sorted and a node named "MS" that represents
+	    the mergesort operation with the list in the root node as
+	    the input.
+	  </p>
+
+	  <p class="py-1">
+	    You can click on the "MS" node to expand the graph.  If
+	    the input array is of length 1, then the graph does not
+	    expand, it just adds a new outgoing edge that represents
+	    the sorted array of size 1 that was given as input to the
+	    MS node.
+	  </p>
+
+	  <h2 class="font-semibold text-lg"> Split </h2>
+	  <p class="py-1">
+	    When you encounter a "split" node, click on that node and
+	    observe that the input array splits into two in the
+	    outgoing edges of the split node.  This represents the
+	    split operation of the mergesort algorithm.
+	  </p>
+
+	  <h2 class="font-semibold text-lg"> Merge </h2>
+	  <p class="py-1">
+	    The Merge node can only be clicked on when the input nodes
+	    contain sorted arrays.  If this is true, then clicking on
+	    the merge node results in the merged list of the two input
+	    arrays.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <p>
+	    Click on different nodes (MS, Merge, Split) until you get
+	    the sorted list at the end of the graph.  Observe that the
+	    order in which you do these operations does not affect the
+	    result.
 	  </p>
 	  
 	</div>
       </div>
 
-      <div id="myapp"></div>
+      <div id="ms-recursive"></div>
 	
       </div>      
     </div>
-    <script type="text/javascript" src="dagre.js"></script>
+    <script type="text/javascript" src="./js/mergeSortRecursiveInit.js"></script>
   </body>
 </html>

@@ -2,15 +2,72 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <link href="main.css" rel="stylesheet"/>
-    <script src="mergeSystemAlgo.js"></script>
-    <title> Merge System: Strategy </title>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <script src="./js/mergeAlgo.js"></script>
+    <title> Merge System: Algorithm </title>
   </head>
-  <body style="height: 100vh;" class="flex">
-    <div id="merge"></div>
+  <body class="flex flex-col h-screen overflow-hidden">
+
+        <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Merge Algorithm
+    </div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment is to demonstrate that
+	    merging two sorted lists results in another sorted list
+	    containing all the elements from the two given lists.
+	    
+	  </p>
+	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+	    You are provided with two sorted arrays "left" and "right"
+	    and your goal is to merge these two arrays to form the
+	    "merged" array using the "NEXT" button.
+	  </p>
+
+	  <p class="py-1">
+	    The "NEXT" button replaces the "Left" and "Right" buttons
+	    seen in the Merge Strategy experiment.  The next button
+	    decides the element to be inserted in the "merged" array
+	    next.
+	  </p>
+
+	  <p class="py-1">
+	    At any point during the experiment, the arrays can be one
+	    of the two states: sorted or unsorted.  The sorted arrays
+	    will be shown in green color whereas the unsorted arrays
+	    will be shown in red color.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <ol class="list-decimal list-inside">
+	    <li class="py-1">
+	      Click on the "NEXT" button and observe which element
+	      gets added to the "merged" list.
+	    </li>
+	    <li class="py-1">
+	      Continue until both "left" and "right" arrays are empty.
+	    </li>
+	    <li class="py-1">
+	      Observe whether the "merged" array is sorted or not.
+	    </li>
+	    
+	  </ol>
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow w2/3">
+	<div id="merge-algorithm"></div>
+      </div>
     <script>
-      var app = Elm.MergeSystemAlgo.init({
-	  node: document.getElementById('merge'),
+      var app = Elm.MergeAlgo.init({
+	  node: document.getElementById('merge-algorithm'),
       });
     </script>
   </body>

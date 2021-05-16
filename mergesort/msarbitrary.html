@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Merge Sort: Arbitrary Merge</title>
     <link href="./css/main.css" rel="stylesheet"/>
-    <script type="text/javascript" src="ms-arbitrary.js"></script>
+    <script type="text/javascript" src="./js/mergeSortArbitrary.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
@@ -16,16 +16,47 @@
 	<div class="my-2 text-gray-700">
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    Sort the given array by performing split and merge operations.
-	  </p>	  
-	</div>
+	    The objective of this experiment is to demonstrate that
+	    the sequence of operations involved in performing
+	    mergesort is not unique.  It is possible to arbitrarity
+	    select the sequence of operations.
+	  </p>
 
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p>
+	    This experiment is similar to the recursive mergesort
+	    experiment.  You are presented with the same graph
+	    consisting of data and operation nodes.  The difference
+	    here is that when you click on a split node, you are not
+	    provided with the nodes that lead to the corresponding
+	    merge.  You are free to select any two sorted nodes and
+	    merge them together to form anther sorted node.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <ol class="list-decimal list-inside">
+	    <li class="py-1">
+	      Click on the split nodes to split nodes to split the
+	      list into two.
+	    </li>
+	    <li class="py-1">
+	      Select any two sorted lists to get the merge node.
+	    </li>
+	    <li class="py-1">
+	      Click on the merge node to merge the two sorted lists.
+	    </li>
+	    <li class="py-1">
+	      Observe that in the end you always get the sorted
+	      version of the original list.
+	    </li>
+	  </ol>
+	</div>
 	  
       </div>
-      <div id="myapp"></div>
+      <div id="ms-arbitrary"></div>
 	
       </div>      
     </div>
-    <script type="text/javascript" src="msArb.js"></script>
+    <script type="text/javascript" src="./js/msArbitraryInit.js"></script>
   </body>
 </html>

@@ -2,16 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <link href="main.css" rel="stylesheet"/>
-    <script src="mergeSystemStrategy.js"></script>
     <title> Merge System: Strategy </title>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <script src="./js/mergeStrategy.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>  
   </head>
-  <body style="height: 100vh;" class="flex">
-    <div id="merge"></div>
-    <script>
-      var app = Elm.MergeSystemStrategy.init({
-	  node: document.getElementById('merge'),
-      });
-    </script>
-  </body>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Merge System: Strategy
+    </div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment is to introduce the concept of
+	    “merging” two lists and to demonstrate that merging is a special case
+	    of shuffling.
+	  </p>
+	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+	    You are provided with two arrays "left" and "right" and
+	    your goal is to merge these two arrays to form the
+	    "merged" array using the "Left" and "Right" buttons
+	    provided.
+	  </p>
+
+	  <p class="py-1">
+	    The "Left" button picks the first element from the "left"
+	    array and places it at the end of the "merged" array.
+	    Similarly, the "Right" button picks the first element from
+	    the "right" array and places it at the end of the "merged"
+	    array.
+	  </p>
+
+	  <p class="py-1">
+	    At any point during the experiment, the arrays can be one
+	    of the two states: sorted or unsorted.  The sorted arrays
+	    will be shown in green color whereas the unsorted arrays
+	    will be shown in red color.
+	  </p>
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <ol class="list-decimal list-inside">
+	    <li class="py-1">
+	      Compare the first elements of the "left" and "right"
+	      arrays.
+	    </li>
+	    <li class="py-1">
+	      If the first element of the "left" array is smaller then
+	      add this element to the "merged" array by clicking on
+	      the "Left" button.  Observe that the "Right" button will
+	      be disabled in this case.  Similarly if the first
+	      element on the "left" array is larger then you will pick
+	      the element from the "right" array.
+	    </li>
+	    <li class="py-1">
+	      Continue until both left and right arrays are empty.
+	    </li>
+	  </ol>
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow w2/3">
+	<div id="merge-strategy"></div>
+      </div>
+    </div>      
+</div>
+<script>
+  var app = Elm.MergeStrategy.init({
+    node: document.getElementById('merge-strategy'),
+  });
+</script>
+</body>
 </html>
