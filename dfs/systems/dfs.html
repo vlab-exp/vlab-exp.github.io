@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8"/>
     <title> Spanning Tree via DFS </title>
-    <link href="../css/main.css" rel="stylesheet"/>    
+    <link href="../css/main.css" rel="stylesheet"/>   
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
       Spanning Tree via DFS
     </div>
+	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
 
@@ -91,7 +94,15 @@
 	  </table>
 	</div>
 	<div class="my-2 text-gray-700">
-	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold">Experiment Setup </h1>
+
+	  <p class="mb-2">
+	    In this system, you are provided with a connected graph.
+		Stack is used as an auxillary data structure.
+ 	    You can click on any node to select it. Candidate Edges can be clicked, to add 
+		 those edge to the sub-graph. Clicking other nodes is not permitted after selecting 
+		 a node. A button called "Backtrack" can be clicked to perform a backtrack operation.
+	  </p>
 
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
 	  
@@ -102,13 +113,19 @@
 		the algorithm moves back (backtrack) to the vertex from which current
 		vertex was discovered,.
 	  </p>	
-
+	</div>
+	<div class="my-2 text-gray-700">
+		<h1 class="py-2 text-xl text-gray-800 font-semibold">Procedure </h1>
+  
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
 	  <p class="mb-2">
-	    In this system, you are provided with a connected graph.
- 	    You can click any node to select it.  By selecting the first node you select the root node for 
-		DFS and start building the spanning tree.
+	    <ol class="list-decimal list-inside">
+			  <li>
+				  Select the first node, to start building the spanning tree.The first node will 
+				  be the root node for the DFS.
+			  </li>
+		  </ol>
 	  </p>
 	  
 	  <h2 class="py-1 text-lg text-gray-800 underline">
@@ -120,21 +137,22 @@
 	  </p>
 	  
 	  <p class="mb-2">
-	    You can select any of the candidate edges to, to visit the unexplored adjacent node, and add that edge to the spanning tree. The newly visited node will be pushed into the stack, and will now become the active node.	    
+		  <ol class="list-decimal list-inside">
+			  <li>
+					You can select any of the candidate edges to, to visit the unexplored adjacent node, and add that edge to the spanning tree. The newly visited node will be pushed into the stack, and will now become the active node.
+			  </li>
+			  <li>
+				  If you see, there are no candidate edges from the active node leading to an unvisited node, then you can click "Backtrack", to move back to the previous active node. Clicking "Backtrack" will remove the active node from the top of stack. 
+			  </li>
+			  <li>
+				  You need to remove all the elements from stack by Bactracking to the root.
+			  </li>
+			  <li>
+				  If all the nodes are added to the tree and the stack becomes empty, DFS is finished and the spanning tree is complete and you will not see any candidate edges any more.
+				  Otherwise repeat step 1,2,3.
+			  </li>
+		  </ol>
 	  </p>
-
-	  <p class="mb-2">
-		If you see, there are no candidate edges from the active node leading to an unvisited node, then you can click "Backtrack", to move back to the previous active node. Clicking "Backtrack" will remove the active node from the top of stack. 
-	  </p>
-
-	  <p class="mb-2">
-		You need to remove all the elements from stack by Bactracking to the root.
-	  </p>
-
-	  <p class="mb-2">
-	    Once all the nodes are added to the tree and the stack becomes empty, DFS is finished and the spanning tree is complete and you will not see any candidate edges any more.
-	  </p>
-
 	</div>
 	  
       </div>

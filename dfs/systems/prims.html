@@ -19,11 +19,14 @@ stack of commands
     <meta charset="UTF-8"/>
     <title>Minimum Spanning Tree (Prim's Algorithm)</title>
     <link href="../css/main.css" rel="stylesheet"/>    
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
 		Minimum Spanning Tree (Prim's Algorithm)
     </div>
+	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
 
@@ -105,15 +108,35 @@ stack of commands
 	  </table>
 	</div>
 	<div class="my-2 text-gray-700">
-	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
+		<h1 class="py-2 text-xl text-gray-800 font-semibold">Experiment Setup</h1>
+		
+		<p class="mb-2">
+			In this system, you are provided with a connected graph. 
+			You can click on any node to select it. Candidate Edges can be clicked, 
+			to add those edge to the sub-graph. Clicking other nodes is not 
+			permitted after selecting a node.
+		</p>
+
+		<h2 class="py-1 text-lg text-gray-800 underline"> Minimum Spanning Tree </h2>
+
+		<p>
+			A minimum spanning tree is a spanning tree of a graph, which has the 
+			minimum possible total edge weight.
+		</p>
+
+	</div>
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
 	  <p class="mb-2">
-	    In this system, you are provided with a connected graph. 
-		The labels on the edges indicates the weight of the associated edge.
- 	    You can click any node to select it.  By selecting the first 
-		node you select the root node and start building the minimum spanning tree.
+		  <ol class="list-decimal list-inside">
+			  <li>
+				  Select the first node, to start building the spanning tree.
+				  The first node will be the root node of the spanning tree.
+			  </li>
+		  </ol>
 	  </p>
 	  
 	  <h2 class="py-1 text-lg text-gray-800 underline">
@@ -125,12 +148,18 @@ stack of commands
 	  </p>
 	  
 	  <p class="mb-2">
-	    You need to select any of the minimum weighted candidate edges to add that edge to the minimum spanning tree.	    
+		  <ol class="list-decimal list-inside">
+			  <li>
+				  Select any of the minimum weighted candidate edges to add that edge to the minimum spanning tree.	    
+			  </li>
+			  <li>
+				  If all the nodes are added to the tree, the minimum spanning tree is complete and you will not see any candidate edges any more.
+				   Otherwise repear step 1.
+				  
+			  </li>
+		  </ol>
 	  </p>
 
-	  <p class="mb-2">
-	    Once all the nodes are added to the tree, the minimum spanning tree is complete and you will not see any candidate edges any more.
-	  </p>
 
 	</div>
 	  

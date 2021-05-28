@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8"/>
     <title> DFS Algorithm </title>
-    <link href="../css/main.css" rel="stylesheet"/>    
+    <link href="../css/main.css" rel="stylesheet"/>  
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
       DFS Algorithm
     </div>
+	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
       <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
 
@@ -91,24 +94,38 @@
 	  </table>
 	</div>
 	<div class="my-2 text-gray-700">
-	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Setup </h1>
-
-	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
-	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold">Experiment Setup </h1>
+  
 	  <p class="mb-2">
-	    This traversal process traverses deeper into the graph, 
-		by exploring unvisited edges leaving out from the most recently 
-		visited vertex. When there is no deeper level to go in the graph, 
-		the algorithm moves back (backtrack) to the vertex from which current
-		vertex was discovered,.
+		  In this system, you are provided with a connected graph.
+		  Stack is used as an auxillary data structure.
+		   You can click on any node to select it. Clicking on edges is not 
+		   permitted. Clicking other nodes is not permitted after selecting a node. 
+		   A button called "Next" can be clicked to execute next step of DFS.
 	  </p>
+  
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
+		
+	  <p class="mb-2">
+		  This traversal process traverses deeper into the graph, 
+		  by exploring unvisited edges leaving out from the most recently 
+		  visited vertex. When there is no deeper level to go in the graph, 
+		  the algorithm moves back (backtrack) to the vertex from which current
+		  vertex was discovered,.
+	  </p>	
+	</div>
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
 	  <p class="mb-2">
-	    In this system, you are provided with a connected graph.
- 	    You can click any node to select it.  By selecting the first node you select the root node for 
-		DFS and start building the spanning tree.
+	    <ol class="list-decimal list-inside">
+			<li>
+				Select the first node, to start building the spanning tree.The first node will 
+				be the root node for the DFS.
+			</li>
+		</ol>
 	  </p>
 	  
 	  <h2 class="py-1 text-lg text-gray-800 underline">
@@ -120,19 +137,17 @@
 	  </p>
 	  
 	  <p class="mb-2">
-	    You can now click on "Next" button and the algorithm will select any of the candidate edges randomly, to add that edge to the spanning tree.	    
-	  </p>
-
-	  <p class="mb-2">
-		The simulator will loop through the steps of DFS, printing instructions at every step.  
-	  </p>
-
-	  <p class="mb-2">
-		
-	  </p>
-
-	  <p class="mb-2">
-	    Once all the nodes are added to the tree and stack is empty, the DFS is finished and spanning tree is complete and you will not be able to click on "Next" any more.
+		  <ol class="list-decimal list-inside">
+			  <li>
+				  You can now click on "Next" button and the algorithm will select any of the candidate edges randomly, to add that edge to the spanning tree.	    
+			  </li>
+			  <li>
+				  The simulator will loop through the steps of DFS, printing instructions at every step.  
+			  </li>
+			  <li>
+				  Once all the nodes are added to the tree and stack is empty, the DFS is finished and spanning tree is complete and you will not be able to click on "Next" any more.
+			  </li>
+		  </ol>
 	  </p>
 
 	</div>
