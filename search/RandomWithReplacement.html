@@ -5514,71 +5514,6 @@ var $author$project$RandomWithReplacement$subscriptions = function (model) {
 var $author$project$RandomWithReplacement$GotTarget = function (a) {
 	return {$: 'GotTarget', a: a};
 };
-var $author$project$RandomWithReplacement$Selected = function (a) {
-	return {$: 'Selected', a: a};
-};
-var $elm$core$List$drop = F2(
-	function (n, list) {
-		drop:
-		while (true) {
-			if (n <= 0) {
-				return list;
-			} else {
-				if (!list.b) {
-					return list;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs;
-					n = $temp$n;
-					list = $temp$list;
-					continue drop;
-				}
-			}
-		}
-	});
-var $elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(x);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $elm_community$list_extra$List$Extra$getAt = F2(
-	function (idx, xs) {
-		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
-			A2($elm$core$List$drop, idx, xs));
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
-var $author$project$RandomWithReplacement$deselect = F2(
-	function (i, _v0) {
-		var numbers = _v0.numbers;
-		var selections = _v0.selections;
-		var target = _v0.target;
-		var ci = A2(
-			$elm$core$Maybe$withDefault,
-			-1,
-			A2($elm_community$list_extra$List$Extra$getAt, i, numbers));
-		if (selections.$ === 'NoneSelected') {
-			return _Utils_Tuple2($author$project$RandomWithReplacement$NoneSelected, '');
-		} else {
-			var j = selections.a;
-			return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$RandomWithReplacement$NoneSelected, 'Click on any number to search the target number') : _Utils_Tuple2(
-				$author$project$RandomWithReplacement$Selected(j),
-				'');
-		}
-	});
 var $elm_community$random_extra$Random$Extra$oneIn = function (n) {
 	return A2(
 		$elm$random$Random$map,
@@ -5641,6 +5576,15 @@ var $elm_community$random_extra$Random$Array$sample = function (arr) {
 		},
 		gen);
 };
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var $author$project$Common$genTarget = F2(
 	function (arr, _v0) {
 		var min = _v0.a;
@@ -5661,6 +5605,44 @@ var $author$project$Common$genTarget = F2(
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$RandomWithReplacement$Selected = function (a) {
+	return {$: 'Selected', a: a};
+};
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
+};
+var $elm_community$list_extra$List$Extra$getAt = F2(
+	function (idx, xs) {
+		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
+			A2($elm$core$List$drop, idx, xs));
+	});
 var $author$project$RandomWithReplacement$select = F2(
 	function (i, _v0) {
 		var numbers = _v0.numbers;
@@ -5670,22 +5652,15 @@ var $author$project$RandomWithReplacement$select = F2(
 			$elm$core$Maybe$withDefault,
 			-1,
 			A2($elm_community$list_extra$List$Extra$getAt, i, numbers));
-		if (selections.$ === 'NoneSelected') {
-			var _v2 = _Utils_eq(target, ci);
-			if (_v2) {
-				return _Utils_Tuple2(
-					$author$project$RandomWithReplacement$Selected(i),
-					'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.'));
-			} else {
-				return _Utils_Tuple2(
-					$author$project$RandomWithReplacement$Selected(i),
-					'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It does not match the search target of ' + ($elm$core$String$fromInt(target) + '. Please deselect it to search other items.'))))));
-			}
-		} else {
-			var j = selections.a;
+		var _v1 = _Utils_eq(target, ci);
+		if (_v1) {
 			return _Utils_Tuple2(
-				$author$project$RandomWithReplacement$Selected(j),
-				'Please Deselect the item at index ' + ($elm$core$String$fromInt(j) + ' to continue searching.'));
+				$author$project$RandomWithReplacement$Selected(i),
+				'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.'));
+		} else {
+			return _Utils_Tuple2(
+				$author$project$RandomWithReplacement$Selected(i),
+				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It does not match the search target of ' + ($elm$core$String$fromInt(target) + '. Please search other indices.'))))));
 		}
 	});
 var $author$project$RandomWithReplacement$update = F2(
@@ -5700,16 +5675,6 @@ var $author$project$RandomWithReplacement$update = F2(
 				var _v2 = A2($author$project$RandomWithReplacement$select, x, model);
 				var selections_ = _v2.a;
 				var pm = _v2.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{prompt: pm, selections: selections_}),
-					$elm$core$Platform$Cmd$none);
-			case 'Deselect':
-				var i = msg.a;
-				var _v3 = A2($author$project$RandomWithReplacement$deselect, i, model);
-				var selections_ = _v3.a;
-				var pm = _v3.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
@@ -5908,7 +5873,7 @@ var $author$project$RandomWithReplacement$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             The Random Search With Replacement experiment consists of a \n                             list of numbers which are hidden. \n                             You can click on any item/index/number to select/deselect it. \n                             You can select at most one item at a time.\n                             ')
+					$elm$html$Html$text('\n                             The Random Search With Replacement experiment consists of a \n                             list of numbers which are hidden. \n                             You can click on any item/index/number to select it. \n                             You can select at most one item at a time.\n                             ')
 				])),
 			A2(
 			$elm$html$Html$p,
@@ -5943,7 +5908,7 @@ var $author$project$RandomWithReplacement$viewInfo = A2(
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('\n                             Step 2: Check if the number is the search Target.If not, \n                             then deselect the number and repeat step 1 and 2 again. \n                             ')
+					$elm$html$Html$text('\n                             Step 2: Check if the number is the search Target.If not, \n                             then repeat step 1 and 2 again. \n                             ')
 				]))
 		]));
 var $author$project$Prompt$show = function (prompt_text) {
@@ -5971,9 +5936,6 @@ var $author$project$Styles$simContainerFlex = _List_fromArray(
 		A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
 		A2($elm$html$Html$Attributes$style, 'padding', '0 0.5em')
 	]);
-var $author$project$RandomWithReplacement$Deselect = function (a) {
-	return {$: 'Deselect', a: a};
-};
 var $author$project$RandomWithReplacement$Select = function (a) {
 	return {$: 'Select', a: a};
 };
@@ -6342,18 +6304,9 @@ var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $author$project$RandomWithReplacement$viewNums = F3(
 	function (nums, selections, target) {
-		var msg = function () {
-			if (selections.$ === 'NoneSelected') {
-				return function (ci) {
-					return $author$project$RandomWithReplacement$Select(ci);
-				};
-			} else {
-				var i = selections.a;
-				return function (ci) {
-					return _Utils_eq(ci, i) ? $author$project$RandomWithReplacement$Deselect(ci) : $author$project$RandomWithReplacement$Select(ci);
-				};
-			}
-		}();
+		var msg = function (ci) {
+			return $author$project$RandomWithReplacement$Select(ci);
+		};
 		var lwidth = 1100;
 		return A2(
 			$elm$html$Html$div,
