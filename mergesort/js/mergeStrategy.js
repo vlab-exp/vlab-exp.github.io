@@ -6101,7 +6101,7 @@ var $author$project$MergeStrategy$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$MergeStrategy$listView, 'merged', model.mergedList)
+						A2($author$project$MergeStrategy$listView, 'result', model.mergedList)
 					])),
 				function () {
 				var rh = $elm$core$List$head(model.secondList);

@@ -5462,6 +5462,7 @@ var $elm$random$Random$generate = F2(
 			$elm$random$Random$Generate(
 				A2($elm$random$Random$map, tagger, generator)));
 	});
+var $author$project$MergeSublists$initPrompt = 'Select 2 adjacent sublists, by selecting 3 indices and perform Merge Operation';
 var $elm$core$Bitwise$and = _Bitwise_and;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
@@ -5602,7 +5603,8 @@ var $author$project$MergeSublists$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
 			bounds: $elm$core$Set$fromList(_List_Nil),
-			lst: _List_Nil
+			lst: _List_Nil,
+			promptText: $author$project$MergeSublists$initPrompt
 		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
@@ -5990,17 +5992,46 @@ var $elm$core$Set$remove = F2(
 		return $elm$core$Set$Set_elm_builtin(
 			A2($elm$core$Dict$remove, key, dict));
 	});
+var $elm$core$Dict$sizeHelp = F2(
+	function (n, dict) {
+		sizeHelp:
+		while (true) {
+			if (dict.$ === 'RBEmpty_elm_builtin') {
+				return n;
+			} else {
+				var left = dict.d;
+				var right = dict.e;
+				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
+					$temp$dict = left;
+				n = $temp$n;
+				dict = $temp$dict;
+				continue sizeHelp;
+			}
+		}
+	});
+var $elm$core$Dict$size = function (dict) {
+	return A2($elm$core$Dict$sizeHelp, 0, dict);
+};
+var $elm$core$Set$size = function (_v0) {
+	var dict = _v0.a;
+	return $elm$core$Dict$size(dict);
+};
 var $author$project$MergeSublists$removeIndex = F2(
 	function (i, bounds) {
-		return A2($elm$core$Set$remove, i, bounds);
+		var newBounds = A2($elm$core$Set$remove, i, bounds);
+		return _Utils_Tuple2(
+			newBounds,
+			'Select ' + ($elm$core$String$fromInt(
+				3 - $elm$core$Set$size(newBounds)) + ' more index, to perform merge.'));
 	});
 var $author$project$MergeSublists$deselect = F2(
 	function (i, model) {
+		var _v0 = A2($author$project$MergeSublists$removeIndex, i, model.bounds);
+		var newBounds = _v0.a;
+		var newPromptText = _v0.b;
 		return _Utils_update(
 			model,
-			{
-				bounds: A2($author$project$MergeSublists$removeIndex, i, model.bounds)
-			});
+			{bounds: newBounds, promptText: newPromptText});
 	});
 var $elm$core$List$append = F2(
 	function (xs, ys) {
@@ -6127,48 +6158,31 @@ var $author$project$MergeSublists$merge = function (model) {
 			model,
 			{
 				bounds: $elm$core$Set$empty,
-				lst: A4($author$project$MergeSublists$mergeSublistsAt, i, j, k, lst)
+				lst: A4($author$project$MergeSublists$mergeSublistsAt, i, j, k, lst),
+				promptText: $author$project$MergeSublists$initPrompt
 			});
 	} else {
 		return model;
 	}
 };
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $elm$core$Dict$sizeHelp = F2(
-	function (n, dict) {
-		sizeHelp:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return n;
-			} else {
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
-					$temp$dict = left;
-				n = $temp$n;
-				dict = $temp$dict;
-				continue sizeHelp;
-			}
-		}
-	});
-var $elm$core$Dict$size = function (dict) {
-	return A2($elm$core$Dict$sizeHelp, 0, dict);
-};
-var $elm$core$Set$size = function (_v0) {
-	var dict = _v0.a;
-	return $elm$core$Dict$size(dict);
-};
 var $author$project$MergeSublists$addIndex = F2(
 	function (i, bounds) {
-		return ($elm$core$Set$size(bounds) === 3) ? bounds : A2($elm$core$Set$insert, i, bounds);
+		return ($elm$core$Set$size(bounds) === 3) ? _Utils_Tuple2(bounds, 'Click Merge to merge the adjacent sublists') : (($elm$core$Set$size(bounds) === 2) ? _Utils_Tuple2(
+			A2($elm$core$Set$insert, i, bounds),
+			'Click Merge to merge the adjacent sublists') : _Utils_Tuple2(
+			A2($elm$core$Set$insert, i, bounds),
+			'Select ' + ($elm$core$String$fromInt(
+				2 - $elm$core$Set$size(bounds)) + ' more index, to perform merge.')));
 	});
 var $author$project$MergeSublists$select = F2(
 	function (i, model) {
+		var _v0 = A2($author$project$MergeSublists$addIndex, i, model.bounds);
+		var newBounds = _v0.a;
+		var newPromptText = _v0.b;
 		return _Utils_update(
 			model,
-			{
-				bounds: A2($author$project$MergeSublists$addIndex, i, model.bounds)
-			});
+			{bounds: newBounds, promptText: newPromptText});
 	});
 var $author$project$MergeSublists$update = F2(
 	function (msg, model) {
@@ -6210,6 +6224,11 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$core$String$cons = _String_cons;
+var $elm$core$String$fromChar = function (_char) {
+	return A2($elm$core$String$cons, _char, '');
+};
+var $elm$core$Char$fromCode = _Char_fromCode;
 var $author$project$MergeSublists$Deselect = function (a) {
 	return {$: 'Deselect', a: a};
 };
@@ -6251,7 +6270,7 @@ var $author$project$MergeSublists$gridLine = F2(
 					$elm$html$Html$div,
 					_List_fromArray(
 						[
-							$elm$html$Html$Attributes$class('flex-grow'),
+							$elm$html$Html$Attributes$class('flex-grow cursor-pointer'),
 							A2(
 							$elm$html$Html$Attributes$style,
 							'background',
@@ -6466,6 +6485,32 @@ var $author$project$MergeSublists$itemview = F4(
 						]))
 				]));
 	});
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $author$project$MergeSublists$prompt = function (p) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('flex'),
+				$elm$html$Html$Attributes$class('justify-center'),
+				$elm$html$Html$Attributes$class('py-10'),
+				$elm$html$Html$Attributes$class('text-gray-700'),
+				$elm$html$Html$Attributes$class('tracking-wide')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$p,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('max-w-2xl')
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text(p)
+					]))
+			]));
+};
 var $author$project$MergeSublists$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -6478,25 +6523,12 @@ var $author$project$MergeSublists$view = function (model) {
 			]),
 		_List_fromArray(
 			[
+				$author$project$MergeSublists$prompt(model.promptText),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('bg-indigo-200'),
-						$elm$html$Html$Attributes$class('text-xl'),
-						$elm$html$Html$Attributes$class('px-2'),
-						$elm$html$Html$Attributes$class('py-4'),
-						$elm$html$Html$Attributes$class('invisible')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Merge Sublists')
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('flex-grow flex flex-col justify-around items-center py-20')
+						$elm$html$Html$Attributes$class('flex-grow flex flex-col justify-around py-20')
 					]),
 				_List_fromArray(
 					[
@@ -6504,7 +6536,7 @@ var $author$project$MergeSublists$view = function (model) {
 						$elm$html$Html$div,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('flex')
+								$elm$html$Html$Attributes$class('flex justify-center')
 							]),
 						A2(
 							$elm$core$List$indexedMap,
@@ -6520,30 +6552,25 @@ var $author$project$MergeSublists$view = function (model) {
 							model.lst)),
 						A2(
 						$elm$html$Html$div,
-						_List_Nil,
-						$elm$core$List$concat(
-							_List_fromArray(
-								[
-									_List_fromArray(
-									[
-										$elm$html$Html$text('merge( ')
-									]),
-									_List_fromArray(
-									[
-										$elm$html$Html$text(
-										A2(
-											$elm$core$String$join,
-											', ',
-											A2(
-												$elm$core$List$map,
-												$elm$core$String$fromInt,
-												$elm$core$Set$toList(model.bounds))))
-									]),
-									_List_fromArray(
-									[
-										$elm$html$Html$text(' )')
-									])
-								])))
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('flex flex-row justify-around h-8')
+							]),
+						A2(
+							$elm$core$List$indexedMap,
+							F2(
+								function (p, e) {
+									return A2(
+										$elm$html$Html$div,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$elm$html$Html$text(
+												$elm$core$String$fromChar(
+													$elm$core$Char$fromCode(105 + p)) + (' = ' + $elm$core$String$fromInt(e)))
+											]));
+								}),
+							$elm$core$Set$toList(model.bounds)))
 					])),
 				A2(
 				$elm$html$Html$div,

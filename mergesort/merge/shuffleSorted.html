@@ -2,16 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> Merge System: Strategy </title>
+    <title> Shuffle (Sorted)</title>
     <link href="../css/main.css" rel="stylesheet"/>
-    <script src="../js/mergeStrategy.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
+    <script src="../js/shuffleSorted.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script> 
+	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      Merge System: Strategy
+      Shuffle (Sorted)
     </div>
 	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
@@ -20,16 +19,16 @@
 	<div class="my-2 text-gray-700">
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    The objective of this experiment is to introduce the concept of
-	    “merging” two lists and to demonstrate that merging is a special case
-	    of shuffling.
+	    The objective of this experiment is to discover the concept of
+	    “merging”, by "shuffling" two sorted arrays to make a larger sorted 
+		array.
 	  </p>
 	  
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
 	  <p class="py-1">
 	    You are provided with two arrays "left" and "right" and
-	    your goal is to merge these two arrays to form the
-	    "result" array using the "Left" and "Right" buttons
+	    your goal is to shuffle these two arrays to form the
+	    sorted "result" array using the "Left" and "Right" buttons
 	    provided.
 	  </p>
 
@@ -47,43 +46,39 @@
 	    will be shown in green color whereas the unsorted arrays
 	    will be shown in red color.
 	  </p>
-
-	  <h2 class="py-1 text-lg text-gray-800 underline"> Merge Operation </h2>
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Shuffle Operation </h2>
 	  <p class="py-1">
-		The Merge operation takes two list and returns a single combined list.
-		At each step of merge operation, smaller of the first elements from 
-		Left/Right input lists is taken and added to the result list.
+		The shuffle operation takes two list and returns a single combined list.
+		At each step of shuffle operation, first element from Left/Right  
+		input lists is taken arbitrarily and added to the result list.
 	  </p>
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 	  <ol class="list-decimal list-inside">
 	    <li class="py-1">
-	      Compare the first elements of the "left" and "right"
-	      arrays.
+	      Pick the first element from one of the non-empty arrays
+	      and place it at the end of the "result" array using
+	      the "Left" or "Right" buttons.
 	    </li>
 	    <li class="py-1">
-	      If the first element of the "left" array is smaller then
-	      add this element to the "result" array by clicking on
-	      the "Left" button.  Observe that the "Right" button will
-	      be disabled in this case.  Similarly if the first
-	      element on the "left" array is larger then you will pick
-	      the element from the "right" array.
+	      Continue until both "left" and "right" arrays are empty.
 	    </li>
 	    <li class="py-1">
-	      Continue until both left and right arrays are empty.
+	      Observe whether the "result" array is sorted or not.
 	    </li>
+	    
 	  </ol>
 	  
 	</div>
 	
       </div>
-      <div class="flex-grow w2/3">
-	<div id="merge-strategy"></div>
+      <div class="flex-grow flex w-2/3">
+	<div id="shuffle-sorted"></div>
       </div>
     </div>      
 </div>
 <script>
-  var app = Elm.MergeStrategy.init({
-    node: document.getElementById('merge-strategy'),
+  var app = Elm.ShuffleSorted.init({
+    node: document.getElementById('shuffle-sorted'),
   });
 </script>
 </body>

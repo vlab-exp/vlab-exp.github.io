@@ -5227,7 +5227,7 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Shuffle$GotRandomArray = function (a) {
+var $author$project$ShuffleSorted$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -5502,70 +5502,7 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 			},
 			A2($elm$random$Random$int, minLength, maxLength));
 	});
-var $elm$core$Basics$abs = function (n) {
-	return (n < 0) ? (-n) : n;
-};
-var $elm$random$Random$float = F2(
-	function (a, b) {
-		return $elm$random$Random$Generator(
-			function (seed0) {
-				var seed1 = $elm$random$Random$next(seed0);
-				var range = $elm$core$Basics$abs(b - a);
-				var n1 = $elm$random$Random$peel(seed1);
-				var n0 = $elm$random$Random$peel(seed0);
-				var lo = (134217727 & n1) * 1.0;
-				var hi = (67108863 & n0) * 1.0;
-				var val = ((hi * 134217728.0) + lo) / 9007199254740992.0;
-				var scaled = (val * range) + a;
-				return _Utils_Tuple2(
-					scaled,
-					$elm$random$Random$next(seed1));
-			});
-	});
-var $elm$random$Random$getByWeight = F3(
-	function (_v0, others, countdown) {
-		getByWeight:
-		while (true) {
-			var weight = _v0.a;
-			var value = _v0.b;
-			if (!others.b) {
-				return value;
-			} else {
-				var second = others.a;
-				var otherOthers = others.b;
-				if (_Utils_cmp(
-					countdown,
-					$elm$core$Basics$abs(weight)) < 1) {
-					return value;
-				} else {
-					var $temp$_v0 = second,
-						$temp$others = otherOthers,
-						$temp$countdown = countdown - $elm$core$Basics$abs(weight);
-					_v0 = $temp$_v0;
-					others = $temp$others;
-					countdown = $temp$countdown;
-					continue getByWeight;
-				}
-			}
-		}
-	});
-var $elm$core$List$sum = function (numbers) {
-	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
-};
-var $elm$random$Random$weighted = F2(
-	function (first, others) {
-		var normalize = function (_v0) {
-			var weight = _v0.a;
-			return $elm$core$Basics$abs(weight);
-		};
-		var total = normalize(first) + $elm$core$List$sum(
-			A2($elm$core$List$map, normalize, others));
-		return A2(
-			$elm$random$Random$map,
-			A2($elm$random$Random$getByWeight, first, others),
-			A2($elm$random$Random$float, 0, total));
-	});
-var $author$project$Shuffle$init = function (_v0) {
+var $author$project$ShuffleSorted$init = function (_v0) {
 	return _Utils_Tuple2(
 		{firstList: _List_Nil, mergedList: _List_Nil, promptText: 'Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'shuffled\' list.', secondList: _List_Nil},
 		$elm$core$Platform$Cmd$batch(
@@ -5573,33 +5510,24 @@ var $author$project$Shuffle$init = function (_v0) {
 				[
 					A2(
 					$elm$random$Random$generate,
-					$author$project$Shuffle$GotRandomArray,
+					$author$project$ShuffleSorted$GotRandomArray,
 					A2(
 						$elm$random$Random$pair,
-						A2(
-							$elm$random$Random$pair,
-							A3(
-								$elm_community$random_extra$Random$Array$rangeLengthArray,
-								2,
-								8,
-								A2($elm$random$Random$int, 10, 50)),
-							A3(
-								$elm_community$random_extra$Random$Array$rangeLengthArray,
-								2,
-								8,
-								A2($elm$random$Random$int, 30, 70))),
-						A2(
-							$elm$random$Random$weighted,
-							_Utils_Tuple2(80, false),
-							_List_fromArray(
-								[
-									_Utils_Tuple2(20, true)
-								]))))
+						A3(
+							$elm_community$random_extra$Random$Array$rangeLengthArray,
+							2,
+							8,
+							A2($elm$random$Random$int, 10, 50)),
+						A3(
+							$elm_community$random_extra$Random$Array$rangeLengthArray,
+							2,
+							8,
+							A2($elm$random$Random$int, 30, 70))))
 				])));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Shuffle$move = F2(
+var $author$project$ShuffleSorted$move = F2(
 	function (from, ml) {
 		if (!from.b) {
 			return _Utils_Tuple2(from, ml);
@@ -5619,7 +5547,7 @@ var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
-var $author$project$Shuffle$update = F2(
+var $author$project$ShuffleSorted$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 'Left':
@@ -5639,7 +5567,7 @@ var $author$project$Shuffle$update = F2(
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
-					var _v2 = A2($author$project$Shuffle$move, model.firstList, model.mergedList);
+					var _v2 = A2($author$project$ShuffleSorted$move, model.firstList, model.mergedList);
 					var fl = _v2.a;
 					var ml = _v2.b;
 					return _Utils_Tuple2(
@@ -5665,7 +5593,7 @@ var $author$project$Shuffle$update = F2(
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
-					var _v4 = A2($author$project$Shuffle$move, model.secondList, model.mergedList);
+					var _v4 = A2($author$project$ShuffleSorted$move, model.secondList, model.mergedList);
 					var sl = _v4.a;
 					var ml = _v4.b;
 					return _Utils_Tuple2(
@@ -5676,18 +5604,16 @@ var $author$project$Shuffle$update = F2(
 				}
 			default:
 				var _v5 = msg.a;
-				var _v6 = _v5.a;
-				var a = _v6.a;
-				var b = _v6.b;
-				var dosort = _v5.b;
+				var a = _v5.a;
+				var b = _v5.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							firstList: dosort ? $elm$core$List$sort(
-								$elm$core$Array$toList(a)) : $elm$core$Array$toList(a),
-							secondList: dosort ? $elm$core$List$sort(
-								$elm$core$Array$toList(b)) : $elm$core$Array$toList(b)
+							firstList: $elm$core$List$sort(
+								$elm$core$Array$toList(a)),
+							secondList: $elm$core$List$sort(
+								$elm$core$Array$toList(b))
 						}),
 					$elm$core$Platform$Cmd$none);
 		}
@@ -5701,8 +5627,8 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $author$project$Shuffle$Left = {$: 'Left'};
-var $author$project$Shuffle$Right = {$: 'Right'};
+var $author$project$ShuffleSorted$Left = {$: 'Left'};
+var $author$project$ShuffleSorted$Right = {$: 'Right'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
@@ -5724,7 +5650,7 @@ var $elm$html$Html$Events$onClick = function (msg) {
 };
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Shuffle$controls = A2(
+var $author$project$ShuffleSorted$controls = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
 		[
@@ -5741,7 +5667,7 @@ var $author$project$Shuffle$controls = A2(
 			$elm$html$Html$button,
 			_List_fromArray(
 				[
-					$elm$html$Html$Events$onClick($author$project$Shuffle$Left),
+					$elm$html$Html$Events$onClick($author$project$ShuffleSorted$Left),
 					$elm$html$Html$Attributes$class('bg-gray-600'),
 					$elm$html$Html$Attributes$class('text-gray-100'),
 					$elm$html$Html$Attributes$class('p-2')
@@ -5754,7 +5680,7 @@ var $author$project$Shuffle$controls = A2(
 			$elm$html$Html$button,
 			_List_fromArray(
 				[
-					$elm$html$Html$Events$onClick($author$project$Shuffle$Right),
+					$elm$html$Html$Events$onClick($author$project$ShuffleSorted$Right),
 					$elm$html$Html$Attributes$class('bg-gray-600'),
 					$elm$html$Html$Attributes$class('text-gray-100'),
 					$elm$html$Html$Attributes$class('p-2')
@@ -5767,7 +5693,7 @@ var $author$project$Shuffle$controls = A2(
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Shuffle$arrayItem = function (v) {
+var $author$project$ShuffleSorted$arrayItem = function (v) {
 	return A2(
 		$elm$html$Html$span,
 		_List_fromArray(
@@ -5857,7 +5783,7 @@ var $elm$core$List$all = F2(
 			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
 			list);
 	});
-var $author$project$Shuffle$issorted = F2(
+var $author$project$ShuffleSorted$issorted = F2(
 	function (l1, l2) {
 		return A2(
 			$elm$core$List$all,
@@ -5873,7 +5799,7 @@ var $author$project$Shuffle$issorted = F2(
 				l1,
 				l2));
 	});
-var $author$project$Shuffle$listView = F2(
+var $author$project$ShuffleSorted$listView = F2(
 	function (label, lst) {
 		return A2(
 			$elm$html$Html$div,
@@ -5906,13 +5832,13 @@ var $author$project$Shuffle$listView = F2(
 									_Utils_Tuple2(
 									'bg-green-200',
 									A2(
-										$author$project$Shuffle$issorted,
+										$author$project$ShuffleSorted$issorted,
 										lst,
 										$elm$core$List$sort(lst))),
 									_Utils_Tuple2(
 									'bg-red-200',
 									!A2(
-										$author$project$Shuffle$issorted,
+										$author$project$ShuffleSorted$issorted,
 										lst,
 										$elm$core$List$sort(lst)))
 								])),
@@ -5946,7 +5872,7 @@ var $author$project$Shuffle$listView = F2(
 										[
 											$elm$html$Html$text(',')
 										])),
-								A2($elm$core$List$map, $author$project$Shuffle$arrayItem, lst)),
+								A2($elm$core$List$map, $author$project$ShuffleSorted$arrayItem, lst)),
 							_List_fromArray(
 								[
 									A2(
@@ -5963,7 +5889,7 @@ var $author$project$Shuffle$listView = F2(
 				]));
 	});
 var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$Shuffle$prompt = function (p) {
+var $author$project$ShuffleSorted$prompt = function (p) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5988,7 +5914,7 @@ var $author$project$Shuffle$prompt = function (p) {
 					]))
 			]));
 };
-var $author$project$Shuffle$view = function (model) {
+var $author$project$ShuffleSorted$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -6001,7 +5927,7 @@ var $author$project$Shuffle$view = function (model) {
 			]),
 		_List_fromArray(
 			[
-				$author$project$Shuffle$prompt(model.promptText),
+				$author$project$ShuffleSorted$prompt(model.promptText),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -6013,8 +5939,8 @@ var $author$project$Shuffle$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Shuffle$listView, 'left', model.firstList),
-						A2($author$project$Shuffle$listView, 'right', model.secondList)
+						A2($author$project$ShuffleSorted$listView, 'left', model.firstList),
+						A2($author$project$ShuffleSorted$listView, 'right', model.secondList)
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6024,19 +5950,19 @@ var $author$project$Shuffle$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Shuffle$listView, 'result', model.mergedList)
+						A2($author$project$ShuffleSorted$listView, 'result', model.mergedList)
 					])),
-				$author$project$Shuffle$controls
+				$author$project$ShuffleSorted$controls
 			]));
 };
-var $author$project$Shuffle$main = $elm$browser$Browser$element(
+var $author$project$ShuffleSorted$main = $elm$browser$Browser$element(
 	{
-		init: $author$project$Shuffle$init,
+		init: $author$project$ShuffleSorted$init,
 		subscriptions: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		update: $author$project$Shuffle$update,
-		view: $author$project$Shuffle$view
+		update: $author$project$ShuffleSorted$update,
+		view: $author$project$ShuffleSorted$view
 	});
-_Platform_export({'Shuffle':{'init':$author$project$Shuffle$main(
+_Platform_export({'ShuffleSorted':{'init':$author$project$ShuffleSorted$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
