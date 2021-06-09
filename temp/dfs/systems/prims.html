@@ -1,0 +1,198 @@
+<!--
+merge: 
+
+ms:
+1. adjacent sorted merging.
+2. 
+
+split-and-merge:
+
+algorithmic version:
+stack of commands
+
+
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Minimum Spanning Tree (Prim's Algorithm)</title>
+    <link href="../css/main.css" rel="stylesheet"/>    
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+	<script src="./nav.js"></script>
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+		Minimum Spanning Tree (Prim's Algorithm)
+    </div>
+	<div id="nav-bar"></div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="flex-grow w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  
+	  <p>
+	    Given a connected graph, the objective of this system is to
+	    build a (any) minimum spanning tree of the graph using Prim's Algorithm.
+	  </p>
+	  
+	</div>
+
+	<div class = "my-2 text-gray-700">
+	  <h1 class="py-2 text-xl font-semibold"> Graph Color Codes </h1>
+
+	  <p>
+	    The table below, lists all the colors used in the graph,
+	    along with their interpretations.
+	  </p>
+	  
+	  <table class="table-fixed w-full bg-white text-gray-700
+			border-solid rounded font-mono
+			shadow-md my-2">
+	    <tbody>
+	      <tr class="bg-gray-800 text-gray-100 text-sm">
+		<td class="w-1/3 py-2 px-2"> Node/Edge Color </td>
+		<td class="w-2/3 py-2 px-2"> Type </td>
+	      </tr>
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #B2EBF2;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Unselected Node </td>
+	      </tr>
+	      
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #A5D6A7;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Selected Node </td>
+	      </tr>
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #E0E0E0;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Unselected Edge </td>
+	      </tr>	  
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #FFD54F;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Candidate Edge </td>
+	      </tr>
+	      
+	      <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #757575;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Selected Edge </td>
+	      </tr>
+		  <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #A500FF;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Incorrect Candidate Edge </td>
+		  </tr>
+	    </tbody>
+	  </table>
+	</div>
+	<div class="my-2 text-gray-700">
+		<h1 class="py-2 text-xl text-gray-800 font-semibold">Experiment Setup</h1>
+		
+		<p class="mb-2">
+			In this system, you are provided with a connected graph. 
+			You can click on any node to select it. Candidate Edges can be clicked, 
+			to add those edge to the sub-graph. Clicking other nodes is not 
+			permitted after selecting a node.
+		</p>
+
+		<h2 class="py-1 text-lg text-gray-800 underline"> Minimum Spanning Tree </h2>
+
+		<p>
+			A minimum spanning tree is a spanning tree of a graph, which has the 
+			minimum possible total edge weight.
+		</p>
+
+	</div>
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
+	  
+	  <p class="mb-2">
+		  <ol class="list-decimal list-inside">
+			  <li>
+				  Select the first node, to start building the spanning tree.
+				  The first node will be the root node of the spanning tree.
+			  </li>
+		  </ol>
+	  </p>
+	  
+	  <h2 class="py-1 text-lg text-gray-800 underline">
+	    Growing the Minimum Spanning Tree
+	  </h2>
+
+	  <p class="mb-2">
+	    After selecting the first node, you will see the minimum spanning tree beside the graph.  At this point the tree has just the one selected node.  Now, you will observe that the edges connected to the selected node(s) are marked as "candidates" (See the color codes table).
+	  </p>
+	  
+	  <p class="mb-2">
+		  <ol class="list-decimal list-inside">
+			  <li>
+				  Select any of the minimum weighted candidate edges to add that edge to the minimum spanning tree.	    
+			  </li>
+			  <li>
+				  If all the nodes are added to the tree, the minimum spanning tree is complete and you will not see any candidate edges any more.
+				   Otherwise repear step 1.
+				  
+			  </li>
+		  </ol>
+	  </p>
+
+
+	</div>
+	  
+      </div>
+      <div class="flex-grow w-2/3 flex flex-col overflow-scroll">
+	
+	<div class="flex bg-gray-100 justify-center p-4 m-1 
+		    rounded shadow" id="prompt">
+	  <p class="p-2">
+	    <!-- Messages go here. -->
+	    Select any node to add it to the tree.
+	  </p>
+	</div>
+	
+	<div class="flex-grow flex h-80">
+	  
+	  <div class="flex-grow w-1/2 flex flex-col">
+	    <span class="text-center"> Graph </span>
+	    <div id="graph" class="flex-grow">
+	      
+	    </div>
+	  </div>
+	  
+	  <div class="flex-grow w-1/2 flex flex-col">
+	    <span class="text-center"> Minimum Spanning Tree </span>
+	    <div id="tree" class="flex-grow border-l-2">
+	      
+	    </div>
+	  </div>
+	    
+	</div>
+      </div>      
+    </div>
+    <script src="primsAlgo.js"></script>
+  </body>
+</html>
