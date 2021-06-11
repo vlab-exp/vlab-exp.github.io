@@ -5245,6 +5245,7 @@ var $author$project$Controls$Disabled = {$: 'Disabled'};
 var $author$project$BinarySearch$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $author$project$BinarySearch$ShowAll = {$: 'ShowAll'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5511,7 +5512,7 @@ var $author$project$BinarySearch$init = function (_v0) {
 			iter: -1,
 			numbers: _List_fromArray(
 				[10, 20, 50, 8, 30, 100, 5, 82]),
-			prompt: '',
+			prompt: _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
 			selectable: _List_Nil,
 			selections: _List_Nil,
 			target: 0
@@ -5587,6 +5588,8 @@ var $elm_community$list_extra$List$Extra$getAt = F2(
 		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
 			A2($elm$core$List$drop, idx, xs));
 	});
+var $author$project$Prompt$PromptDanger = {$: 'PromptDanger'};
+var $author$project$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $elm$core$List$any = F2(
 	function (isOkay, list) {
 		any:
@@ -5637,17 +5640,22 @@ var $author$project$BinarySearch$select = F2(
 			A2($elm_community$list_extra$List$Extra$getAt, i, numbers));
 		var _v1 = A2($elm$core$List$member, i, selections);
 		if (!_v1) {
-			return _Utils_eq(target, ci) ? _Utils_Tuple2(
+			var pm = _Utils_eq(target, ci) ? _Utils_Tuple2(
+				'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.'),
+				$author$project$Prompt$PromptSuccess) : ((_Utils_cmp(target, ci) < 0) ? _Utils_Tuple2(
+				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It is greater than ' + ($elm$core$String$fromInt(target) + '(Search Target), search number in Left sublist.'))))),
+				$author$project$Prompt$PromptInfo) : _Utils_Tuple2(
+				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It is less than ' + ($elm$core$String$fromInt(target) + '(Search Target), search number in Right sublist.'))))),
+				$author$project$Prompt$PromptInfo));
+			return _Utils_Tuple2(
 				A2($elm$core$List$cons, i, selections),
-				'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.')) : ((_Utils_cmp(target, ci) < 0) ? _Utils_Tuple2(
-				A2($elm$core$List$cons, i, selections),
-				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It is greater than ' + ($elm$core$String$fromInt(target) + '(Search Target), search number in Left sublist.')))))) : _Utils_Tuple2(
-				A2($elm$core$List$cons, i, selections),
-				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It is less than ' + ($elm$core$String$fromInt(target) + '(Search Target), search number in Right sublist.')))))));
+				pm);
 		} else {
 			return _Utils_Tuple2(
 				selections,
-				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + '. It has already been selected.'))));
+				_Utils_Tuple2(
+					'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + '. It has already been selected.'))),
+					$author$project$Prompt$PromptDanger));
 		}
 	});
 var $author$project$Controls$Active = {$: 'Active'};
@@ -6100,13 +6108,13 @@ var $author$project$BinarySearch$update = F2(
 							_Utils_Tuple2(10, 50))));
 			case 'GotTarget':
 				var t = msg.a;
+				var pm = _Utils_Tuple2(
+					'You need to search the number ' + ($elm$core$String$fromInt(t) + ' in the given list of numbers'),
+					$author$project$Prompt$PromptInfo);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							prompt: 'You need to search the number ' + ($elm$core$String$fromInt(t) + ' in the given list of numbers'),
-							target: t
-						}),
+						{prompt: pm, target: t}),
 					$elm$core$Platform$Cmd$none);
 			case 'Select':
 				var idx = msg.a;
@@ -6321,7 +6329,30 @@ var $author$project$BinarySearch$viewInfo = A2(
 					$elm$html$Html$text('\n                             Step 2: Check if the number is the search Target.If not, \n                             then repeat step 1 and 2 again. \n                             ')
 				]))
 		]));
-var $author$project$Prompt$show = function (prompt_text) {
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -6331,8 +6362,15 @@ var $author$project$Prompt$show = function (prompt_text) {
 				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
 				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
 				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
-				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
 			]),
 		_List_fromArray(
 			[

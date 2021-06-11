@@ -5244,6 +5244,7 @@ var $elm$browser$Browser$element = _Browser_element;
 var $author$project$RandomWithoutReplacement$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -5492,7 +5493,7 @@ var $author$project$RandomWithoutReplacement$init = function (_v0) {
 		{
 			numbers: _List_fromArray(
 				[10, 20, 50, 8, 30, 100, 5, 82]),
-			prompt: '',
+			prompt: _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
 			selections: _List_Nil,
 			target: 0
 		},
@@ -5604,6 +5605,8 @@ var $author$project$Common$genTarget = F2(
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Prompt$PromptDanger = {$: 'PromptDanger'};
+var $author$project$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $elm$core$List$drop = F2(
 	function (n, list) {
 		drop:
@@ -5680,20 +5683,27 @@ var $author$project$RandomWithoutReplacement$select = F2(
 			A2($elm_community$list_extra$List$Extra$getAt, i, numbers));
 		var _v1 = A2($elm$core$List$member, i, selections);
 		if (!_v1) {
-			var _v2 = _Utils_eq(target, ci);
-			if (_v2) {
-				return _Utils_Tuple2(
-					A2($elm$core$List$cons, i, selections),
-					'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.'));
-			} else {
-				return _Utils_Tuple2(
-					A2($elm$core$List$cons, i, selections),
-					'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It does not match the search target of ' + $elm$core$String$fromInt(target))))));
-			}
+			var pm = function () {
+				var _v2 = _Utils_eq(target, ci);
+				if (_v2) {
+					return _Utils_Tuple2(
+						'Search Target found at index ' + ($elm$core$String$fromInt(i) + ' of the List.'),
+						$author$project$Prompt$PromptSuccess);
+				} else {
+					return _Utils_Tuple2(
+						'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + ('. It does not match the search target of ' + $elm$core$String$fromInt(target))))),
+						$author$project$Prompt$PromptInfo);
+				}
+			}();
+			return _Utils_Tuple2(
+				A2($elm$core$List$cons, i, selections),
+				pm);
 		} else {
 			return _Utils_Tuple2(
 				selections,
-				'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + '. It has already been selected.'))));
+				_Utils_Tuple2(
+					'The item at index ' + ($elm$core$String$fromInt(i) + (' has number ' + ($elm$core$String$fromInt(ci) + '. It has already been selected.'))),
+					$author$project$Prompt$PromptDanger));
 		}
 	});
 var $author$project$RandomWithoutReplacement$update = F2(
@@ -5730,13 +5740,13 @@ var $author$project$RandomWithoutReplacement$update = F2(
 							_Utils_Tuple2(10, 50))));
 			default:
 				var t = msg.a;
+				var pm = _Utils_Tuple2(
+					'You need to search the number ' + ($elm$core$String$fromInt(t) + ' in the given list of numbers'),
+					$author$project$Prompt$PromptInfo);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							prompt: 'You need to search the number ' + ($elm$core$String$fromInt(t) + ' in the given list of numbers'),
-							target: t
-						}),
+						{prompt: pm, target: t}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -5944,7 +5954,30 @@ var $author$project$RandomWithoutReplacement$viewInfo = A2(
 					$elm$html$Html$text('\n                             Step 2: Check if the number is the search Target.If not, \n                             then repeat step 1 and 2 again. \n                             ')
 				]))
 		]));
-var $author$project$Prompt$show = function (prompt_text) {
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5954,8 +5987,15 @@ var $author$project$Prompt$show = function (prompt_text) {
 				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
 				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
 				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
-				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
 			]),
 		_List_fromArray(
 			[
