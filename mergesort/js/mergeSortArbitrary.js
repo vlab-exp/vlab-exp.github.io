@@ -6904,7 +6904,7 @@ var $author$project$MsArbitrary$update = F2(
 													$author$project$MsArbitraryGraph$labelToData(n.value.label)),
 												$elm$core$List$length(model.data));
 										},
-										gr_.nodes)))) ? _Utils_Tuple2('Mergesort Complete.', $author$project$Prompt$PromptSuccess) : _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
+										gr_.nodes)))) ? _Utils_Tuple2('Mergesort Complete.', $author$project$Prompt$PromptSuccess) : _Utils_Tuple2('Click on two sublists to merge them', $author$project$Prompt$PromptInfo),
 							selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 						}),
 					$author$project$MsArbitrary$sendMessage(
