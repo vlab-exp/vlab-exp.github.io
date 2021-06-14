@@ -5462,7 +5462,8 @@ var $elm$random$Random$generate = F2(
 			$elm$random$Random$Generate(
 				A2($elm$random$Random$map, tagger, generator)));
 	});
-var $author$project$MergeSublists$initPrompt = 'Select 2 adjacent sublists, by selecting 3 indices and perform Merge Operation';
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
+var $author$project$MergeSublists$initPrompt = _Utils_Tuple2('Select 2 adjacent sublists, by selecting 3 indices and perform Merge Operation', $author$project$Prompt$PromptInfo);
 var $elm$core$Bitwise$and = _Bitwise_and;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
@@ -5604,7 +5605,8 @@ var $author$project$MergeSublists$init = function (_v0) {
 		{
 			bounds: $elm$core$Set$fromList(_List_Nil),
 			lst: _List_Nil,
-			promptText: $author$project$MergeSublists$initPrompt
+			merged: $elm$core$Set$fromList(_List_Nil),
+			prompt: $author$project$MergeSublists$initPrompt
 		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
@@ -6021,17 +6023,19 @@ var $author$project$MergeSublists$removeIndex = F2(
 		var newBounds = A2($elm$core$Set$remove, i, bounds);
 		return _Utils_Tuple2(
 			newBounds,
-			'Select ' + ($elm$core$String$fromInt(
-				3 - $elm$core$Set$size(newBounds)) + ' more index, to perform merge.'));
+			_Utils_Tuple2(
+				'Select ' + ($elm$core$String$fromInt(
+					3 - $elm$core$Set$size(newBounds)) + ' more index, to perform merge.'),
+				$author$project$Prompt$PromptInfo));
 	});
 var $author$project$MergeSublists$deselect = F2(
 	function (i, model) {
 		var _v0 = A2($author$project$MergeSublists$removeIndex, i, model.bounds);
 		var newBounds = _v0.a;
-		var newPromptText = _v0.b;
+		var newprompt = _v0.b;
 		return _Utils_update(
 			model,
-			{bounds: newBounds, promptText: newPromptText});
+			{bounds: newBounds, prompt: newprompt});
 	});
 var $elm$core$List$append = F2(
 	function (xs, ys) {
@@ -6159,7 +6163,10 @@ var $author$project$MergeSublists$merge = function (model) {
 			{
 				bounds: $elm$core$Set$empty,
 				lst: A4($author$project$MergeSublists$mergeSublistsAt, i, j, k, lst),
-				promptText: $author$project$MergeSublists$initPrompt
+				merged: $elm$core$Set$fromList(
+					_List_fromArray(
+						[i, k])),
+				prompt: $author$project$MergeSublists$initPrompt
 			});
 	} else {
 		return model;
@@ -6168,21 +6175,29 @@ var $author$project$MergeSublists$merge = function (model) {
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$MergeSublists$addIndex = F2(
 	function (i, bounds) {
-		return ($elm$core$Set$size(bounds) === 3) ? _Utils_Tuple2(bounds, 'Click Merge to merge the adjacent sublists') : (($elm$core$Set$size(bounds) === 2) ? _Utils_Tuple2(
+		return ($elm$core$Set$size(bounds) === 3) ? _Utils_Tuple2(
+			bounds,
+			_Utils_Tuple2('Click Merge to merge the adjacent sublists', $author$project$Prompt$PromptInfo)) : (($elm$core$Set$size(bounds) === 2) ? _Utils_Tuple2(
 			A2($elm$core$Set$insert, i, bounds),
-			'Click Merge to merge the adjacent sublists') : _Utils_Tuple2(
+			_Utils_Tuple2('Click Merge to merge the adjacent sublists', $author$project$Prompt$PromptInfo)) : _Utils_Tuple2(
 			A2($elm$core$Set$insert, i, bounds),
-			'Select ' + ($elm$core$String$fromInt(
-				2 - $elm$core$Set$size(bounds)) + ' more index, to perform merge.')));
+			_Utils_Tuple2(
+				'Select ' + ($elm$core$String$fromInt(
+					2 - $elm$core$Set$size(bounds)) + ' more index, to perform merge.'),
+				$author$project$Prompt$PromptInfo)));
 	});
 var $author$project$MergeSublists$select = F2(
 	function (i, model) {
 		var _v0 = A2($author$project$MergeSublists$addIndex, i, model.bounds);
 		var newBounds = _v0.a;
-		var newPromptText = _v0.b;
+		var newprompt = _v0.b;
 		return _Utils_update(
 			model,
-			{bounds: newBounds, promptText: newPromptText});
+			{
+				bounds: newBounds,
+				merged: $elm$core$Set$fromList(_List_Nil),
+				prompt: newprompt
+			});
 	});
 var $author$project$MergeSublists$update = F2(
 	function (msg, model) {
@@ -6395,8 +6410,11 @@ var $author$project$MergeSublists$selected = F2(
 		return A2($elm$core$Set$member, i, bounds);
 	});
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $author$project$MergeSublists$itemview = F4(
-	function (val, index, length, indices) {
+var $author$project$MergeSublists$itemview = F5(
+	function (val, index, length, indices, merged) {
+		var _v0 = A2($author$project$MergeSublists$inbound, index, indices) ? _Utils_Tuple2('#F0F4C3', '1s') : (A2($author$project$MergeSublists$inbound, index, merged) ? _Utils_Tuple2('#B0EEAC', '5s') : _Utils_Tuple2('#ffffff', '1s'));
+		var bgClr = _v0.a;
+		var td = _v0.b;
 		return _Utils_eq(index, length - 1) ? A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -6418,10 +6436,7 @@ var $author$project$MergeSublists$itemview = F4(
 							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
 							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
 							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-							A2(
-							$elm$html$Html$Attributes$style,
-							'background',
-							A2($author$project$MergeSublists$inbound, index, indices) ? '#F0F4C3' : '#ffffff')
+							A2($elm$html$Html$Attributes$style, 'background', bgClr)
 						]),
 					_List_fromArray(
 						[
@@ -6463,10 +6478,7 @@ var $author$project$MergeSublists$itemview = F4(
 							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
 							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
 							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-							A2(
-							$elm$html$Html$Attributes$style,
-							'background',
-							A2($author$project$MergeSublists$inbound, index, indices) ? '#F0F4C3' : '#ffffff')
+							A2($elm$html$Html$Attributes$style, 'background', bgClr)
 						]),
 					_List_fromArray(
 						[
@@ -6485,30 +6497,51 @@ var $author$project$MergeSublists$itemview = F4(
 						]))
 				]));
 	});
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$MergeSublists$prompt = function (p) {
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('flex'),
-				$elm$html$Html$Attributes$class('justify-center'),
-				$elm$html$Html$Attributes$class('py-10'),
-				$elm$html$Html$Attributes$class('text-gray-700'),
-				$elm$html$Html$Attributes$class('tracking-wide')
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('max-w-2xl')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text(p)
-					]))
+				$elm$html$Html$text(prompt_text)
 			]));
 };
 var $author$project$MergeSublists$view = function (model) {
@@ -6523,7 +6556,7 @@ var $author$project$MergeSublists$view = function (model) {
 			]),
 		_List_fromArray(
 			[
-				$author$project$MergeSublists$prompt(model.promptText),
+				$author$project$Prompt$show(model.prompt),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -6542,12 +6575,13 @@ var $author$project$MergeSublists$view = function (model) {
 							$elm$core$List$indexedMap,
 							F2(
 								function (i, v) {
-									return A4(
+									return A5(
 										$author$project$MergeSublists$itemview,
 										v,
 										i,
 										$elm$core$List$length(model.lst),
-										model.bounds);
+										model.bounds,
+										model.merged);
 								}),
 							model.lst)),
 						A2(

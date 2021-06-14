@@ -5230,6 +5230,7 @@ var $elm$browser$Browser$element = _Browser_element;
 var $author$project$MergeSortRecursive$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5541,7 +5542,7 @@ var $author$project$MergeSortRecursive$init = function (flags) {
 	return _Utils_Tuple2(
 		{
 			graph: $author$project$MergeSortRecursive$ig1(_List_Nil),
-			promptMsg: ''
+			prompt: _Utils_Tuple2('', $author$project$Prompt$PromptInfo)
 		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
@@ -5564,6 +5565,7 @@ var $author$project$MergeSortRecursive$messageReceiver = _Platform_incomingPort(
 var $author$project$MergeSortRecursive$subscriptions = function (_v0) {
 	return $author$project$MergeSortRecursive$messageReceiver($author$project$MergeSortRecursive$Recv);
 };
+var $author$project$Prompt$PromptDanger = {$: 'PromptDanger'};
 var $elm$core$List$any = F2(
 	function (isOkay, list) {
 		any:
@@ -6862,7 +6864,10 @@ var $author$project$MergeSortRecursive$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{graph: gr_, promptMsg: 'Click on the \'MS\' button to expand the graph.'}),
+						{
+							graph: gr_,
+							prompt: _Utils_Tuple2('Click on the \'MS\' button to expand the graph.', $author$project$Prompt$PromptInfo)
+						}),
 					$author$project$MergeSortRecursive$sendMessage(
 						$author$project$GraphInterface$gdEncode(gr_)));
 			case 'Split':
@@ -6894,13 +6899,15 @@ var $author$project$MergeSortRecursive$update = F2(
 						model,
 						{
 							graph: gr_,
-							promptMsg: A2($author$project$MergeSortRecursive$canapply, 'split_n_' + np, graph.edges) ? ('Split [ ' + (A2(
-								$elm$core$String$join,
-								' ',
-								A2(
-									$elm$core$List$map,
-									$elm$core$String$fromInt,
-									A2($author$project$GraphInterface$getData, np, graph.nodes))) + ' ]')) : 'Cannpt Apply.'
+							prompt: A2($author$project$MergeSortRecursive$canapply, 'split_n_' + np, graph.edges) ? _Utils_Tuple2(
+								'Split [ ' + (A2(
+									$elm$core$String$join,
+									' ',
+									A2(
+										$elm$core$List$map,
+										$elm$core$String$fromInt,
+										A2($author$project$GraphInterface$getData, np, graph.nodes))) + ' ]'),
+								$author$project$Prompt$PromptInfo) : _Utils_Tuple2('Cannot Apply.', $author$project$Prompt$PromptDanger)
 						}),
 					$author$project$MergeSortRecursive$sendMessage(
 						$author$project$GraphInterface$gdEncode(gr_)));
@@ -6933,13 +6940,15 @@ var $author$project$MergeSortRecursive$update = F2(
 						model,
 						{
 							graph: gr_,
-							promptMsg: A2($author$project$MergeSortRecursive$canapply, 'ms_n_' + np, graph.edges) ? ('Expanding the mergesort [ ' + (A2(
-								$elm$core$String$join,
-								' ',
-								A2(
-									$elm$core$List$map,
-									$elm$core$String$fromInt,
-									A2($author$project$GraphInterface$getData, np, graph.nodes))) + ' ] node.')) : 'Cannot apply this mergesort operation.  Split first.'
+							prompt: A2($author$project$MergeSortRecursive$canapply, 'ms_n_' + np, graph.edges) ? _Utils_Tuple2(
+								'Expanding the mergesort [ ' + (A2(
+									$elm$core$String$join,
+									' ',
+									A2(
+										$elm$core$List$map,
+										$elm$core$String$fromInt,
+										A2($author$project$GraphInterface$getData, np, graph.nodes))) + ' ] node.'),
+								$author$project$Prompt$PromptInfo) : _Utils_Tuple2('Cannot apply this mergesort operation.  Split first.', $author$project$Prompt$PromptDanger)
 						}),
 					$author$project$MergeSortRecursive$sendMessage(
 						$author$project$GraphInterface$gdEncode(gr_)));
@@ -6992,20 +7001,30 @@ var $author$project$MergeSortRecursive$update = F2(
 						model,
 						{
 							graph: gr_,
-							promptMsg: A2($author$project$MergeSortRecursive$canapply, 'merge_n_' + np, graph.edges) ? ('merge [ ' + (A2(
-								$elm$core$String$join,
-								' ], [ ',
-								A2(
-									$elm$core$List$map,
-									function (n) {
-										return n.value.label;
-									},
-									mnodes)) + ' ]')) : 'Cannot apply this merge operation.'
+							prompt: A2($author$project$MergeSortRecursive$canapply, 'merge_n_' + np, graph.edges) ? _Utils_Tuple2(
+								'merge [ ' + (A2(
+									$elm$core$String$join,
+									' ], [ ',
+									A2(
+										$elm$core$List$map,
+										function (n) {
+											return n.value.label;
+										},
+										mnodes)) + ' ]'),
+								$author$project$Prompt$PromptInfo) : _Utils_Tuple2('Cannot apply this merge operation.', $author$project$Prompt$PromptDanger)
 						}),
 					$author$project$MergeSortRecursive$sendMessage(
 						$author$project$GraphInterface$gdEncode(gr_)));
 		}
 	});
+var $elm$virtual_dom$VirtualDom$attribute = F2(
+	function (key, value) {
+		return A2(
+			_VirtualDom_attribute,
+			_VirtualDom_noOnOrFormAction(key),
+			_VirtualDom_noJavaScriptOrHtmlUri(value));
+	});
+var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -7015,14 +7034,60 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$p = _VirtualDom_node('p');
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(prompt_text)
+			]));
+};
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
@@ -7355,30 +7420,14 @@ var $author$project$MergeSortRecursive$view = function (model) {
 			]),
 		_List_fromArray(
 			[
+				$author$project$Prompt$show(model.prompt),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('flex bg-gray-100 justify-center p-4 m-2 rounded shadow')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('p-2')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(model.promptMsg)
-							]))
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll')
+						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll'),
+						A2($elm$html$Html$Attributes$attribute, 'data-zoom-on-wheel', ''),
+						A2($elm$html$Html$Attributes$attribute, 'data-pan-on-drag', '')
 					]),
 				_List_fromArray(
 					[

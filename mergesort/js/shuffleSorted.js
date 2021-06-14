@@ -5230,6 +5230,7 @@ var $elm$browser$Browser$element = _Browser_element;
 var $author$project$ShuffleSorted$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5504,7 +5505,12 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 	});
 var $author$project$ShuffleSorted$init = function (_v0) {
 	return _Utils_Tuple2(
-		{firstList: _List_Nil, mergedList: _List_Nil, promptText: 'Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'shuffled\' list.', secondList: _List_Nil},
+		{
+			firstList: _List_Nil,
+			mergedList: _List_Nil,
+			prompt: _Utils_Tuple2('Click on LEFT or RIGHT buttons to move \n                      the first number from the corresponding \n                      list to the end of the \'shuffled\' list.', $author$project$Prompt$PromptInfo),
+			secondList: _List_Nil
+		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
@@ -5527,6 +5533,7 @@ var $author$project$ShuffleSorted$init = function (_v0) {
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $author$project$ShuffleSorted$move = F2(
 	function (from, ml) {
 		if (!from.b) {
@@ -5557,13 +5564,17 @@ var $author$project$ShuffleSorted$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'left\' list is empty.  Shuffling is complete.'}),
+								{
+									prompt: _Utils_Tuple2('The \'left\' list is empty.  Shuffling is complete.', $author$project$Prompt$PromptSuccess)
+								}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'left\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.'}),
+								{
+									prompt: _Utils_Tuple2('The \'left\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.', $author$project$Prompt$PromptInfo)
+								}),
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
@@ -5583,13 +5594,17 @@ var $author$project$ShuffleSorted$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'right\' list is empty.  Shuffling is complete.'}),
+								{
+									prompt: _Utils_Tuple2('The \'right\' list is empty.  Shuffling is complete.', $author$project$Prompt$PromptSuccess)
+								}),
 							$elm$core$Platform$Cmd$none);
 					} else {
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptText: 'The \'right\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.'}),
+								{
+									prompt: _Utils_Tuple2('The \'right\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise shuffling is complete.', $author$project$Prompt$PromptInfo)
+								}),
 							$elm$core$Platform$Cmd$none);
 					}
 				} else {
@@ -5888,30 +5903,51 @@ var $author$project$ShuffleSorted$listView = F2(
 								]))))
 				]));
 	});
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$ShuffleSorted$prompt = function (p) {
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('flex'),
-				$elm$html$Html$Attributes$class('justify-center'),
-				$elm$html$Html$Attributes$class('py-10'),
-				$elm$html$Html$Attributes$class('text-gray-700'),
-				$elm$html$Html$Attributes$class('tracking-wide')
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
 			]),
 		_List_fromArray(
 			[
-				A2(
-				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('max-w-lg')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text(p)
-					]))
+				$elm$html$Html$text(prompt_text)
 			]));
 };
 var $author$project$ShuffleSorted$view = function (model) {
@@ -5927,7 +5963,7 @@ var $author$project$ShuffleSorted$view = function (model) {
 			]),
 		_List_fromArray(
 			[
-				$author$project$ShuffleSorted$prompt(model.promptText),
+				$author$project$Prompt$show(model.prompt),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(

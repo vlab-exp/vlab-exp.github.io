@@ -5230,6 +5230,7 @@ var $elm$browser$Browser$element = _Browser_element;
 var $author$project$MsArbitrary$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5542,7 +5543,7 @@ var $author$project$MsArbitrary$init = function (flags) {
 		{
 			data: _List_Nil,
 			graph: $author$project$MsArbitrary$ig1(_List_Nil),
-			promptMsg: '',
+			prompt: _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
 			selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 		},
 		$elm$core$Platform$Cmd$batch(
@@ -5566,6 +5567,7 @@ var $author$project$MsArbitrary$messageReceiver = _Platform_incomingPort('messag
 var $author$project$MsArbitrary$subscriptions = function (_v0) {
 	return $author$project$MsArbitrary$messageReceiver($author$project$MsArbitrary$Recv);
 };
+var $author$project$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -6816,7 +6818,7 @@ var $author$project$MsArbitrary$update = F2(
 						{
 							data: $elm$core$Array$toList(arr),
 							graph: gr_,
-							promptMsg: 'Click on the \'Split\' node to split the given list.'
+							prompt: _Utils_Tuple2('Click on the \'Split\' node to split the given list.', $author$project$Prompt$PromptInfo)
 						}),
 					$author$project$MsArbitrary$sendMessage(
 						$author$project$MsArbitraryGraph$gdEncode(gr_)));
@@ -6848,7 +6850,10 @@ var $author$project$MsArbitrary$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{graph: gr_, promptMsg: 'Click on any \'Split\' node to split the corresponding sublist.'}),
+						{
+							graph: gr_,
+							prompt: _Utils_Tuple2('Click on any \'Split\' node to split the corresponding sublist.', $author$project$Prompt$PromptInfo)
+						}),
 					$author$project$MsArbitrary$sendMessage(
 						$author$project$MsArbitraryGraph$gdEncode(gr_)));
 			case 'Merge':
@@ -6887,7 +6892,7 @@ var $author$project$MsArbitrary$update = F2(
 						model,
 						{
 							graph: gr_,
-							promptMsg: (2 === A2(
+							prompt: (2 === A2(
 								$elm$core$Debug$log,
 								'l',
 								$elm$core$List$length(
@@ -6899,7 +6904,7 @@ var $author$project$MsArbitrary$update = F2(
 													$author$project$MsArbitraryGraph$labelToData(n.value.label)),
 												$elm$core$List$length(model.data));
 										},
-										gr_.nodes)))) ? 'Mergesort Complete.' : '',
+										gr_.nodes)))) ? _Utils_Tuple2('Mergesort Complete.', $author$project$Prompt$PromptSuccess) : _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
 							selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 						}),
 					$author$project$MsArbitrary$sendMessage(
@@ -6915,7 +6920,7 @@ var $author$project$MsArbitrary$update = F2(
 							_Utils_update(
 								model,
 								{
-									promptMsg: 'Click on another sublist to merge the two selected sublists.',
+									prompt: _Utils_Tuple2('Click on another sublist to merge the two selected sublists.', $author$project$Prompt$PromptInfo),
 									selectedNodes: _Utils_Tuple2(
 										$elm$core$Maybe$Just(p),
 										$elm$core$Maybe$Nothing)
@@ -6934,7 +6939,7 @@ var $author$project$MsArbitrary$update = F2(
 									model,
 									{
 										graph: model.graph,
-										promptMsg: '',
+										prompt: _Utils_Tuple2('', $author$project$Prompt$PromptInfo),
 										selectedNodes: _Utils_Tuple2($elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing)
 									}),
 								$elm$core$Platform$Cmd$none);
@@ -6949,7 +6954,7 @@ var $author$project$MsArbitrary$update = F2(
 									model,
 									{
 										graph: gr_,
-										promptMsg: 'Click on \'Merge\' to merge the selected sublists.',
+										prompt: _Utils_Tuple2('Click on \'Merge\' to merge the selected sublists.', $author$project$Prompt$PromptInfo),
 										selectedNodes: _Utils_Tuple2(
 											$elm$core$Maybe$Just(a),
 											$elm$core$Maybe$Just(p))
@@ -6963,7 +6968,9 @@ var $author$project$MsArbitrary$update = F2(
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{promptMsg: 'merge the selected sublists and then select other sublists to merge.'}),
+								{
+									prompt: _Utils_Tuple2('merge the selected sublists and then select other sublists to merge.', $author$project$Prompt$PromptInfo)
+								}),
 							$elm$core$Platform$Cmd$none);
 					}
 				}
@@ -6971,6 +6978,14 @@ var $author$project$MsArbitrary$update = F2(
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
+var $elm$virtual_dom$VirtualDom$attribute = F2(
+	function (key, value) {
+		return A2(
+			_VirtualDom_attribute,
+			_VirtualDom_noOnOrFormAction(key),
+			_VirtualDom_noJavaScriptOrHtmlUri(value));
+	});
+var $elm$html$Html$Attributes$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -6980,15 +6995,61 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$p = _VirtualDom_node('p');
+var $author$project$Prompt$colorScheme = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#155724', '#d4edda'),
+				'#c3e6cb');
+		case 'PromptDanger':
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#721c24', '#f8d7da'),
+				'#f5c6cb');
+		default:
+			return _Utils_Tuple2(
+				_Utils_Tuple2('#004085', '#cce5ff'),
+				'#b8daff');
+	}
+};
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
+	var _v1 = $author$project$Prompt$colorScheme(promptType);
+	var _v2 = _v1.a;
+	var clr = _v2.a;
+	var bgClr = _v2.b;
+	var bdrClr = _v1.b;
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
+				A2($elm$html$Html$Attributes$style, 'color', clr),
+				A2($elm$html$Html$Attributes$style, 'background', bgClr),
+				A2($elm$html$Html$Attributes$style, 'border-color', bdrClr),
+				A2($elm$html$Html$Attributes$style, 'font-size', '1em'),
+				A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+				A2($elm$html$Html$Attributes$style, 'border', '1px solid'),
+				A2($elm$html$Html$Attributes$style, 'border-radius', '0.25rem'),
+				A2($elm$html$Html$Attributes$style, 'padding', '0.75rem 1.25rem'),
+				A2($elm$html$Html$Attributes$style, 'margin', '0.5rem')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(prompt_text)
+			]));
+};
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
@@ -7362,30 +7423,14 @@ var $author$project$MsArbitrary$view = function (model) {
 			]),
 		_List_fromArray(
 			[
+				$author$project$Prompt$show(model.prompt),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('flex bg-gray-100 justify-center p-4 m-2 rounded shadow')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$p,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('p-2')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(model.promptMsg)
-							]))
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll')
+						$elm$html$Html$Attributes$class('flex flex-grow justify-center overflow-scroll'),
+						A2($elm$html$Html$Attributes$attribute, 'data-zoom-on-wheel', ''),
+						A2($elm$html$Html$Attributes$attribute, 'data-pan-on-drag', '')
 					]),
 				_List_fromArray(
 					[
