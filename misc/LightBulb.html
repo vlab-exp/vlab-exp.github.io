@@ -5201,6 +5201,9 @@ var $author$project$LightBulb$transition = F2(
 var $elm_community$typed_svg$TypedSvg$Types$Paint = function (a) {
 	return {$: 'Paint', a: a};
 };
+var $elm_community$typed_svg$TypedSvg$Types$Percent = function (a) {
+	return {$: 'Percent', a: a};
+};
 var $elm$virtual_dom$VirtualDom$attribute = F2(
 	function (key, value) {
 		return A2(
@@ -5210,6 +5213,7 @@ var $elm$virtual_dom$VirtualDom$attribute = F2(
 	});
 var $elm_community$typed_svg$TypedSvg$Core$attribute = $elm$virtual_dom$VirtualDom$attribute;
 var $elm_community$typed_svg$TypedSvg$Attributes$d = $elm_community$typed_svg$TypedSvg$Core$attribute('d');
+var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -5282,11 +5286,12 @@ var $elm$virtual_dom$VirtualDom$nodeNS = function (tag) {
 };
 var $elm_community$typed_svg$TypedSvg$Core$node = $elm$virtual_dom$VirtualDom$nodeNS('http://www.w3.org/2000/svg');
 var $elm_community$typed_svg$TypedSvg$g = $elm_community$typed_svg$TypedSvg$Core$node('g');
-var $elm_community$typed_svg$TypedSvg$path = $elm_community$typed_svg$TypedSvg$Core$node('path');
-var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
-	return {$: 'Px', a: a};
+var $elm$core$Basics$negate = function (n) {
+	return -n;
 };
-var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
+var $elm_community$typed_svg$TypedSvg$path = $elm_community$typed_svg$TypedSvg$Core$node('path');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm_community$typed_svg$TypedSvg$Attributes$style = function (value) {
 	return A2($elm_community$typed_svg$TypedSvg$Core$attribute, 'style', value);
 };
@@ -5342,16 +5347,10 @@ var $elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString = function (
 			return $elm$core$String$fromFloat(x) + 'rem';
 	}
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$x = function (length) {
+var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {
 	return A2(
 		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'x',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$y = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'y',
+		'width',
 		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
 };
 var $avh4$elm_color$Color$RgbaSpace = F4(
@@ -5364,103 +5363,110 @@ var $author$project$LightBulb$bulb = function (lightbulb) {
 	var offColor = '#FFFFFF';
 	var bulbColor = lightbulb.switched_on ? onColor : offColor;
 	return A2(
-		$elm_community$typed_svg$TypedSvg$svg,
+		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm_community$typed_svg$TypedSvg$Attributes$x(
-				$elm_community$typed_svg$TypedSvg$Types$px(0)),
-				$elm_community$typed_svg$TypedSvg$Attributes$y(
-				$elm_community$typed_svg$TypedSvg$Types$px(0)),
-				A4($elm_community$typed_svg$TypedSvg$Attributes$viewBox, 0, 0, 1000, 450)
+				A2($elm$html$Html$Attributes$style, 'flex', '4')
 			]),
 		_List_fromArray(
 			[
 				A2(
-				$elm_community$typed_svg$TypedSvg$g,
-				_List_Nil,
+				$elm_community$typed_svg$TypedSvg$svg,
+				_List_fromArray(
+					[
+						A4($elm_community$typed_svg$TypedSvg$Attributes$viewBox, 0, -50, 425, 500),
+						$elm_community$typed_svg$TypedSvg$Attributes$style('height:80vh'),
+						$elm_community$typed_svg$TypedSvg$Attributes$width(
+						$elm_community$typed_svg$TypedSvg$Types$Percent(100))
+					]),
 				_List_fromArray(
 					[
 						A2(
-						$elm_community$typed_svg$TypedSvg$path,
+						$elm_community$typed_svg$TypedSvg$g,
+						_List_Nil,
 						_List_fromArray(
 							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';stroke: #231F20; stroke-width: 10;')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M216.529,93.2c-61.2,0-111.2,50-111.2,111.2c0,32,14,62.8,37.6,83.6c17.6,17.6,16,55.2,15.6,55.6\n                    c0,2,0.4,3.6,2,5.2c1.2,1.2,3.2,2,4.8,2h102c2,0,3.6-0.8,4.8-2c1.2-1.2,2-3.2,2-5.2c0-0.4-2-38,15.6-55.6\n                    c0.4-0.4,0.8-0.8,1.2-1.2c23.2-21.2,36.8-51.2,36.8-82.4C327.729,143.2,277.729,93.2,216.529,93.2z '),
-								$elm_community$typed_svg$TypedSvg$Attributes$fill(
-								$elm_community$typed_svg$TypedSvg$Types$Paint($avh4$elm_color$Color$yellow))
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M216.129,121.6c-3.6,0-6.8,3.2-6.8,6.8c0,3.6,3.2,6.8,6.8,6.8c40.4,0,72.8,32.8,72.8,72.8\n                	c0,3.6,3.2,6.8,6.8,6.8c3.6,0,6.8-3.2,6.8-6.8C302.929,160.4,264.129,121.6,216.129,121.6z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M260.529,358.4h-88.8c-9.2,0-16.8,7.6-16.8,16.8s7.6,16.8,16.8,16.8h88.4\n                    c9.6-0.4,17.2-7.6,17.2-16.8C277.329,366,269.729,358.4,260.529,358.4z M260.529,378h-88.8c-1.6,0-3.2-1.2-3.2-3.2\n                    s1.2-3.2,3.2-3.2h88.4c1.6,0,3.2,1.2,3.2,3.2S262.129,378,260.529,378z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M247.329,398.8h-62.4c-9.2,0-16.8,7.6-16.8,16.8s7.6,16.8,16.8,16.8h62.4\n                    c9.2,0,16.8-7.6,16.8-16.8C264.129,406,256.529,398.8,247.329,398.8z M247.329,418.4h-62.4c-1.6,0-3.2-1.2-3.2-3.2\n                    s1.2-3.2,3.2-3.2h62.4c1.6,0,3.2,1.2,3.2,3.2S248.929,418.4,247.329,418.4z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M216.129,60c4,0,6.8-3.2,6.8-6.8V6.8c0-3.6-3.2-6.8-6.8-6.8c-3.6,0-6.8,3.2-6.8,6.8v46.4\n                    C209.329,56.8,212.529,60,216.129,60z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M329.329,34.4c-3.2-2.4-7.2-1.2-9.2,1.6l-25.6,38.4c-2.4,3.2-1.6,7.6,1.6,9.6\n                    c1.2,0.8,2.4,1.2,3.6,1.2c2.4,0,4.4-1.2,5.6-3.2l25.6-38.4C333.329,40.8,332.529,36.4,329.329,34.4z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M134.929,83.6c1.2,0,2.4-0.4,3.6-1.2c3.2-2,4-6.4,2-9.6l-24.8-38.8c-2-3.2-6.4-4-9.6-2\n                    s-4,6.4-2,9.6l24.8,38.8C130.529,82.8,132.529,83.6,134.929,83.6z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M86.529,126l-40.4-22c-3.2-1.6-7.6-0.4-9.2,2.8c-2,3.2-0.8,7.6,2.8,9.2l40.4,22\n                    c1.2,0.4,2,0.8,3.2,0.8c2.4,0,4.8-1.2,6-3.6C90.929,132,89.729,127.6,86.529,126z')
-							]),
-						_List_Nil),
-						A2(
-						$elm_community$typed_svg$TypedSvg$path,
-						_List_fromArray(
-							[
-								$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
-								$elm_community$typed_svg$TypedSvg$Attributes$d('M395.729,106.8c-1.6-3.2-6-4.4-9.2-2.8l-40.8,22c-3.2,1.6-4.4,6-2.8,9.2c1.2,2.4,3.6,3.6,6,3.6\n                    c1.2,0,2.4-0.4,3.2-0.8l40.8-22C396.129,114.4,397.329,110,395.729,106.8z')
-							]),
-						_List_Nil)
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';stroke: #231F20; stroke-width: 10;')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M216.529,93.2c-61.2,0-111.2,50-111.2,111.2c0,32,14,62.8,37.6,83.6c17.6,17.6,16,55.2,15.6,55.6\n                        c0,2,0.4,3.6,2,5.2c1.2,1.2,3.2,2,4.8,2h102c2,0,3.6-0.8,4.8-2c1.2-1.2,2-3.2,2-5.2c0-0.4-2-38,15.6-55.6\n                        c0.4-0.4,0.8-0.8,1.2-1.2c23.2-21.2,36.8-51.2,36.8-82.4C327.729,143.2,277.729,93.2,216.529,93.2z '),
+										$elm_community$typed_svg$TypedSvg$Attributes$fill(
+										$elm_community$typed_svg$TypedSvg$Types$Paint($avh4$elm_color$Color$yellow))
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M216.129,121.6c-3.6,0-6.8,3.2-6.8,6.8c0,3.6,3.2,6.8,6.8,6.8c40.4,0,72.8,32.8,72.8,72.8\n                        c0,3.6,3.2,6.8,6.8,6.8c3.6,0,6.8-3.2,6.8-6.8C302.929,160.4,264.129,121.6,216.129,121.6z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M260.529,358.4h-88.8c-9.2,0-16.8,7.6-16.8,16.8s7.6,16.8,16.8,16.8h88.4\n                        c9.6-0.4,17.2-7.6,17.2-16.8C277.329,366,269.729,358.4,260.529,358.4z M260.529,378h-88.8c-1.6,0-3.2-1.2-3.2-3.2\n                        s1.2-3.2,3.2-3.2h88.4c1.6,0,3.2,1.2,3.2,3.2S262.129,378,260.529,378z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:#231F20;'),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M247.329,398.8h-62.4c-9.2,0-16.8,7.6-16.8,16.8s7.6,16.8,16.8,16.8h62.4\n                        c9.2,0,16.8-7.6,16.8-16.8C264.129,406,256.529,398.8,247.329,398.8z M247.329,418.4h-62.4c-1.6,0-3.2-1.2-3.2-3.2\n                        s1.2-3.2,3.2-3.2h62.4c1.6,0,3.2,1.2,3.2,3.2S248.929,418.4,247.329,418.4z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M216.129,60c4,0,6.8-3.2,6.8-6.8V6.8c0-3.6-3.2-6.8-6.8-6.8c-3.6,0-6.8,3.2-6.8,6.8v46.4\n                        C209.329,56.8,212.529,60,216.129,60z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M329.329,34.4c-3.2-2.4-7.2-1.2-9.2,1.6l-25.6,38.4c-2.4,3.2-1.6,7.6,1.6,9.6\n                        c1.2,0.8,2.4,1.2,3.6,1.2c2.4,0,4.4-1.2,5.6-3.2l25.6-38.4C333.329,40.8,332.529,36.4,329.329,34.4z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M134.929,83.6c1.2,0,2.4-0.4,3.6-1.2c3.2-2,4-6.4,2-9.6l-24.8-38.8c-2-3.2-6.4-4-9.6-2\n                        s-4,6.4-2,9.6l24.8,38.8C130.529,82.8,132.529,83.6,134.929,83.6z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M86.529,126l-40.4-22c-3.2-1.6-7.6-0.4-9.2,2.8c-2,3.2-0.8,7.6,2.8,9.2l40.4,22\n                        c1.2,0.4,2,0.8,3.2,0.8c2.4,0,4.8-1.2,6-3.6C90.929,132,89.729,127.6,86.529,126z')
+									]),
+								_List_Nil),
+								A2(
+								$elm_community$typed_svg$TypedSvg$path,
+								_List_fromArray(
+									[
+										$elm_community$typed_svg$TypedSvg$Attributes$style('fill:' + (bulbColor + ';')),
+										$elm_community$typed_svg$TypedSvg$Attributes$d('M395.729,106.8c-1.6-3.2-6-4.4-9.2-2.8l-40.8,22c-3.2,1.6-4.4,6-2.8,9.2c1.2,2.4,3.6,3.6,6,3.6\n                        c1.2,0,2.4-0.4,3.2-0.8l40.8-22C396.129,114.4,397.329,110,395.729,106.8z')
+									]),
+								_List_Nil)
+							]))
 					]))
 			]));
 };
 var $author$project$LightBulb$SwitchOff = {$: 'SwitchOff'};
 var $author$project$LightBulb$SwitchOn = {$: 'SwitchOn'};
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5483,7 +5489,13 @@ var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$LightBulb$controls = function (switchedOn) {
 	return A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'flex', '1'),
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
+				A2($elm$html$Html$Attributes$style, 'justify-content', 'space-around')
+			]),
 		_List_fromArray(
 			[
 				A2(
@@ -5491,7 +5503,18 @@ var $author$project$LightBulb$controls = function (switchedOn) {
 				_List_fromArray(
 					[
 						$elm$html$Html$Events$onClick(
-						switchedOn ? $author$project$LightBulb$SwitchOff : $author$project$LightBulb$SwitchOn)
+						switchedOn ? $author$project$LightBulb$SwitchOff : $author$project$LightBulb$SwitchOn),
+						A2($elm$html$Html$Attributes$style, 'color', '#fff'),
+						A2($elm$html$Html$Attributes$style, 'background-color', '#0d6efd'),
+						A2($elm$html$Html$Attributes$style, 'border-color', '#0d6efd'),
+						A2($elm$html$Html$Attributes$style, 'display', 'inline-block'),
+						A2($elm$html$Html$Attributes$style, 'font-weight', '400'),
+						A2($elm$html$Html$Attributes$style, 'line-height', '1.5'),
+						A2($elm$html$Html$Attributes$style, 'cursor', 'pointer'),
+						A2($elm$html$Html$Attributes$style, 'padding', '.375rem .75rem'),
+						A2($elm$html$Html$Attributes$style, 'border', '1px solid transparent'),
+						A2($elm$html$Html$Attributes$style, 'font-size', '1rem'),
+						A2($elm$html$Html$Attributes$style, 'border-radius', '.25rem')
 					]),
 				_List_fromArray(
 					[
@@ -5503,7 +5526,12 @@ var $author$project$LightBulb$controls = function (switchedOn) {
 var $author$project$LightBulb$view = function (lightbulb) {
 	return A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
+				A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
+				A2($elm$html$Html$Attributes$style, 'height', '100vh')
+			]),
 		_List_fromArray(
 			[
 				$author$project$LightBulb$bulb(lightbulb),
