@@ -1,0 +1,89 @@
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#elm-app-is-loaded-here {
+    margin: 0px;
+}
+.app {
+    height: 100vh;
+    width: 100%;
+    margin: 0px;
+    background-color: white;
+    display: grid;
+    justify-content: center;
+}
+
+#atm {
+    height: 600px;
+    width: 400px;
+    margin: auto;
+    background-color: rgb(107, 25, 107);
+    border-radius: 10px;
+}
+
+button {
+    font-size: 22px;
+    height: 60px;
+    width: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    box-shadow: 5px 5px 5px #444;
+}
+
+.primary-button {
+    background-color: rgb(68, 68, 185);
+    color: wheat;
+}
+
+.secondary-button {
+    background-color: black;
+    color: white;
+}
+
+.atm-header {
+    text-align: center;
+    padding-bottom: 10px;
+    color: floralwhite;
+    font-family: system-ui;
+}
+
+.buttons-space {
+    display: grid;
+    justify-content: center;
+}
+.screen {
+    height: 200px;
+    /* border: 10px solid #c73434; */
+    border-radius: 10px;
+    margin: 20px;
+    display: grid;
+    justify-content: center;
+    background-color: cornsilk;
+}
+
+.screen p {
+    font-size: 22px;
+    /* margin: 10px; */
+    /* font-weight: 100; */
+    text-align: center;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.screen input {
+    height: 80px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 47px;
+    text-align: center;
+    justify-self: center;
+    width: 250px;
+}
