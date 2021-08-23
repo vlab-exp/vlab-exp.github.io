@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Interactive Experiments</title>
+  </head>
+
+  <body>
+    <div id="elm-app-is-loaded-here"></div>
+
+    <script src="./ArraySum.js"></script>
+    <script>
+      var app = Elm.ArraySum.init({
+        node: document.getElementById("elm-app-is-loaded-here"),
+      });
+    </script>
+  </body>
+</html>
