@@ -7422,7 +7422,7 @@ var $author$project$Controls$Disabled = {$: 'Disabled'};
 var $author$project$Order$Init = function (a) {
 	return {$: 'Init', a: a};
 };
-var $author$project$Order$NoneSelected = {$: 'NoneSelected'};
+var $author$project$BSCore$NoneSelected = {$: 'NoneSelected'};
 var $author$project$Order$Order = {$: 'Order'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -7673,7 +7673,7 @@ var $author$project$Order$init = function (_v0) {
 				]),
 			numbers: _List_Nil,
 			prompt: 'Click on any numbered circle to toggle the selection. \n                You can select upto two numbers.',
-			selections: $author$project$Order$NoneSelected
+			selections: $author$project$BSCore$NoneSelected
 		},
 		A2(
 			$elm$random$Random$generate,
@@ -7683,6 +7683,28 @@ var $author$project$Order$init = function (_v0) {
 				4,
 				6,
 				A2($elm$random$Random$int, 10, 50))));
+};
+var $author$project$BSCore$selectionsLogger = function (selections) {
+	switch (selections.$) {
+		case 'NoneSelected':
+			return _List_Nil;
+		case 'OneSelected':
+			var u = selections.a;
+			return _List_fromArray(
+				[u]);
+		default:
+			var u = selections.a;
+			var v = selections.b;
+			return _List_fromArray(
+				[u, v]);
+	}
+};
+var $author$project$Order$logger = function (model) {
+	return {
+		numbers: model.numbers,
+		prompt: model.prompt,
+		selections: $author$project$BSCore$selectionsLogger(model.selections)
+	};
 };
 var $author$project$Order$setFresh = function (msg) {
 	if (msg.$ === 'Init') {
@@ -7899,32 +7921,32 @@ var $author$project$Core$update = F8(
 							])));
 		}
 	});
-var $author$project$Order$BothSelected = F2(
+var $author$project$BSCore$BothSelected = F2(
 	function (a, b) {
 		return {$: 'BothSelected', a: a, b: b};
 	});
-var $author$project$Order$OneSelected = function (a) {
+var $author$project$BSCore$OneSelected = function (a) {
 	return {$: 'OneSelected', a: a};
 };
 var $author$project$Order$deselect = F2(
 	function (i, selections) {
 		switch (selections.$) {
 			case 'NoneSelected':
-				return _Utils_Tuple2($author$project$Order$NoneSelected, '');
+				return _Utils_Tuple2($author$project$BSCore$NoneSelected, '');
 			case 'OneSelected':
 				var j = selections.a;
-				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$Order$NoneSelected, 'Select any two numbers to order.') : _Utils_Tuple2(
-					$author$project$Order$OneSelected(j),
+				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$BSCore$NoneSelected, 'Select any two numbers to order.') : _Utils_Tuple2(
+					$author$project$BSCore$OneSelected(j),
 					'');
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_eq(i, j) ? _Utils_Tuple2(
-					$author$project$Order$OneSelected(k),
+					$author$project$BSCore$OneSelected(k),
 					'You need exactly two numbers.  Select another one.') : (_Utils_eq(i, k) ? _Utils_Tuple2(
-					$author$project$Order$OneSelected(j),
+					$author$project$BSCore$OneSelected(j),
 					'Select one more number.') : _Utils_Tuple2(
-					A2($author$project$Order$BothSelected, j, k),
+					A2($author$project$BSCore$BothSelected, j, k),
 					''));
 		}
 	});
@@ -7987,18 +8009,18 @@ var $author$project$Order$select = F3(
 		switch (selections.$) {
 			case 'NoneSelected':
 				return _Utils_Tuple2(
-					$author$project$Order$OneSelected(i),
+					$author$project$BSCore$OneSelected(i),
 					'Select one more number and then click the \'Order\' button');
 			case 'OneSelected':
 				var j = selections.a;
 				return _Utils_Tuple2(
-					A2($author$project$Order$BothSelected, j, i),
+					A2($author$project$BSCore$BothSelected, j, i),
 					A3($author$project$Order$ordered, numbers, i, j) ? 'Select numbers are in correct order.  Select some other numbers.' : 'The selected numbers are out of order.  Click the \'Order\' button to order the selected numbers.');
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_Tuple2(
-					A2($author$project$Order$BothSelected, j, k),
+					A2($author$project$BSCore$BothSelected, j, k),
 					'Two numbers are already selected.');
 		}
 	});
@@ -8341,7 +8363,7 @@ var $author$project$Order$updateOrder = function (model) {
 						A2($author$project$Controls$disable, $author$project$Order$Order, ctrls)),
 					numbers: A2($author$project$Order$order, numbers, selections),
 					prompt: 'Select two numbers and then click the \'Order\' button.',
-					selections: $author$project$Order$NoneSelected
+					selections: $author$project$BSCore$NoneSelected
 				});
 	}
 };
@@ -11962,9 +11984,9 @@ var $author$project$Order$view = function (model) {
 };
 var $author$project$Order$main = $elm$browser$Browser$element(
 	{
-		init: A3($author$project$Core$init, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$Order$init),
+		init: A3($author$project$Core$init, $author$project$Order$logger, $author$project$AnalyticsPort$analytics, $author$project$Order$init),
 		subscriptions: $author$project$Core$subscriptions($author$project$Order$subscriptions),
-		update: A6($author$project$Core$update, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$Order$update, $author$project$Order$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
+		update: A6($author$project$Core$update, $author$project$Order$logger, $author$project$AnalyticsPort$analytics, $author$project$Order$update, $author$project$Order$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
 		view: $author$project$Core$view($author$project$Order$view)
 	});
 _Platform_export({'Order':{'init':$author$project$Order$main(

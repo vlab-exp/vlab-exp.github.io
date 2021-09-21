@@ -7684,6 +7684,28 @@ var $author$project$Core$init = F4(
 						A2($elm$core$Platform$Cmd$map, $elm_community$undo_redo$UndoList$New, cmd)
 					])));
 	});
+var $author$project$BSCore$selectionsLogger = function (selections) {
+	switch (selections.$) {
+		case 'NoneSelected':
+			return _List_Nil;
+		case 'OneSelected':
+			var u = selections.a;
+			return _List_fromArray(
+				[u]);
+		default:
+			var u = selections.a;
+			var v = selections.b;
+			return _List_fromArray(
+				[u, v]);
+	}
+};
+var $author$project$AdjOrder$logger = function (model) {
+	return {
+		numbers: model.numbers,
+		prompt: model.prompt,
+		selections: $author$project$BSCore$selectionsLogger(model.selections)
+	};
+};
 var $author$project$AdjOrder$setFresh = function (msg) {
 	if (msg.$ === 'Init') {
 		return true;
@@ -12018,9 +12040,9 @@ var $author$project$Core$view = F2(
 	});
 var $author$project$AdjOrder$main = $elm$browser$Browser$element(
 	{
-		init: A3($author$project$Core$init, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$AdjOrder$init),
+		init: A3($author$project$Core$init, $author$project$AdjOrder$logger, $author$project$AnalyticsPort$analytics, $author$project$AdjOrder$init),
 		subscriptions: $author$project$Core$subscriptions($author$project$AdjOrder$subscriptions),
-		update: A6($author$project$Core$update, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$AdjOrder$update, $author$project$AdjOrder$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
+		update: A6($author$project$Core$update, $author$project$AdjOrder$logger, $author$project$AnalyticsPort$analytics, $author$project$AdjOrder$update, $author$project$AdjOrder$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
 		view: $author$project$Core$view($author$project$AdjOrder$view)
 	});
 _Platform_export({'AdjOrder':{'init':$author$project$AdjOrder$main(

@@ -7422,7 +7422,7 @@ var $author$project$Controls$Disabled = {$: 'Disabled'};
 var $author$project$Swap$Init = function (a) {
 	return {$: 'Init', a: a};
 };
-var $author$project$Swap$NoneSelected = {$: 'NoneSelected'};
+var $author$project$BSCore$NoneSelected = {$: 'NoneSelected'};
 var $author$project$Swap$Swap = {$: 'Swap'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -7675,7 +7675,7 @@ var $author$project$Swap$init = function (_v0) {
 			numbers: _List_fromArray(
 				[10, 20, 50, 8, 30, 100, 5, 82]),
 			prompt: 'Click on any numbered circle to toggle the selection. You can select upto two numbers.',
-			selections: $author$project$Swap$NoneSelected,
+			selections: $author$project$BSCore$NoneSelected,
 			swapCount: 0
 		},
 		A2(
@@ -7686,6 +7686,30 @@ var $author$project$Swap$init = function (_v0) {
 				4,
 				6,
 				A2($elm$random$Random$int, 10, 50))));
+};
+var $author$project$BSCore$selectionsLogger = function (selections) {
+	switch (selections.$) {
+		case 'NoneSelected':
+			return _List_Nil;
+		case 'OneSelected':
+			var u = selections.a;
+			return _List_fromArray(
+				[u]);
+		default:
+			var u = selections.a;
+			var v = selections.b;
+			return _List_fromArray(
+				[u, v]);
+	}
+};
+var $author$project$Swap$logger = function (model) {
+	return {
+		minSwap: model.minSwap,
+		numbers: model.numbers,
+		prompt: model.prompt,
+		selections: $author$project$BSCore$selectionsLogger(model.selections),
+		swapCount: model.swapCount
+	};
 };
 var $author$project$Swap$setFresh = function (msg) {
 	if (msg.$ === 'Init') {
@@ -7902,32 +7926,32 @@ var $author$project$Core$update = F8(
 							])));
 		}
 	});
-var $author$project$Swap$BothSelected = F2(
+var $author$project$BSCore$BothSelected = F2(
 	function (a, b) {
 		return {$: 'BothSelected', a: a, b: b};
 	});
-var $author$project$Swap$OneSelected = function (a) {
+var $author$project$BSCore$OneSelected = function (a) {
 	return {$: 'OneSelected', a: a};
 };
 var $author$project$Swap$deselect = F2(
 	function (i, selections) {
 		switch (selections.$) {
 			case 'NoneSelected':
-				return _Utils_Tuple2($author$project$Swap$NoneSelected, '');
+				return _Utils_Tuple2($author$project$BSCore$NoneSelected, '');
 			case 'OneSelected':
 				var j = selections.a;
-				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$Swap$NoneSelected, 'Select two numbers to swap.') : _Utils_Tuple2(
-					$author$project$Swap$OneSelected(j),
+				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$BSCore$NoneSelected, 'Select two numbers to swap.') : _Utils_Tuple2(
+					$author$project$BSCore$OneSelected(j),
 					'');
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_eq(i, j) ? _Utils_Tuple2(
-					$author$project$Swap$OneSelected(k),
+					$author$project$BSCore$OneSelected(k),
 					'Select one more number.') : (_Utils_eq(i, k) ? _Utils_Tuple2(
-					$author$project$Swap$OneSelected(j),
+					$author$project$BSCore$OneSelected(j),
 					'Select one more number.') : _Utils_Tuple2(
-					A2($author$project$Swap$BothSelected, j, k),
+					A2($author$project$BSCore$BothSelected, j, k),
 					'Click the \'Swap\' button to swap the selected numbers.'));
 		}
 	});
@@ -8236,18 +8260,18 @@ var $author$project$Swap$select = F2(
 		switch (selections.$) {
 			case 'NoneSelected':
 				return _Utils_Tuple2(
-					$author$project$Swap$OneSelected(i),
+					$author$project$BSCore$OneSelected(i),
 					'Select one more number and then click the \'Swap\' button');
 			case 'OneSelected':
 				var j = selections.a;
 				return _Utils_Tuple2(
-					A2($author$project$Swap$BothSelected, j, i),
+					A2($author$project$BSCore$BothSelected, j, i),
 					'Click the \'Swap\' button to swap the selected numbers.');
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_Tuple2(
-					A2($author$project$Swap$BothSelected, j, k),
+					A2($author$project$BSCore$BothSelected, j, k),
 					'Two numbers are already selected.');
 		}
 	});
@@ -8330,7 +8354,7 @@ var $author$project$Swap$swap = function (model) {
 			var i = selections.a;
 			var j = selections.b;
 			var swappedNums = A3($elm_community$list_extra$List$Extra$swapAt, i, j, numbers);
-			var selections_ = $author$project$Swap$NoneSelected;
+			var selections_ = $author$project$BSCore$NoneSelected;
 			var pm = _Utils_eq(
 				$elm$core$List$sort(numbers),
 				swappedNums) ? ((_Utils_cmp(swapCount + 1, minSwap) < 1) ? 'Numbers sorted in minimum number of swaps !!' : 'Numbers sorted, but exceeded minimum number of swaps, try again!!') : 'Select two numbers and then click \'Swap\'';
@@ -11967,9 +11991,9 @@ var $author$project$Swap$view = function (model) {
 };
 var $author$project$Swap$main = $elm$browser$Browser$element(
 	{
-		init: A3($author$project$Core$init, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$Swap$init),
+		init: A3($author$project$Core$init, $author$project$Swap$logger, $author$project$AnalyticsPort$analytics, $author$project$Swap$init),
 		subscriptions: $author$project$Core$subscriptions($author$project$Swap$subscriptions),
-		update: A6($author$project$Core$update, $elm$core$Basics$identity, $author$project$AnalyticsPort$analytics, $author$project$Swap$update, $author$project$Swap$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
+		update: A6($author$project$Core$update, $author$project$Swap$logger, $author$project$AnalyticsPort$analytics, $author$project$Swap$update, $author$project$Swap$setFresh, $elm$core$Maybe$Nothing, $elm$core$Maybe$Nothing),
 		view: $author$project$Core$view($author$project$Swap$view)
 	});
 _Platform_export({'Swap':{'init':$author$project$Swap$main(
