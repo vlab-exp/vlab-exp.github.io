@@ -1,5 +1,14 @@
-$.get("./navBar.html", function(data){
-    $("#nav-bar").replaceWith(data);
+// To be debugged, not used in bubblesort anymore.
+document.addEventListener('DOMContentLoaded',loadNav());
+function loadNav()
+{
+    console.log('Loaded the dom');
+    fetch("./navBar.html")
+  .then(response => {
+    return response.text()
+  })
+  .then(data => {
+    document.querySelector("#nav-bar").innerHTML = data;
     const current = window.location.href;
     const active = ["bg-gray-400", "text-black"];
     const inactive = ["hover:bg-gray-400",  "hover:text-gray-800"];
@@ -15,4 +24,7 @@ $.get("./navBar.html", function(data){
             }
         });
 
-});
+  })
+  .catch(error => console.log('error', error));
+}
+

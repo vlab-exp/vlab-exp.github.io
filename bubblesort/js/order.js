@@ -7418,12 +7418,11 @@ var $author$project$Core$init = F4(
 						A2($elm$core$Platform$Cmd$map, $elm_community$undo_redo$UndoList$New, cmd)
 					])));
 	});
-var $author$project$Controls$Disabled = {$: 'Disabled'};
 var $author$project$Order$Init = function (a) {
 	return {$: 'Init', a: a};
 };
 var $author$project$BSCore$NoneSelected = {$: 'NoneSelected'};
-var $author$project$Order$Order = {$: 'Order'};
+var $author$project$Core$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -7667,12 +7666,8 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 var $author$project$Order$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
-			ctrls: _List_fromArray(
-				[
-					{label: 'Order', message: $author$project$Order$Order, status: $author$project$Controls$Disabled, text: ''}
-				]),
 			numbers: _List_Nil,
-			prompt: 'Click on any numbered circle to toggle the selection. \n                You can select upto two numbers.',
+			prompt: _Utils_Tuple2('Click on any numbered circle to toggle the selection. \n                You can select upto two numbers.', $author$project$Core$Prompt$PromptInfo),
 			selections: $author$project$BSCore$NoneSelected
 		},
 		A2(
@@ -7684,26 +7679,26 @@ var $author$project$Order$init = function (_v0) {
 				6,
 				A2($elm$random$Random$int, 10, 50))));
 };
-var $author$project$BSCore$selectionsLogger = function (selections) {
+var $author$project$BSCore$selectionsList = function (selections) {
 	switch (selections.$) {
 		case 'NoneSelected':
 			return _List_Nil;
 		case 'OneSelected':
-			var u = selections.a;
+			var i = selections.a;
 			return _List_fromArray(
-				[u]);
+				[i]);
 		default:
-			var u = selections.a;
-			var v = selections.b;
+			var i = selections.a;
+			var j = selections.b;
 			return _List_fromArray(
-				[u, v]);
+				[i, j]);
 	}
 };
 var $author$project$Order$logger = function (model) {
 	return {
 		numbers: model.numbers,
 		prompt: model.prompt,
-		selections: $author$project$BSCore$selectionsLogger(model.selections)
+		selections: $author$project$BSCore$selectionsList(model.selections)
 	};
 };
 var $author$project$Order$setFresh = function (msg) {
@@ -7932,24 +7927,29 @@ var $author$project$Order$deselect = F2(
 	function (i, selections) {
 		switch (selections.$) {
 			case 'NoneSelected':
-				return _Utils_Tuple2($author$project$BSCore$NoneSelected, '');
+				return _Utils_Tuple2(
+					$author$project$BSCore$NoneSelected,
+					_Utils_Tuple2('', $author$project$Core$Prompt$PromptInfo));
 			case 'OneSelected':
 				var j = selections.a;
-				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$BSCore$NoneSelected, 'Select any two numbers to order.') : _Utils_Tuple2(
+				return _Utils_eq(i, j) ? _Utils_Tuple2(
+					$author$project$BSCore$NoneSelected,
+					_Utils_Tuple2('Select any two numbers to order.', $author$project$Core$Prompt$PromptInfo)) : _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(j),
-					'');
+					_Utils_Tuple2('', $author$project$Core$Prompt$PromptInfo));
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_eq(i, j) ? _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(k),
-					'You need exactly two numbers.  Select another one.') : (_Utils_eq(i, k) ? _Utils_Tuple2(
+					_Utils_Tuple2('You need exactly two numbers.  Select another one.', $author$project$Core$Prompt$PromptInfo)) : (_Utils_eq(i, k) ? _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(j),
-					'Select one more number.') : _Utils_Tuple2(
+					_Utils_Tuple2('Select one more number.', $author$project$Core$Prompt$PromptInfo)) : _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, k),
-					''));
+					_Utils_Tuple2('', $author$project$Core$Prompt$PromptInfo)));
 		}
 	});
+var $author$project$Core$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $elm$core$List$drop = F2(
 	function (n, list) {
 		drop:
@@ -8010,33 +8010,19 @@ var $author$project$Order$select = F3(
 			case 'NoneSelected':
 				return _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(i),
-					'Select one more number and then click the \'Order\' button');
+					_Utils_Tuple2('Select one more number and then click the \'Order\' button', $author$project$Core$Prompt$PromptSuccess));
 			case 'OneSelected':
 				var j = selections.a;
 				return _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, i),
-					A3($author$project$Order$ordered, numbers, i, j) ? 'Select numbers are in correct order.  Select some other numbers.' : 'The selected numbers are out of order.  Click the \'Order\' button to order the selected numbers.');
+					A3($author$project$Order$ordered, numbers, i, j) ? _Utils_Tuple2('Select numbers are in correct order.  Select some other numbers.', $author$project$Core$Prompt$PromptInfo) : _Utils_Tuple2('The selected numbers are out of order.  Click the \'Order\' button to order the selected numbers.', $author$project$Core$Prompt$PromptSuccess));
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, k),
-					'Two numbers are already selected.');
+					_Utils_Tuple2('Two numbers are already selected.', $author$project$Core$Prompt$PromptInfo));
 		}
-	});
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
-var $author$project$Controls$disable = F2(
-	function (m, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{status: $author$project$Controls$Disabled}) : c;
-			},
-			ctrls);
 	});
 var $elm$core$List$append = F2(
 	function (xs, ys) {
@@ -8270,154 +8256,40 @@ var $author$project$Order$order = F2(
 			return array;
 		}
 	});
-var $author$project$Controls$updateText = F3(
-	function (m, str, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{text: str}) : c;
-			},
-			ctrls);
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $author$project$Order$updateOrder = function (model) {
 	var _v0 = model;
 	var numbers = _v0.numbers;
 	var selections = _v0.selections;
-	var ctrls = _v0.ctrls;
 	var prompt = _v0.prompt;
 	switch (selections.$) {
 		case 'NoneSelected':
 			return _Utils_update(
 				model,
 				{
-					ctrls: A3($author$project$Controls$updateText, $author$project$Order$Order, 'Select two numbers and then click the \'Order\' button.', ctrls),
-					prompt: 'Select two numbers and then click the \'Order\' button.'
+					prompt: _Utils_Tuple2('Select two numbers and then click the \'Order\' button.', $author$project$Core$Prompt$PromptInfo)
 				});
 		case 'OneSelected':
 			var i = selections.a;
 			return _Utils_update(
 				model,
 				{
-					ctrls: A3(
-						$author$project$Controls$updateText,
-						$author$project$Order$Order,
-						$elm$core$String$concat(
-							_List_fromArray(
-								[
-									'You have selected the number ',
-									$elm$core$String$fromInt(
-									A2(
-										$elm$core$Maybe$withDefault,
-										-1,
-										A2($elm_community$list_extra$List$Extra$getAt, i, numbers))),
-									'.  Select one more number.'
-								])),
-						ctrls),
-					prompt: 'Select one more number.'
+					prompt: _Utils_Tuple2('Select one more number.', $author$project$Core$Prompt$PromptSuccess)
 				});
 		default:
 			var i = selections.a;
 			var j = selections.b;
-			return A3($author$project$Order$ordered, numbers, i, j) ? _Utils_update(
+			return A3($author$project$Order$ordered, numbers, i, j) ? model : _Utils_update(
 				model,
 				{
-					ctrls: A3(
-						$author$project$Controls$updateText,
-						$author$project$Order$Order,
-						$elm$core$String$concat(
-							_List_fromArray(
-								[
-									'Numbers ',
-									$elm$core$String$fromInt(
-									A2(
-										$elm$core$Maybe$withDefault,
-										-1,
-										A2($elm_community$list_extra$List$Extra$getAt, i, numbers))),
-									' and ',
-									$elm$core$String$fromInt(
-									A2(
-										$elm$core$Maybe$withDefault,
-										-1,
-										A2($elm_community$list_extra$List$Extra$getAt, j, numbers))),
-									' are already in correct order.  Select some other numbers.'
-								])),
-						ctrls)
-				}) : _Utils_update(
-				model,
-				{
-					ctrls: A3(
-						$author$project$Controls$updateText,
-						$author$project$Order$Order,
-						'',
-						A2($author$project$Controls$disable, $author$project$Order$Order, ctrls)),
 					numbers: A2($author$project$Order$order, numbers, selections),
-					prompt: 'Select two numbers and then click the \'Order\' button.',
+					prompt: _Utils_Tuple2('Select two numbers and then click the \'Order\' button.', $author$project$Core$Prompt$PromptSuccess),
 					selections: $author$project$BSCore$NoneSelected
 				});
 	}
 };
-var $author$project$Controls$Active = {$: 'Active'};
-var $author$project$Controls$enable = F2(
-	function (m, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{status: $author$project$Controls$Active}) : c;
-			},
-			ctrls);
-	});
-var $author$project$Order$updateStatus = F3(
-	function (selections, nums, ctrls) {
-		switch (selections.$) {
-			case 'NoneSelected':
-				return A3(
-					$author$project$Controls$updateText,
-					$author$project$Order$Order,
-					'',
-					A2($author$project$Controls$disable, $author$project$Order$Order, ctrls));
-			case 'OneSelected':
-				return A3(
-					$author$project$Controls$updateText,
-					$author$project$Order$Order,
-					'',
-					A2($author$project$Controls$disable, $author$project$Order$Order, ctrls));
-			default:
-				var i = selections.a;
-				var j = selections.b;
-				var nj = $elm$core$String$fromInt(
-					A2(
-						$elm$core$Maybe$withDefault,
-						-1,
-						A2($elm_community$list_extra$List$Extra$getAt, j, nums)));
-				var ni = $elm$core$String$fromInt(
-					A2(
-						$elm$core$Maybe$withDefault,
-						-1,
-						A2($elm_community$list_extra$List$Extra$getAt, i, nums)));
-				return A3($author$project$Order$ordered, nums, i, j) ? A3($author$project$Controls$updateText, $author$project$Order$Order, '', ctrls) : A3(
-					$author$project$Controls$updateText,
-					$author$project$Order$Order,
-					'Click the \'Order\' button to order ' + (ni + (' and ' + nj)),
-					A2($author$project$Controls$enable, $author$project$Order$Order, ctrls));
-		}
-	});
 var $author$project$Order$update = F2(
 	function (msg, model) {
 		var _v0 = model;
-		var ctrls = _v0.ctrls;
 		var numbers = _v0.numbers;
 		var selections = _v0.selections;
 		switch (msg.$) {
@@ -8433,11 +8305,7 @@ var $author$project$Order$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							ctrls: A3($author$project$Order$updateStatus, selections_, numbers, ctrls),
-							prompt: pm,
-							selections: selections_
-						}),
+						{prompt: pm, selections: selections_}),
 					$elm$core$Platform$Cmd$none);
 			case 'Deselect':
 				var i = msg.a;
@@ -8447,11 +8315,7 @@ var $author$project$Order$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							ctrls: A3($author$project$Order$updateStatus, selections_, numbers, ctrls),
-							prompt: pm,
-							selections: selections_
-						}),
+						{prompt: pm, selections: selections_}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var arr = msg.a;
@@ -8692,6 +8556,15 @@ var $elm$core$Maybe$map = F2(
 				f(value));
 		} else {
 			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
 		}
 	});
 var $ThinkAlexandria$css_in_elm$Css$Structure$Output$charsetToString = function (charset) {
@@ -11464,27 +11337,26 @@ var $author$project$Core$view = F2(
 					$author$project$Core$viewButtons(undolist)
 				]));
 	});
-var $author$project$Order$msgToString = function (m) {
-	if (m.$ === 'Order') {
-		return 'Order';
-	} else {
-		return '';
+var $author$project$Order$Order = {$: 'Order'};
+var $author$project$Core$Prompt$promptClass = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return 'prompt--success';
+		case 'PromptDanger':
+			return 'prompt--danger';
+		default:
+			return 'prompt--info';
 	}
 };
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Prompt$show = function (prompt_text) {
+var $author$project$Core$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
-				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
-				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
-				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+				$elm$html$Html$Attributes$class(
+				$author$project$Core$Prompt$promptClass(promptType))
 			]),
 		_List_fromArray(
 			[
@@ -11496,6 +11368,8 @@ var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 	var sortedBgColor = '#388E3C';
 	var isSorted = A2(
@@ -11537,101 +11411,6 @@ var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 					]))
 			]));
 };
-var $author$project$Controls$ctrl_btnview = F3(
-	function (status, message, msg2str) {
-		var disabledPadding = '10px';
-		var disabledColor = '#B0BEC5';
-		var commonStyles = _List_fromArray(
-			[
-				A2($elm$html$Html$Attributes$style, 'border', 'none'),
-				A2($elm$html$Html$Attributes$style, 'min-width', '5em'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'monospace'),
-				A2($elm$html$Html$Attributes$style, 'border-radius', '10px'),
-				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.4s ease')
-			]);
-		var btn_body = _List_fromArray(
-			[
-				$elm$html$Html$text(
-				msg2str(message))
-			]);
-		var activePadding = '15px';
-		var activeColor = '#90CAF9';
-		if (status.$ === 'Active') {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', activeColor),
-							A2($elm$html$Html$Attributes$style, 'padding', activePadding)
-						]),
-					commonStyles),
-				btn_body);
-		} else {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', disabledColor),
-							A2($elm$html$Html$Attributes$style, 'padding', disabledPadding)
-						]),
-					commonStyles),
-				btn_body);
-		}
-	});
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$Controls$ctrlview = F2(
-	function (msg2str, ctrl) {
-		var _v0 = ctrl;
-		var label = _v0.label;
-		var status = _v0.status;
-		var message = _v0.message;
-		var text = _v0.text;
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-					A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
-				]),
-			_List_fromArray(
-				[
-					A3($author$project$Controls$ctrl_btnview, status, message, msg2str),
-					A2(
-					$elm$html$Html$p,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'padding', '0 20px 0 10px')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(text)
-						]))
-				]));
-	});
-var $author$project$Controls$view = F2(
-	function (ctrls, msg2str) {
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'flex-direction', 'row'),
-					A2($elm$html$Html$Attributes$style, 'flex-wrap', 'wrap'),
-					A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
-					A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
-					A2($elm$html$Html$Attributes$style, 'padding', '5px'),
-					A2($elm$html$Html$Attributes$style, 'flex', '1')
-				]),
-			A2(
-				$elm$core$List$map,
-				$author$project$Controls$ctrlview(msg2str),
-				ctrls));
-	});
 var $author$project$Order$Deselect = function (a) {
 	return {$: 'Deselect', a: a};
 };
@@ -11640,6 +11419,9 @@ var $author$project$Order$Select = function (a) {
 };
 var $author$project$ListView$cell_gap = 20;
 var $author$project$ListView$cell_radius = 56;
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
+};
 var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
 var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
 var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
@@ -11864,21 +11646,6 @@ var $author$project$ListView$drawcells = F3(
 					}),
 				nums));
 	});
-var $author$project$Order$selectionsList = function (selections) {
-	switch (selections.$) {
-		case 'NoneSelected':
-			return _List_Nil;
-		case 'OneSelected':
-			var i = selections.a;
-			return _List_fromArray(
-				[i]);
-		default:
-			var i = selections.a;
-			var j = selections.b;
-			return _List_fromArray(
-				[i, j]);
-	}
-};
 var $author$project$Order$viewNums = F2(
 	function (nums, selections) {
 		var msg = function () {
@@ -11930,7 +11697,7 @@ var $author$project$Order$viewNums = F2(
 									return _Utils_Tuple2(n, $elm$core$Maybe$Nothing);
 								},
 								nums),
-							$author$project$Order$selectionsList(selections),
+							$author$project$BSCore$selectionsList(selections),
 							msg)
 						]))
 				]));
@@ -11938,7 +11705,6 @@ var $author$project$Order$viewNums = F2(
 var $author$project$Order$view = function (model) {
 	var _v0 = model;
 	var numbers = _v0.numbers;
-	var ctrls = _v0.ctrls;
 	var selections = _v0.selections;
 	var prompt = _v0.prompt;
 	return A2(
@@ -11957,7 +11723,7 @@ var $author$project$Order$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$author$project$Prompt$show(prompt),
+						$author$project$Core$Prompt$show(prompt),
 						$author$project$SortedIndicator$sortedIndicator(numbers)
 					])),
 				A2(
@@ -11978,7 +11744,17 @@ var $author$project$Order$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Controls$view, ctrls, $author$project$Order$msgToString)
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Order$Order),
+								$elm$html$Html$Attributes$class('button__action--primary')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Order')
+							]))
 					]))
 			]));
 };

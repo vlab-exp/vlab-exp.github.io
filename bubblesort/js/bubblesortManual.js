@@ -7723,6 +7723,7 @@ var $elm$core$List$drop = F2(
 			}
 		}
 	});
+var $elm$core$Basics$ge = _Utils_ge;
 var $elm$core$List$head = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -8013,17 +8014,17 @@ var $author$project$BubbleSortManual$update = F2(
 					$elm$core$Maybe$withDefault,
 					-1,
 					A2($elm_community$list_extra$List$Extra$getAt, iter, numbers));
-				var _v2 = (_Utils_cmp(a1, a2) < 1) ? ((_Utils_cmp(
+				var _v2 = (_Utils_cmp(
 					iter,
-					$elm$core$List$length(numbers) - 1) < 0) ? ((_Utils_cmp(iter, boundary - 1) < 0) ? _Utils_Tuple2(
+					$elm$core$List$length(numbers) - 1) < 0) ? ((_Utils_cmp(a1, a2) < 1) ? ((_Utils_cmp(iter, boundary - 1) < 0) ? _Utils_Tuple2(
 					iter + 1,
 					_Utils_Tuple2('Incremented "i", please perform the next operation', $author$project$Core$Prompt$PromptSuccess)) : _Utils_Tuple2(
 					iter + 1,
 					_Utils_Tuple2('Incremented "i", you might be deviating from bubblesort algorithm', $author$project$Core$Prompt$PromptDanger))) : _Utils_Tuple2(
-					iter,
-					_Utils_Tuple2('Cannot Increment "i", please rectify your strategy', $author$project$Core$Prompt$PromptDanger))) : _Utils_Tuple2(
 					iter + 1,
-					_Utils_Tuple2('Incremented "i", you might be deviating from bubblesort algorithm', $author$project$Core$Prompt$PromptDanger));
+					_Utils_Tuple2('Incremented "i", you might be deviating from bubblesort algorithm', $author$project$Core$Prompt$PromptDanger))) : _Utils_Tuple2(
+					iter,
+					_Utils_Tuple2('Cannot Increment "i", please rectify your strategy', $author$project$Core$Prompt$PromptDanger));
 				var iter_ = _v2.a;
 				var prompt_ = _v2.b;
 				return _Utils_Tuple2(
@@ -8032,7 +8033,7 @@ var $author$project$BubbleSortManual$update = F2(
 						{iter: iter_, prompt: prompt_}),
 					$elm$core$Platform$Cmd$none);
 			case 'ResetIter':
-				var _v3 = _Utils_eq(iter, boundary - 1) ? _Utils_Tuple2(
+				var _v3 = (_Utils_cmp(iter, boundary - 1) > -1) ? _Utils_Tuple2(
 					0,
 					_Utils_Tuple2('Resetted "i" to 0, please perform next operation', $author$project$Core$Prompt$PromptSuccess)) : _Utils_Tuple2(
 					0,

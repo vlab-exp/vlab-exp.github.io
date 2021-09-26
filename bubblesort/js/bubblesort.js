@@ -5459,11 +5459,10 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$Controls$Active = {$: 'Active'};
 var $author$project$BubbleSort$Init = function (a) {
 	return {$: 'Init', a: a};
 };
-var $author$project$BubbleSort$Next = {$: 'Next'};
+var $author$project$Core$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -5613,13 +5612,6 @@ var $elm$random$Random$int = F2(
 				}
 			});
 	});
-var $author$project$BubbleSort$msgToString = function (m) {
-	if (m.$ === 'Next') {
-		return 'Next';
-	} else {
-		return '';
-	}
-};
 var $elm$random$Random$andThen = F2(
 	function (callback, _v0) {
 		var genA = _v0.a;
@@ -5718,19 +5710,10 @@ var $author$project$BubbleSort$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
 			boundary: 6,
-			ctrls: _List_fromArray(
-				[
-					{
-					label: $author$project$BubbleSort$msgToString($author$project$BubbleSort$Next),
-					message: $author$project$BubbleSort$Next,
-					status: $author$project$Controls$Active,
-					text: ''
-				}
-				]),
 			iter: 0,
 			numbers: _List_fromArray(
 				[100, 4, 56, 60, 70, 45]),
-			prompt: 'Click on the \'Next\' button to step through the algorithm.'
+			prompt: _Utils_Tuple2('Click on the \'Next\' button to step through the algorithm.', $author$project$Core$Prompt$PromptInfo)
 		},
 		A2(
 			$elm$random$Random$generate,
@@ -7717,6 +7700,7 @@ var $author$project$Core$subscriptions = F2(
 			$elm_community$undo_redo$UndoList$New,
 			subscriber(undolist.present));
 	});
+var $author$project$Core$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $author$project$BSCore$BothSelected = F2(
 	function (a, b) {
 		return {$: 'BothSelected', a: a, b: b};
@@ -7738,18 +7722,6 @@ var $author$project$BSCore$deselect = F2(
 				var k = selections.b;
 				return _Utils_eq(i, j) ? $author$project$BSCore$OneSelected(k) : (_Utils_eq(i, k) ? $author$project$BSCore$OneSelected(j) : A2($author$project$BSCore$BothSelected, j, k));
 		}
-	});
-var $author$project$Controls$Disabled = {$: 'Disabled'};
-var $author$project$Controls$disable = F2(
-	function (m, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{status: $author$project$Controls$Disabled}) : c;
-			},
-			ctrls);
 	});
 var $elm$core$Array$length = function (_v0) {
 	var len = _v0.a;
@@ -8080,21 +8052,9 @@ var $author$project$BubbleSort$selects = F2(
 			ci,
 			$elm$core$List$length(nums) - 1) ? $author$project$BSCore$OneSelected(ci) : A2($author$project$BSCore$BothSelected, ci, ci + 1);
 	});
-var $author$project$Controls$updateText = F3(
-	function (m, str, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{text: str}) : c;
-			},
-			ctrls);
-	});
 var $author$project$BubbleSort$update = F2(
 	function (msg, model) {
 		var _v0 = model;
-		var ctrls = _v0.ctrls;
 		var iter = _v0.iter;
 		var boundary = _v0.boundary;
 		var numbers = _v0.numbers;
@@ -8104,8 +8064,6 @@ var $author$project$BubbleSort$update = F2(
 				var numbers_ = _v2.a;
 				var iter_ = _v2.b;
 				var b_ = _v2.c;
-				var ctrls__ = (b_ === 1) ? A2($author$project$Controls$disable, $author$project$BubbleSort$Next, ctrls) : ctrls;
-				var ctrls_ = (boundary === 1) ? A3($author$project$Controls$updateText, $author$project$BubbleSort$Next, 'Bubblesort terminates when boundary reaches 1.', ctrls__) : ctrls__;
 				var selections_ = A2(
 					$author$project$BSCore$deselect,
 					iter,
@@ -8119,10 +8077,9 @@ var $author$project$BubbleSort$update = F2(
 								model,
 								{
 									boundary: b_,
-									ctrls: ctrls_,
 									iter: iter_,
 									numbers: numbers_,
-									prompt: (b_ === 1) ? 'Boundary has reached index 1.  \n                                Bubblesort terminates here.  See if the array is sorted.' : model.prompt
+									prompt: (b_ === 1) ? _Utils_Tuple2('Boundary has reached index 1.  \n                                Bubblesort terminates here.  See if the array is sorted.', $author$project$Core$Prompt$PromptSuccess) : model.prompt
 								}),
 							$elm$core$Platform$Cmd$none);
 					case 'OneSelected':
@@ -8132,10 +8089,9 @@ var $author$project$BubbleSort$update = F2(
 								model,
 								{
 									boundary: b_,
-									ctrls: ctrls_,
 									iter: iter_,
 									numbers: numbers_,
-									prompt: (b_ === 1) ? 'Boundary has reached index 1.  \n                                Bubblesort terminates here.  See if the array is sorted.' : model.prompt
+									prompt: (b_ === 1) ? _Utils_Tuple2('Boundary has reached index 1.  \n                                Bubblesort terminates here.  See if the array is sorted.', $author$project$Core$Prompt$PromptSuccess) : model.prompt
 								}),
 							$elm$core$Platform$Cmd$none);
 					default:
@@ -8349,6 +8305,8 @@ var $author$project$Core$update = F8(
 							])));
 		}
 	});
+var $author$project$BubbleSort$Next = {$: 'Next'};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -8357,23 +8315,53 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$html$Html$Attributes$boolProperty = F2(
+	function (key, bool) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$bool(bool));
+	});
+var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $author$project$Core$Prompt$promptClass = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return 'prompt--success';
+		case 'PromptDanger':
+			return 'prompt--danger';
+		default:
+			return 'prompt--info';
+	}
+};
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Prompt$show = function (prompt_text) {
+var $author$project$Core$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
-				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
-				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
-				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+				$elm$html$Html$Attributes$class(
+				$author$project$Core$Prompt$promptClass(promptType))
 			]),
 		_List_fromArray(
 			[
@@ -8418,6 +8406,8 @@ var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 	var sortedBgColor = '#388E3C';
 	var isSorted = A2(
@@ -8459,119 +8449,6 @@ var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 					]))
 			]));
 };
-var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var $elm$html$Html$Events$onClick = function (msg) {
-	return A2(
-		$elm$html$Html$Events$on,
-		'click',
-		$elm$json$Json$Decode$succeed(msg));
-};
-var $author$project$Controls$ctrl_btnview = F3(
-	function (status, message, msg2str) {
-		var disabledPadding = '10px';
-		var disabledColor = '#B0BEC5';
-		var commonStyles = _List_fromArray(
-			[
-				A2($elm$html$Html$Attributes$style, 'border', 'none'),
-				A2($elm$html$Html$Attributes$style, 'min-width', '5em'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'monospace'),
-				A2($elm$html$Html$Attributes$style, 'border-radius', '10px'),
-				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.4s ease')
-			]);
-		var btn_body = _List_fromArray(
-			[
-				$elm$html$Html$text(
-				msg2str(message))
-			]);
-		var activePadding = '15px';
-		var activeColor = '#90CAF9';
-		if (status.$ === 'Active') {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', activeColor),
-							A2($elm$html$Html$Attributes$style, 'padding', activePadding)
-						]),
-					commonStyles),
-				btn_body);
-		} else {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', disabledColor),
-							A2($elm$html$Html$Attributes$style, 'padding', disabledPadding)
-						]),
-					commonStyles),
-				btn_body);
-		}
-	});
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$Controls$ctrlview = F2(
-	function (msg2str, ctrl) {
-		var _v0 = ctrl;
-		var label = _v0.label;
-		var status = _v0.status;
-		var message = _v0.message;
-		var text = _v0.text;
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-					A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
-				]),
-			_List_fromArray(
-				[
-					A3($author$project$Controls$ctrl_btnview, status, message, msg2str),
-					A2(
-					$elm$html$Html$p,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'padding', '0 20px 0 10px')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(text)
-						]))
-				]));
-	});
-var $author$project$Controls$view = F2(
-	function (ctrls, msg2str) {
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'flex-direction', 'row'),
-					A2($elm$html$Html$Attributes$style, 'flex-wrap', 'wrap'),
-					A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
-					A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
-					A2($elm$html$Html$Attributes$style, 'padding', '5px'),
-					A2($elm$html$Html$Attributes$style, 'flex', '1')
-				]),
-			A2(
-				$elm$core$List$map,
-				$author$project$Controls$ctrlview(msg2str),
-				ctrls));
-	});
 var $author$project$BubbleSort$NoMsg = {$: 'NoMsg'};
 var $author$project$ListView$cell_gap = 20;
 var $author$project$ListView$cell_radius = 56;
@@ -8904,7 +8781,6 @@ var $author$project$BubbleSort$viewVars = function (vars) {
 var $author$project$BubbleSort$view = function (model) {
 	var _v0 = model;
 	var numbers = _v0.numbers;
-	var ctrls = _v0.ctrls;
 	var iter = _v0.iter;
 	var boundary = _v0.boundary;
 	var prompt = _v0.prompt;
@@ -8924,7 +8800,7 @@ var $author$project$BubbleSort$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$author$project$Prompt$show(prompt),
+						$author$project$Core$Prompt$show(prompt),
 						$author$project$SortedIndicator$sortedIndicator(numbers)
 					])),
 				A2(
@@ -8951,7 +8827,18 @@ var $author$project$BubbleSort$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Controls$view, ctrls, $author$project$BubbleSort$msgToString)
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$BubbleSort$Next),
+								$elm$html$Html$Attributes$class('button__action--primary'),
+								$elm$html$Html$Attributes$disabled(boundary === 1)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Next')
+							]))
 					]))
 			]));
 };
@@ -11723,14 +11610,6 @@ var $author$project$Core$Style$style = A3(
 var $elm_community$undo_redo$UndoList$Redo = {$: 'Redo'};
 var $elm_community$undo_redo$UndoList$Reset = {$: 'Reset'};
 var $elm_community$undo_redo$UndoList$Undo = {$: 'Undo'};
-var $elm$html$Html$Attributes$boolProperty = F2(
-	function (key, bool) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$bool(bool));
-	});
-var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm_community$undo_redo$UndoList$hasFuture = A2(
 	$elm$core$Basics$composeL,
 	A2($elm$core$Basics$composeL, $elm$core$Basics$not, $elm$core$List$isEmpty),

@@ -7418,12 +7418,11 @@ var $author$project$Core$init = F4(
 						A2($elm$core$Platform$Cmd$map, $elm_community$undo_redo$UndoList$New, cmd)
 					])));
 	});
-var $author$project$Controls$Disabled = {$: 'Disabled'};
 var $author$project$Swap$Init = function (a) {
 	return {$: 'Init', a: a};
 };
 var $author$project$BSCore$NoneSelected = {$: 'NoneSelected'};
-var $author$project$Swap$Swap = {$: 'Swap'};
+var $author$project$Core$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -7667,14 +7666,10 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 var $author$project$Swap$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
-			ctrls: _List_fromArray(
-				[
-					{label: 'Swap', message: $author$project$Swap$Swap, status: $author$project$Controls$Disabled, text: ''}
-				]),
 			minSwap: 5,
 			numbers: _List_fromArray(
 				[10, 20, 50, 8, 30, 100, 5, 82]),
-			prompt: 'Click on any numbered circle to toggle the selection. You can select upto two numbers.',
+			prompt: _Utils_Tuple2('Click on any numbered circle to toggle the selection. You can select upto two numbers.', $author$project$Core$Prompt$PromptInfo),
 			selections: $author$project$BSCore$NoneSelected,
 			swapCount: 0
 		},
@@ -7687,19 +7682,19 @@ var $author$project$Swap$init = function (_v0) {
 				6,
 				A2($elm$random$Random$int, 10, 50))));
 };
-var $author$project$BSCore$selectionsLogger = function (selections) {
+var $author$project$BSCore$selectionsList = function (selections) {
 	switch (selections.$) {
 		case 'NoneSelected':
 			return _List_Nil;
 		case 'OneSelected':
-			var u = selections.a;
+			var i = selections.a;
 			return _List_fromArray(
-				[u]);
+				[i]);
 		default:
-			var u = selections.a;
-			var v = selections.b;
+			var i = selections.a;
+			var j = selections.b;
 			return _List_fromArray(
-				[u, v]);
+				[i, j]);
 	}
 };
 var $author$project$Swap$logger = function (model) {
@@ -7707,7 +7702,7 @@ var $author$project$Swap$logger = function (model) {
 		minSwap: model.minSwap,
 		numbers: model.numbers,
 		prompt: model.prompt,
-		selections: $author$project$BSCore$selectionsLogger(model.selections),
+		selections: $author$project$BSCore$selectionsList(model.selections),
 		swapCount: model.swapCount
 	};
 };
@@ -7937,22 +7932,26 @@ var $author$project$Swap$deselect = F2(
 	function (i, selections) {
 		switch (selections.$) {
 			case 'NoneSelected':
-				return _Utils_Tuple2($author$project$BSCore$NoneSelected, '');
+				return _Utils_Tuple2(
+					$author$project$BSCore$NoneSelected,
+					_Utils_Tuple2('', $author$project$Core$Prompt$PromptInfo));
 			case 'OneSelected':
 				var j = selections.a;
-				return _Utils_eq(i, j) ? _Utils_Tuple2($author$project$BSCore$NoneSelected, 'Select two numbers to swap.') : _Utils_Tuple2(
+				return _Utils_eq(i, j) ? _Utils_Tuple2(
+					$author$project$BSCore$NoneSelected,
+					_Utils_Tuple2('Select two numbers to swap.', $author$project$Core$Prompt$PromptInfo)) : _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(j),
-					'');
+					_Utils_Tuple2('', $author$project$Core$Prompt$PromptInfo));
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_eq(i, j) ? _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(k),
-					'Select one more number.') : (_Utils_eq(i, k) ? _Utils_Tuple2(
+					_Utils_Tuple2('Select one more number.', $author$project$Core$Prompt$PromptInfo)) : (_Utils_eq(i, k) ? _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(j),
-					'Select one more number.') : _Utils_Tuple2(
+					_Utils_Tuple2('Select one more number.', $author$project$Core$Prompt$PromptInfo)) : _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, k),
-					'Click the \'Swap\' button to swap the selected numbers.'));
+					_Utils_Tuple2('Click the \'Swap\' button to swap the selected numbers.', $author$project$Core$Prompt$PromptInfo)));
 		}
 	});
 var $elm$core$List$drop = F2(
@@ -8255,69 +8254,31 @@ var $author$project$Random_list$minSwap = function (lst) {
 					lst))));
 	}
 };
+var $author$project$Core$Prompt$PromptSuccess = {$: 'PromptSuccess'};
 var $author$project$Swap$select = F2(
 	function (i, selections) {
 		switch (selections.$) {
 			case 'NoneSelected':
 				return _Utils_Tuple2(
 					$author$project$BSCore$OneSelected(i),
-					'Select one more number and then click the \'Swap\' button');
+					_Utils_Tuple2('Select one more number and then click the \'Swap\' button', $author$project$Core$Prompt$PromptSuccess));
 			case 'OneSelected':
 				var j = selections.a;
 				return _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, i),
-					'Click the \'Swap\' button to swap the selected numbers.');
+					_Utils_Tuple2('Click the \'Swap\' button to swap the selected numbers.', $author$project$Core$Prompt$PromptSuccess));
 			default:
 				var j = selections.a;
 				var k = selections.b;
 				return _Utils_Tuple2(
 					A2($author$project$BSCore$BothSelected, j, k),
-					'Two numbers are already selected.');
+					_Utils_Tuple2('Two numbers are already selected.', $author$project$Core$Prompt$PromptInfo));
 		}
 	});
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
-var $author$project$Controls$disable = F2(
-	function (m, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{status: $author$project$Controls$Disabled}) : c;
-			},
-			ctrls);
-	});
-var $elm_community$list_extra$List$Extra$getAt = F2(
-	function (idx, xs) {
-		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
-			A2($elm$core$List$drop, idx, xs));
-	});
-var $author$project$Controls$updateText = F3(
-	function (m, str, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{text: str}) : c;
-			},
-			ctrls);
-	});
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
+var $author$project$Core$Prompt$PromptDanger = {$: 'PromptDanger'};
 var $author$project$Swap$swap = function (model) {
 	var _v0 = model;
 	var numbers = _v0.numbers;
-	var ctrls = _v0.ctrls;
 	var prompt = _v0.prompt;
 	var selections = _v0.selections;
 	var swapCount = _v0.swapCount;
@@ -8327,28 +8288,14 @@ var $author$project$Swap$swap = function (model) {
 			return _Utils_update(
 				model,
 				{
-					ctrls: A3($author$project$Controls$updateText, $author$project$Swap$Swap, 'Select two numbers and then click \'Swap\'.', ctrls)
+					prompt: _Utils_Tuple2('Select 2 numbers to apply this operation', $author$project$Core$Prompt$PromptDanger)
 				});
 		case 'OneSelected':
 			var i = selections.a;
 			return _Utils_update(
 				model,
 				{
-					ctrls: A3(
-						$author$project$Controls$updateText,
-						$author$project$Swap$Swap,
-						$elm$core$String$concat(
-							_List_fromArray(
-								[
-									'You have selected the number ',
-									$elm$core$String$fromInt(
-									A2(
-										$elm$core$Maybe$withDefault,
-										-1,
-										A2($elm_community$list_extra$List$Extra$getAt, i, numbers))),
-									'. Select another number to swap it with.'
-								])),
-						ctrls)
+					prompt: _Utils_Tuple2('Select One more number to apply this operation', $author$project$Core$Prompt$PromptDanger)
 				});
 		default:
 			var i = selections.a;
@@ -8357,72 +8304,15 @@ var $author$project$Swap$swap = function (model) {
 			var selections_ = $author$project$BSCore$NoneSelected;
 			var pm = _Utils_eq(
 				$elm$core$List$sort(numbers),
-				swappedNums) ? ((_Utils_cmp(swapCount + 1, minSwap) < 1) ? 'Numbers sorted in minimum number of swaps !!' : 'Numbers sorted, but exceeded minimum number of swaps, try again!!') : 'Select two numbers and then click \'Swap\'';
+				swappedNums) ? ((_Utils_cmp(swapCount + 1, minSwap) < 1) ? _Utils_Tuple2('Numbers sorted in minimum number of swaps !!', $author$project$Core$Prompt$PromptSuccess) : _Utils_Tuple2('Numbers sorted, but exceeded minimum number of swaps, try again!!', $author$project$Core$Prompt$PromptSuccess)) : _Utils_Tuple2('Select two numbers and then click \'Swap\'', $author$project$Core$Prompt$PromptSuccess);
 			return _Utils_update(
 				model,
-				{
-					ctrls: A2(
-						$author$project$Controls$disable,
-						$author$project$Swap$Swap,
-						A3($author$project$Controls$updateText, $author$project$Swap$Swap, '', ctrls)),
-					numbers: swappedNums,
-					prompt: pm,
-					selections: selections_,
-					swapCount: model.swapCount + 1
-				});
+				{numbers: swappedNums, prompt: pm, selections: selections_, swapCount: model.swapCount + 1});
 	}
 };
-var $author$project$Controls$Active = {$: 'Active'};
-var $author$project$Controls$enable = F2(
-	function (m, ctrls) {
-		return A2(
-			$elm$core$List$map,
-			function (c) {
-				return _Utils_eq(c.message, m) ? _Utils_update(
-					c,
-					{status: $author$project$Controls$Active}) : c;
-			},
-			ctrls);
-	});
-var $author$project$Swap$updateStatus = F3(
-	function (selections, nums, ctrls) {
-		switch (selections.$) {
-			case 'NoneSelected':
-				return A3(
-					$author$project$Controls$updateText,
-					$author$project$Swap$Swap,
-					'',
-					A2($author$project$Controls$disable, $author$project$Swap$Swap, ctrls));
-			case 'OneSelected':
-				return A3(
-					$author$project$Controls$updateText,
-					$author$project$Swap$Swap,
-					'',
-					A2($author$project$Controls$disable, $author$project$Swap$Swap, ctrls));
-			default:
-				var i = selections.a;
-				var j = selections.b;
-				var nj = $elm$core$String$fromInt(
-					A2(
-						$elm$core$Maybe$withDefault,
-						-1,
-						A2($elm_community$list_extra$List$Extra$getAt, j, nums)));
-				var ni = $elm$core$String$fromInt(
-					A2(
-						$elm$core$Maybe$withDefault,
-						-1,
-						A2($elm_community$list_extra$List$Extra$getAt, i, nums)));
-				return A3(
-					$author$project$Controls$updateText,
-					$author$project$Swap$Swap,
-					'Click the \'Swap\' button to swap the numbers ' + (ni + (' and ' + nj)),
-					A2($author$project$Controls$enable, $author$project$Swap$Swap, ctrls));
-		}
-	});
 var $author$project$Swap$update = F2(
 	function (msg, model) {
 		var _v0 = model;
-		var ctrls = _v0.ctrls;
 		var numbers = _v0.numbers;
 		var selections = _v0.selections;
 		switch (msg.$) {
@@ -8438,11 +8328,7 @@ var $author$project$Swap$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							ctrls: A3($author$project$Swap$updateStatus, selections_, numbers, ctrls),
-							prompt: pm,
-							selections: selections_
-						}),
+						{prompt: pm, selections: selections_}),
 					$elm$core$Platform$Cmd$none);
 			case 'Deselect':
 				var i = msg.a;
@@ -8452,11 +8338,7 @@ var $author$project$Swap$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							ctrls: A3($author$project$Swap$updateStatus, selections_, numbers, ctrls),
-							prompt: pm,
-							selections: selections_
-						}),
+						{prompt: pm, selections: selections_}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				var arr = msg.a;
@@ -8693,6 +8575,15 @@ var $elm$core$Maybe$map = F2(
 				f(value));
 		} else {
 			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
 		}
 	});
 var $ThinkAlexandria$css_in_elm$Css$Structure$Output$charsetToString = function (charset) {
@@ -11465,27 +11356,26 @@ var $author$project$Core$view = F2(
 					$author$project$Core$viewButtons(undolist)
 				]));
 	});
-var $author$project$Swap$msgToString = function (m) {
-	if (m.$ === 'Swap') {
-		return 'Swap';
-	} else {
-		return '';
+var $author$project$Swap$Swap = {$: 'Swap'};
+var $author$project$Core$Prompt$promptClass = function (promptType) {
+	switch (promptType.$) {
+		case 'PromptSuccess':
+			return 'prompt--success';
+		case 'PromptDanger':
+			return 'prompt--danger';
+		default:
+			return 'prompt--info';
 	}
 };
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Prompt$show = function (prompt_text) {
+var $author$project$Core$Prompt$show = function (_v0) {
+	var prompt_text = _v0.a;
+	var promptType = _v0.b;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-				A2($elm$html$Html$Attributes$style, 'justify-content', 'center'),
-				A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif'),
-				A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
-				A2($elm$html$Html$Attributes$style, 'color', '#616161'),
-				A2($elm$html$Html$Attributes$style, 'font-size', '1.3em')
+				$elm$html$Html$Attributes$class(
+				$author$project$Core$Prompt$promptClass(promptType))
 			]),
 		_List_fromArray(
 			[
@@ -11493,6 +11383,8 @@ var $author$project$Prompt$show = function (prompt_text) {
 			]));
 };
 var $elm$html$Html$b = _VirtualDom_node('b');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 	var sortedBgColor = '#388E3C';
 	var isSorted = A2(
@@ -11534,101 +11426,6 @@ var $author$project$SortedIndicator$sortedIndicator = function (nums) {
 					]))
 			]));
 };
-var $author$project$Controls$ctrl_btnview = F3(
-	function (status, message, msg2str) {
-		var disabledPadding = '10px';
-		var disabledColor = '#B0BEC5';
-		var commonStyles = _List_fromArray(
-			[
-				A2($elm$html$Html$Attributes$style, 'border', 'none'),
-				A2($elm$html$Html$Attributes$style, 'min-width', '5em'),
-				A2($elm$html$Html$Attributes$style, 'font-family', 'monospace'),
-				A2($elm$html$Html$Attributes$style, 'border-radius', '10px'),
-				A2($elm$html$Html$Attributes$style, 'transition', 'all 0.4s ease')
-			]);
-		var btn_body = _List_fromArray(
-			[
-				$elm$html$Html$text(
-				msg2str(message))
-			]);
-		var activePadding = '15px';
-		var activeColor = '#90CAF9';
-		if (status.$ === 'Active') {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', activeColor),
-							A2($elm$html$Html$Attributes$style, 'padding', activePadding)
-						]),
-					commonStyles),
-				btn_body);
-		} else {
-			return A2(
-				$elm$html$Html$button,
-				_Utils_ap(
-					_List_fromArray(
-						[
-							$elm$html$Html$Events$onClick(message),
-							A2($elm$html$Html$Attributes$style, 'background', disabledColor),
-							A2($elm$html$Html$Attributes$style, 'padding', disabledPadding)
-						]),
-					commonStyles),
-				btn_body);
-		}
-	});
-var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$Controls$ctrlview = F2(
-	function (msg2str, ctrl) {
-		var _v0 = ctrl;
-		var label = _v0.label;
-		var status = _v0.status;
-		var message = _v0.message;
-		var text = _v0.text;
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-					A2($elm$html$Html$Attributes$style, 'font-family', 'sans-serif')
-				]),
-			_List_fromArray(
-				[
-					A3($author$project$Controls$ctrl_btnview, status, message, msg2str),
-					A2(
-					$elm$html$Html$p,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'padding', '0 20px 0 10px')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(text)
-						]))
-				]));
-	});
-var $author$project$Controls$view = F2(
-	function (ctrls, msg2str) {
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-					A2($elm$html$Html$Attributes$style, 'flex-direction', 'row'),
-					A2($elm$html$Html$Attributes$style, 'flex-wrap', 'wrap'),
-					A2($elm$html$Html$Attributes$style, 'justify-content', 'space-between'),
-					A2($elm$html$Html$Attributes$style, 'background', '#FAFAFA'),
-					A2($elm$html$Html$Attributes$style, 'padding', '5px'),
-					A2($elm$html$Html$Attributes$style, 'flex', '1')
-				]),
-			A2(
-				$elm$core$List$map,
-				$author$project$Controls$ctrlview(msg2str),
-				ctrls));
-	});
 var $author$project$Swap$Deselect = function (a) {
 	return {$: 'Deselect', a: a};
 };
@@ -11637,6 +11434,9 @@ var $author$project$Swap$Select = function (a) {
 };
 var $author$project$ListView$cell_gap = 20;
 var $author$project$ListView$cell_radius = 56;
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
+};
 var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
 var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
 var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
@@ -11793,6 +11593,11 @@ var $author$project$ListView$cell = F8(
 				}()
 				]));
 	});
+var $elm_community$list_extra$List$Extra$getAt = F2(
+	function (idx, xs) {
+		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
+			A2($elm$core$List$drop, idx, xs));
+	});
 var $elm$core$List$member = F2(
 	function (x, xs) {
 		return A2(
@@ -11943,7 +11748,6 @@ var $author$project$Swap$viewNums = F2(
 var $author$project$Swap$view = function (model) {
 	var _v0 = model;
 	var numbers = _v0.numbers;
-	var ctrls = _v0.ctrls;
 	var selections = _v0.selections;
 	var prompt = _v0.prompt;
 	var swapCount = _v0.swapCount;
@@ -11964,7 +11768,7 @@ var $author$project$Swap$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$author$project$Prompt$show(prompt),
+						$author$project$Core$Prompt$show(prompt),
 						$author$project$SortedIndicator$sortedIndicator(numbers)
 					])),
 				A2(
@@ -11985,7 +11789,17 @@ var $author$project$Swap$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Controls$view, ctrls, $author$project$Swap$msgToString)
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Swap$Swap),
+								$elm$html$Html$Attributes$class('button__action--primary')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Swap')
+							]))
 					]))
 			]));
 };

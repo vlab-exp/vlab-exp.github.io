@@ -5,16 +5,25 @@
     <meta charset="UTF-8"/>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 	<title> Bubblesort </title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script>
   </head>
 
   <body class="flex h-screen flex-col">
     <div class="bg-gray-800 py-4 px-2 text-xl text-gray-100 font-bold">
       Bubblesort
     </div>
-    <div id="nav-bar"></div>
-    <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900">
+	<div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+		<nav class="flex text-gray-200 ">
+				<a class="py-1 px-2 bg-gray-400 text-black" href="../index.html">Home</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/swap.html">Swap</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/order.html">Order</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/adjorder.html">Order Adjacent</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/sweep.html">Bubble Machine</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/bubblesort.html">Bubblesort</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/bubblesortManual.html">Bubblesort (Exercise)</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./machines/bubblesortTest.html">Bubblesort (Test)</a>
+		</nav>
+	  </div>
+	  <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900">
 	  <h1 class="text-2xl">Introduction</h1>
       <p class="py-3">
 	  	Understanding algorithms, even simple ones, can be challenging. Reading through the pseudo-code or actual code written in some programming language and tracing the execution line-by-line makes it difficult to grasp the core concepts of the algorithm.
