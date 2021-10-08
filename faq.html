@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Algodynamics</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .hide-scroll-bar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hide-scroll-bar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+        Algodynamics
+    </div>
+    <div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+        <nav class="flex text-gray-200 ">
+            <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./index.html">Home</a>
+            <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./labs.html">Labs</a>
+            <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./experiments.html">Experiments</a>
+            <a class="py-1 px-2 bg-gray-400 text-black" href="./faq.html">FAQs</a>
+            <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./contact.html">Contact</a>
+        </nav>
+    </div>
+    <div class="flex-grow flex-col overflow-y-scroll m-8 hide-scroll-bar text-lg">
+        <ul class="decimal">
+            <li class="py-3"><strong>How to use the labs?</strong>
+                <ul>
+                    <li>
+                        A lab in algodynamics represents an algorithm. You can start learning about the associated
+                        algorithm by opening the Lab's home page and going through the experiments in the order they are
+                        listed in a lab. Each experiment introduces a new concept. You need to use this new concept and
+                        concepts learnt in previous experiments of the same lab to solve the problem.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>How are these experiments built?</strong>
+                <ul>
+                    <li>
+                        These experiments are built using Functional Reactive Programming Language called Elm. The
+                        syntax of this language
+                        matches the transition systems used for developing the experiments. Currently, we are building
+                        the foundational
+                        libraries and very soon they will be available to educators to create their own experiments.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>How can I learn more about this pedagogy?</strong>
+                <ul>
+                    <li>
+                        This pedagogy is a part of ongoing research. You can visit <a
+                            href="https://www.algodynamics.org"><u>algodyamics.org</u></a> for more information.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>How can I report bugs?</strong>
+                <ul>
+                    <li>
+                        We are working on adding support for reporting bugs, will release it soon.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>Are you using cookies?</strong>
+                <ul>
+                    <li>
+                        Yes, we are using cookies for identifying same users across various experiments. We are also
+                        collecting data about the interactions performed in experiments for analyzing students'
+                        learning. The collected data is stored as logs (anonymous, with just a random user-id) on our
+                        analytics server.
+                        You can disable cookies or decline the consent and the experiments can still be viewed with the
+                        exact same
+                        functionality and no data every being stored.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>Are analytics available to me?</strong>
+                <ul>
+                    <li>
+                        No, the data is not available as the analytics is still under development. We are working on
+                        making the
+                        basic analytics available soon.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>Can I use this material in my classes?</strong>
+                <ul>
+                    <li>
+                        Yes, you can use this material in your classes under <a
+                            href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><u>CC-BY-NC-ND 4.0</u></a>
+                        license.
+                    </li>
+                </ul>
+            </li>
+            <li class="py-3"><strong>What's next?</strong>
+                <ul>
+                    <li>
+                        Build basic visualization libraries for interactive experiments.
+                    </li>
+                    <li>
+                        Adding more experiments to the website.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id=" footer" class="flex bg-gray-500 justify-center">
+        Copyright © 2021, algodynamics.io
+    </div>
+</body>
+
+</html>

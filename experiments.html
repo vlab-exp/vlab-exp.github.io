@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8" />
+        <title>Algodynamics</title>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <style>
+                .hide-scroll-bar {
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
+                }
+
+                .hide-scroll-bar::-webkit-scrollbar {
+                        display: none;
+                }
+        </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+        <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+                Algodynamics
+        </div>
+        <div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+                <nav class="flex text-gray-200 ">
+                        <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./index.html">Home</a>
+                        <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./labs.html">Labs</a>
+                        <a class="py-1 px-2 bg-gray-400 text-black" href="./experiments.html">Experiments</a>
+                        <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./faq.html">FAQs</a>
+                        <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./contact.html">Contact</a>
+                </nav>
+        </div>
+        <div class="flex-grow flex-col overflow-y-auto m-8 hide-scroll-bar text-lg">
+                We have visualizations for the following labs:-
+                <ul class="list-disc list-inside">
+                        <li class="py-3"><a class="hover:text-purple-600"
+                                        href="https://algodynamics.io/bubblesort/index.html"><strong>Bubble
+                                                Sort</strong></a>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/bubblesort/machines/swap">Swap
+                                                        Machine</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/bubblesort/machines/order">Order
+                                                        Machine</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/bubblesort/machines/adjorder">Order
+                                                        Adjacent Machine</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/bubblesort/machines/sweep">Bubble
+                                                        Machine</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/bubblesort/machines/bubblesort">Bubblesort
+                                                        Machine</a></li>
+                                </ul>
+                        </li>
+                        <li class="py-3"><a class="hover:text-purple-600"
+                                        href="https://algodynamics.io/mergesort/index.html"><strong>Merge
+                                                Sort</strong></a>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/merge/mergesystem.html">Shuffle</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/merge/shuffleSorted.html">Shuffle
+                                                        Sorted</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/merge/msStrategy.html">Merge
+                                                        Strategy</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/merge/msAlgo.html">Merge
+                                                        Algorithm</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/merge.html">Merge
+                                                        Sublists</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/recursive.html">Mergesort
+                                                        Recursive</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/mergesort/msarbitrary.html">Mergesort
+                                                        Arbitrary
+                                                        Merge</a></li>
+                                </ul>
+                        </li>
+                        <li class="py-3"><a class="hover:text-purple-600"
+                                        href="https://vlab-exp.github.io/search/index.html"><strong>Search</strong></a>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://vlab-exp.github.io/search/index.html">Random
+                                                        Search With
+                                                        Replacement</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://vlab-exp.github.io/search/index.html">Random
+                                                        Search Without
+                                                        Replacement</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://vlab-exp.github.io/search/index.html">Linear
+                                                        Search</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://vlab-exp.github.io/search/index.html">Binary
+                                                        Search</a></li>
+                                </ul>
+                        </li>
+                        <li class="py-3"><a class="hover:text-purple-600"
+                                        href="https://algodynamics.io/temp/dfs/systems/index.html"><strong>Spanning
+                                                Tree</strong></a>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/st.html">Spanning
+                                                        Tree
+                                                        Construction</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/cst.html">Spanning
+                                                        Tree
+                                                        via Traversal</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/dfs.html">Spanning
+                                                        Tree
+                                                        via DFS(Interactive)</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/dfsAutomated.html">Spanning
+                                                        Tree via
+                                                        DFS(Automated)</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/bfs.html">Spanning
+                                                        Tree
+                                                        via BFS(Interactive)</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/bfsAutomated.html">Spanning
+                                                        Tree via
+                                                        BFS(Automated)</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/prims.html">Spanning
+                                                        Tree
+                                                        Minimum(Primm)</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/temp/dfs/systems/kruskals.html">Spanning
+                                                        Tree Minimum(Kruskal)</a></li>
+                                </ul>
+                        </li>
+                        <li class="py-3"><a class="hover:text-purple-600"
+                                        href="http://algodynamics.io/shortestpath"><strong>Shortest
+                                                Path</strong></a>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/shortestpath">Version 1</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/shortestpath">Version 2</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/shortestpath">Version 3</a></li>
+                                </ul>
+                        </li>
+
+                        <li class="py-3"><strong>Transition
+                                        Systems Demos</strong>
+                                <ul class="px-12 list-disc">
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/misc/LightBulb.html">Light Bulb
+                                                        Demo-1</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/misc/LightBulb2.html">Light Bulb
+                                                        Demo-2</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="https://algodynamics.io/misc/LightBulbV2.html">Light
+                                                        Bulb(Press)
+                                                        Demo</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/misc/TankFilling.html">Tank
+                                                        Filling</a></li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/misc/ArraySum.html">Array Sum</a>
+                                        </li>
+                                        <li><a class="hover:text-orange-400"
+                                                        href="http://algodynamics.io/misc/ATM.html">ATM Demo</a></li>
+                                </ul>
+                        </li>
+
+                </ul>
+        </div>
+        <div id=" footer" class="flex bg-gray-500 justify-center">
+                Copyright © 2021, algodynamics.io
+        </div>
+</body>
+
+</html>
