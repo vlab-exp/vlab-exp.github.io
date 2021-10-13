@@ -20,7 +20,7 @@
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./sweep.html">Bubble Machine</a>
               <a class="py-1 px-2 bg-gray-400 text-black" href="./bubblesort.html">Bubblesort</a>
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortManual.html">Bubblesort (Exercise)</a>
-              <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a>
+              <!-- <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a> -->
       </nav>
     </div>
     <div class="flex-grow flex overflow-hidden">
@@ -29,20 +29,25 @@
 	  
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    In this experiment, you need to step through the Bubblesort algorithm, 
-        to sort the given list.
+	    In this experiment, you need to follow the
+        Bubblesort algorithm by stepping through it.
 	  </p>
 
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
 	  <p class="py-1">
-	    There is just one control called 'Next'. The 'Next' button performs 
-        the next step in the Bubblesort algorithm. You can observe the list 
-        getting sorted as the algorithm progresses.
+	    In this experiment, there is just one control called
+        <strong>Next</strong>. The machine now has another
+        state variable <strong>b</strong>, called the
+        boundary variable, which keeps track of the portion
+        of the list already sorted.  
 	  </p>
 
 	  <p class="py-1">
-        The two indicators 'i' and 'b', mark the values of 'current index' 
-        and 'boundary' variables involved in the algorithm.
+		The Next button performs the next step in the
+        Bubblesort algorithm.  The next step advances the
+        variable <strong>i</strong>, ordering the element at
+        i and its right neighbour.  It resets i if i reaches
+        b-1 and also decrements b.
 	  </p>
 
 
@@ -54,14 +59,14 @@
             list-inside
             p-2">
         <li>
-            Click on the 'Next' button to step through the algorithm.
+            Click on the Next button to step through the
+            algorithm.
         </li>
         <li>
             When the boundary reaches the value 1, check if the list is sorted.
         </li>
 
       </ol>
-
 	  
 	</div>
       </div>

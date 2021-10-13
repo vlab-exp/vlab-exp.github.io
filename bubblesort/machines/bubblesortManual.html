@@ -20,7 +20,7 @@
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./sweep.html">Bubble Machine</a>
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesort.html">Bubblesort</a>
               <a class="py-1 px-2 bg-gray-400 text-black" href="./bubblesortManual.html">Bubblesort (Exercise)</a>
-              <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a>
+              <!-- <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a> -->
       </nav>
     </div>    
     <div class="flex-grow flex overflow-hidden">
@@ -29,39 +29,46 @@
 	  
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    In this experiment, you need to drive the  
-      the Bubblesort algorithm using the given controls, to sort the given list.
+     In this experiment, you need to drive the the
+     Bubblesort algorithm using the given controls.   The
+     system will warn you if the step does not correspond to
+     the one taken by the Bubblesort algorithm. 
             
 	  </p>
 
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
 	  <p class="py-1">
-	    The experiment consits of a list of numbers and set of given controls.
-      You can not click on the list element, but can only use the controls, to interact with the list.
-      All the controls for performing Bubblesort are given.
+	    The experiment consists of a list of numbers and
+      four controls: <strong>
+      Swap</strong>, <strong>Increment i</strong>,
+      <strong>Reset i</strong> and <strong> Decrement
+      b</strong>.  Selection of the list elements is
+      controlled by the value of <strong>i</strong>, not by
+      clicking the elements.  The two
+      variables <strong>i</strong> and <strong>b</strong>
+      mark the values of current index and boundary
+      variables of the Bubblesort algorithm.
 	  </p>
 
 	  <ol class="list-decimal list-inside py-1">
       <li>
-        The 'Swap' button swaps the element at index 'i' with the element at index 'i+1'.
+        The <strong>Swap</strong> button swaps the element
+		at <strong>i</strong> with the element at i+1.
       </li>
       <li>
-        The button 'Increment i' increments the value of 'i'.
+        <strong>Increment i</strong> increments the value of
+		<strong>i</strong>.  It does not swap the elements
+		if they are out of order.
       </li>
       <li>
-        The control 'Reset i' resets the value of 'i' to 0.
+        <strong>Reset i</strong> resets the value
+		of <strong>i</strong> to 0.
       </li>
       <li>
-        The 'Decrement b' button decrements the value of 'b' by 1.
-          The two indicators 'i' and 'b', mark the values of 'current index' 
-          and 'boundary' variables involved in the algorithm.
+        <strong>Decrement b</strong> reduces the value of
+		<strong>b</strong> by 1.
       </li>
     </ol>
-    <p class="py-1">
-      The two indicators 'i' and 'b', mark the values of 
-      'current index' and 'boundary' variables involved in the algorithm.
-    </p>
-
 
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 	  <p>
@@ -71,10 +78,16 @@
             list-inside
             p-2">
         <li>
-          Click a suitable control to simulte the next step of Bubblesort
+          Click a suitable control to simulate the next step
+          of Bubblesort
         </li>
         <li>
-          View Feedback and numbers, and repeat step 1, till you finish simulating bubblesort.
+          Check if the feedback box indicates that you have
+          made a mistake or if you need to continue (even if
+          the array is sorted).  Repeat step 1 till you
+          finish simulating bubblesort.  At the
+          end, <strong>b</strong> should have the value 1
+          and <strong>i</strong> should be 0.
         </li>
 
       </ol>

@@ -19,7 +19,7 @@
               <a class="py-1 px-2 bg-gray-400 text-black" href="./sweep.html">Bubble Machine</a>
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesort.html">Bubblesort</a>
               <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortManual.html">Bubblesort (Exercise)</a>
-              <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a>
+              <!-- <a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./bubblesortTest.html">Bubblesort (Test)</a> -->
       </nav>
     </div>
     <div class="flex-grow flex overflow-hidden">
@@ -28,24 +28,20 @@
 	  
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 	  <p>
-	    Sort the given list by performing adjacent ordering operation using increment and reset to select the pairs.
+	    Sort the given list by performing adjacent ordering operation using bubble and reset to select the pairs.
 	  </p>
 
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
 	  <p class="py-1">
-	    The Bubble Machine invloves two control called 'Increment' and 'Reset'. 
-      The 'Increment' control allows you to iterate through the list, starting 
-      from index 0 going upto the last element. The 'Increment' control also 
-      performs adjacent ordering operation on the current index. The 'Reset' 
-      control takes the current index back to 0.
+	    The Bubble Machine has two controls: <strong>
+      Bubble</strong> and <strong>Reset</strong>.  It
+      also has a state variable <strong> i</strong>, which
+      keeps track of which two elements to compare.
+      Pressing the Bubble button increment i.  It also
+      orders the elements if they are out of order,
+      otherwise it leaves them unchanged.  The Reset control
+      takes the current index back to 0.
 	  </p>
-
-	  <p class="py-1">
-      The fundamental operation in the Bubble Machine is the same as the 
-      Order Adjacent Machine, which is ordering adjacent numbers. 
-      The only difference is the way you select the pair to order.
-	  </p>
-
 
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 	  <p>
@@ -55,18 +51,19 @@
             list-inside
             p-2">
         <li>
-          Click on the 'Increment' button to go through the list.
+          Click the Bubble button to advance through the
+          list.
         </li>
         <li>
-          Hit 'Reset', to go back to the start.
+          Hit Reset to return to the beginning of the list.
         </li>
         <li>
-          Check if the list is sorted or not.
+          Check if the list is sorted or not.  Repeat steps
+          1 and 2 until the list is sorted.
         </li>
 
       </ol>
 
-	  
 	</div>
       </div>
 

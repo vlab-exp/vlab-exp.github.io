@@ -5711,7 +5711,7 @@ var $author$project$Bubble$init = function (_v0) {
 		{
 			iter: 0,
 			numbers: _List_Nil,
-			prompt: _Utils_Tuple2('Click on the \'Increment\' button to order the selected pair and go\n    to the next one.', $author$project$Core$Prompt$PromptInfo)
+			prompt: _Utils_Tuple2('Click on the \'Bubble\' button to order the selected pair and go\n    to the next one.', $author$project$Core$Prompt$PromptInfo)
 		},
 		A2(
 			$elm$random$Random$generate,
@@ -8030,7 +8030,7 @@ var $author$project$Bubble$update = F2(
 		var iter = _v0.iter;
 		var numbers = _v0.numbers;
 		switch (msg.$) {
-			case 'Increment':
+			case 'Bubble':
 				var _v2 = A2($author$project$BSCore$increment, numbers, iter);
 				var numbers_ = _v2.a;
 				var iter_ = _v2.b;
@@ -8067,7 +8067,7 @@ var $author$project$Bubble$update = F2(
 						model,
 						{
 							iter: 0,
-							prompt: _Utils_Tuple2('Click on the \'Increment\' \n                    button to order the selected pair and go\n                    to the next one.', $author$project$Core$Prompt$PromptSuccess)
+							prompt: _Utils_Tuple2('Click on the \'Bubble\' \n                    button to order the selected pair and go\n                    to the next one.', $author$project$Core$Prompt$PromptSuccess)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 'Init':
@@ -8277,7 +8277,7 @@ var $author$project$Core$update = F8(
 							])));
 		}
 	});
-var $author$project$Bubble$Increment = {$: 'Increment'};
+var $author$project$Bubble$Bubble = {$: 'Bubble'};
 var $author$project$Bubble$Reset = {$: 'Reset'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -8786,12 +8786,12 @@ var $author$project$Bubble$view = function (model) {
 						$elm$html$Html$button,
 						_List_fromArray(
 							[
-								$elm$html$Html$Events$onClick($author$project$Bubble$Increment),
+								$elm$html$Html$Events$onClick($author$project$Bubble$Bubble),
 								$elm$html$Html$Attributes$class('button__action--primary')
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Increment')
+								$elm$html$Html$text('Bubble')
 							])),
 						A2(
 						$elm$html$Html$button,
