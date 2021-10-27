@@ -3,10 +3,9 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title> Merge System: Strategy </title>
+	<title> Shuffle (Sorted)</title>
 	<link href="../css/main.css" rel="stylesheet" />
-	<script src="../js/mergeStrategy.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<script src="../js/mergeSorted.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="./nav.js"></script>
@@ -14,7 +13,7 @@
 
 <body class="flex flex-col h-screen overflow-hidden">
 	<div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-		Merge System: Strategy
+		Shuffle (Sorted)
 	</div>
 	<div id="nav-bar"></div>
 	<div class="flex-grow flex overflow-hidden">
@@ -23,16 +22,15 @@
 			<div class="my-2 text-gray-700">
 				<h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
 				<p>
-					The objective of this experiment is to introduce the concept of
-					“merging” two lists and to demonstrate that merging is a special case
-					of shuffling.
+					The objective of this experiment is to discover the properties of "result"
+					array when "merging”, two sorted arrays to make a larger array.
 				</p>
 
 				<h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
 				<p class="py-1">
-					You are provided with two arrays "left" and "right" and
+					You are provided with two sorted arrays "left" and "right" and
 					your goal is to merge these two arrays to form the
-					"result" array using the "Left" and "Right" buttons
+					merged "result" array using the "Left" and "Right" buttons
 					provided.
 				</p>
 
@@ -50,7 +48,6 @@
 					will be shown in green color whereas the unsorted arrays
 					will be shown in red color.
 				</p>
-
 				<h2 class="py-1 text-lg text-gray-800 underline"> Merge Operation </h2>
 				<p class="py-1">
 					The Merge operation takes two list and returns a single combined list.
@@ -60,32 +57,34 @@
 				<h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
 				<ol class="list-decimal list-inside">
 					<li class="py-1">
-						Compare the first elements of the "left" and "right"
-						arrays.
+						Compare the first elements of the "left" and "right" arrays.
 					</li>
 					<li class="py-1">
-						If the first element of the "left" array is smaller then
-						add this element to the "result" array by clicking on
-						the "Left" button. Similarly if the first
-						element on the "left" array is larger then you will pick
-						the element from the "right" array.
+						If the first element of the "left" array is smaller then add
+						this element to the "result" array by clicking on the "Left" button.
+						Similarly if the first element on the "left" array is larger then
+						you will pick the element from the "right" array.
 					</li>
 					<li class="py-1">
 						Continue until both left and right arrays are empty.
 					</li>
+					<li class="py-1">
+						Observe whether the "result" array is sorted or not.
+					</li>
+
 				</ol>
 
 			</div>
 
 		</div>
-		<div class="flex-grow w2/3">
-			<div id="merge-strategy"></div>
+		<div class="flex-grow flex w-2/3">
+			<div id="shuffle-sorted"></div>
 		</div>
 	</div>
 	</div>
 	<script>
-		var app = Elm.MergeStrategy.init({
-			node: document.getElementById('merge-strategy'),
+		var app = Elm.MergeSorted.init({
+			node: document.getElementById('shuffle-sorted'),
 		});
 	</script>
 </body>

@@ -5227,134 +5227,11 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$MergeSublists$GotRandomArray = function (a) {
+var $author$project$MergeSorted$GotRandomArray = function (a) {
 	return {$: 'GotRandomArray', a: a};
 };
+var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Set$Set_elm_builtin = function (a) {
-	return {$: 'Set_elm_builtin', a: a};
-};
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
-var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
-var $elm$core$Set$empty = $elm$core$Set$Set_elm_builtin($elm$core$Dict$empty);
-var $elm$core$Dict$Black = {$: 'Black'};
-var $elm$core$Dict$RBNode_elm_builtin = F5(
-	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
-	});
-var $elm$core$Dict$Red = {$: 'Red'};
-var $elm$core$Dict$balance = F5(
-	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
-			var _v1 = right.a;
-			var rK = right.b;
-			var rV = right.c;
-			var rLeft = right.d;
-			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-				var _v3 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var lLeft = left.d;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					key,
-					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					color,
-					rK,
-					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
-					rRight);
-			}
-		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
-				var _v5 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var _v6 = left.d;
-				var _v7 = _v6.a;
-				var llK = _v6.b;
-				var llV = _v6.c;
-				var llLeft = _v6.d;
-				var llRight = _v6.e;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					lK,
-					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
-			} else {
-				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
-			}
-		}
-	});
-var $elm$core$Basics$compare = _Utils_compare;
-var $elm$core$Dict$insertHelp = F3(
-	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
-		} else {
-			var nColor = dict.a;
-			var nKey = dict.b;
-			var nValue = dict.c;
-			var nLeft = dict.d;
-			var nRight = dict.e;
-			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						A3($elm$core$Dict$insertHelp, key, value, nLeft),
-						nRight);
-				case 'EQ':
-					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
-				default:
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						nLeft,
-						A3($elm$core$Dict$insertHelp, key, value, nRight));
-			}
-		}
-	});
-var $elm$core$Dict$insert = F3(
-	function (key, value, dict) {
-		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
-			var _v1 = _v0.a;
-			var k = _v0.b;
-			var v = _v0.c;
-			var l = _v0.d;
-			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _v0;
-			return x;
-		}
-	});
-var $elm$core$Set$insert = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return $elm$core$Set$Set_elm_builtin(
-			A3($elm$core$Dict$insert, key, _Utils_Tuple0, dict));
-	});
-var $elm$core$Set$fromList = function (list) {
-	return A3($elm$core$List$foldl, $elm$core$Set$insert, $elm$core$Set$empty, list);
-};
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
 };
@@ -5462,8 +5339,6 @@ var $elm$random$Random$generate = F2(
 			$elm$random$Random$Generate(
 				A2($elm$random$Random$map, tagger, generator)));
 	});
-var $author$project$Prompt$PromptInfo = {$: 'PromptInfo'};
-var $author$project$MergeSublists$initPrompt = _Utils_Tuple2('Select 2 adjacent sublists, by selecting 3 indices and perform Merge Operation', $author$project$Prompt$PromptInfo);
 var $elm$core$Bitwise$and = _Bitwise_and;
 var $elm$core$Basics$negate = function (n) {
 	return -n;
@@ -5505,6 +5380,34 @@ var $elm$random$Random$int = F2(
 					return accountForBias(seed0);
 				}
 			});
+	});
+var $elm$random$Random$map2 = F3(
+	function (func, _v0, _v1) {
+		var genA = _v0.a;
+		var genB = _v1.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v2 = genA(seed0);
+				var a = _v2.a;
+				var seed1 = _v2.b;
+				var _v3 = genB(seed1);
+				var b = _v3.a;
+				var seed2 = _v3.b;
+				return _Utils_Tuple2(
+					A2(func, a, b),
+					seed2);
+			});
+	});
+var $elm$random$Random$pair = F2(
+	function (genA, genB) {
+		return A3(
+			$elm$random$Random$map2,
+			F2(
+				function (a, b) {
+					return _Utils_Tuple2(a, b);
+				}),
+			genA,
+			genB);
 	});
 var $elm$random$Random$andThen = F2(
 	function (callback, _v0) {
@@ -5600,635 +5503,227 @@ var $elm_community$random_extra$Random$Array$rangeLengthArray = F3(
 			},
 			A2($elm$random$Random$int, minLength, maxLength));
 	});
-var $author$project$MergeSublists$init = function (_v0) {
+var $author$project$MergeSorted$init = function (_v0) {
 	return _Utils_Tuple2(
 		{
-			bounds: $elm$core$Set$fromList(_List_Nil),
-			lst: _List_Nil,
-			merged: $elm$core$Set$fromList(_List_Nil),
-			prompt: $author$project$MergeSublists$initPrompt
+			firstList: _List_Nil,
+			mergedList: _List_Nil,
+			prompt: _Utils_Tuple2('Click on LEFT or RIGHT buttons to move \n                        the first number from the corresponding \n                        list to the end of the \'result\' list.', $author$project$Prompt$PromptInfo),
+			secondList: _List_Nil
 		},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
 					A2(
 					$elm$random$Random$generate,
-					$author$project$MergeSublists$GotRandomArray,
-					A3(
-						$elm_community$random_extra$Random$Array$rangeLengthArray,
-						5,
-						10,
-						A2($elm$random$Random$int, 10, 50)))
+					$author$project$MergeSorted$GotRandomArray,
+					A2(
+						$elm$random$Random$pair,
+						A3(
+							$elm_community$random_extra$Random$Array$rangeLengthArray,
+							2,
+							8,
+							A2($elm$random$Random$int, 10, 50)),
+						A3(
+							$elm_community$random_extra$Random$Array$rangeLengthArray,
+							2,
+							8,
+							A2($elm$random$Random$int, 10, 50))))
 				])));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$MergeSublists$subscriptions = function (_v0) {
-	return $elm$core$Platform$Sub$none;
-};
-var $elm$core$Dict$getMin = function (dict) {
-	getMin:
-	while (true) {
-		if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
-			var left = dict.d;
-			var $temp$dict = left;
-			dict = $temp$dict;
-			continue getMin;
+var $author$project$Prompt$PromptDanger = {$: 'PromptDanger'};
+var $author$project$Prompt$PromptSuccess = {$: 'PromptSuccess'};
+var $author$project$MergeSorted$move = F2(
+	function (from, ml) {
+		if (!from.b) {
+			return _Utils_Tuple2(from, ml);
 		} else {
-			return dict;
-		}
-	}
-};
-var $elm$core$Dict$moveRedLeft = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.e.d.$ === 'RBNode_elm_builtin') && (dict.e.d.a.$ === 'Red')) {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v1 = dict.d;
-			var lClr = _v1.a;
-			var lK = _v1.b;
-			var lV = _v1.c;
-			var lLeft = _v1.d;
-			var lRight = _v1.e;
-			var _v2 = dict.e;
-			var rClr = _v2.a;
-			var rK = _v2.b;
-			var rV = _v2.c;
-			var rLeft = _v2.d;
-			var _v3 = rLeft.a;
-			var rlK = rLeft.b;
-			var rlV = rLeft.c;
-			var rlL = rLeft.d;
-			var rlR = rLeft.e;
-			var rRight = _v2.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
-				rlK,
-				rlV,
-				A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					rlL),
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rlR, rRight));
-		} else {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v4 = dict.d;
-			var lClr = _v4.a;
-			var lK = _v4.b;
-			var lV = _v4.c;
-			var lLeft = _v4.d;
-			var lRight = _v4.e;
-			var _v5 = dict.e;
-			var rClr = _v5.a;
-			var rK = _v5.b;
-			var rV = _v5.c;
-			var rLeft = _v5.d;
-			var rRight = _v5.e;
-			if (clr.$ === 'Black') {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			}
-		}
-	} else {
-		return dict;
-	}
-};
-var $elm$core$Dict$moveRedRight = function (dict) {
-	if (((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) && (dict.e.$ === 'RBNode_elm_builtin')) {
-		if ((dict.d.d.$ === 'RBNode_elm_builtin') && (dict.d.d.a.$ === 'Red')) {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v1 = dict.d;
-			var lClr = _v1.a;
-			var lK = _v1.b;
-			var lV = _v1.c;
-			var _v2 = _v1.d;
-			var _v3 = _v2.a;
-			var llK = _v2.b;
-			var llV = _v2.c;
-			var llLeft = _v2.d;
-			var llRight = _v2.e;
-			var lRight = _v1.e;
-			var _v4 = dict.e;
-			var rClr = _v4.a;
-			var rK = _v4.b;
-			var rV = _v4.c;
-			var rLeft = _v4.d;
-			var rRight = _v4.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				$elm$core$Dict$Red,
-				lK,
-				lV,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-				A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					lRight,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight)));
-		} else {
-			var clr = dict.a;
-			var k = dict.b;
-			var v = dict.c;
-			var _v5 = dict.d;
-			var lClr = _v5.a;
-			var lK = _v5.b;
-			var lV = _v5.c;
-			var lLeft = _v5.d;
-			var lRight = _v5.e;
-			var _v6 = dict.e;
-			var rClr = _v6.a;
-			var rK = _v6.b;
-			var rV = _v6.c;
-			var rLeft = _v6.d;
-			var rRight = _v6.e;
-			if (clr.$ === 'Black') {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Black,
-					k,
-					v,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, rK, rV, rLeft, rRight));
-			}
-		}
-	} else {
-		return dict;
-	}
-};
-var $elm$core$Dict$removeHelpPrepEQGT = F7(
-	function (targetKey, dict, color, key, value, left, right) {
-		if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-			var _v1 = left.a;
-			var lK = left.b;
-			var lV = left.c;
-			var lLeft = left.d;
-			var lRight = left.e;
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				color,
-				lK,
-				lV,
-				lLeft,
-				A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, lRight, right));
-		} else {
-			_v2$2:
-			while (true) {
-				if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Black')) {
-					if (right.d.$ === 'RBNode_elm_builtin') {
-						if (right.d.a.$ === 'Black') {
-							var _v3 = right.a;
-							var _v4 = right.d;
-							var _v5 = _v4.a;
-							return $elm$core$Dict$moveRedRight(dict);
-						} else {
-							break _v2$2;
-						}
-					} else {
-						var _v6 = right.a;
-						var _v7 = right.d;
-						return $elm$core$Dict$moveRedRight(dict);
-					}
-				} else {
-					break _v2$2;
-				}
-			}
-			return dict;
+			var h = from.a;
+			var rest = from.b;
+			return _Utils_Tuple2(
+				rest,
+				_Utils_ap(
+					ml,
+					_List_fromArray(
+						[h])));
 		}
 	});
-var $elm$core$Dict$removeMin = function (dict) {
-	if ((dict.$ === 'RBNode_elm_builtin') && (dict.d.$ === 'RBNode_elm_builtin')) {
-		var color = dict.a;
-		var key = dict.b;
-		var value = dict.c;
-		var left = dict.d;
-		var lColor = left.a;
-		var lLeft = left.d;
-		var right = dict.e;
-		if (lColor.$ === 'Black') {
-			if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
-				var _v3 = lLeft.a;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					color,
-					key,
-					value,
-					$elm$core$Dict$removeMin(left),
-					right);
-			} else {
-				var _v4 = $elm$core$Dict$moveRedLeft(dict);
-				if (_v4.$ === 'RBNode_elm_builtin') {
-					var nColor = _v4.a;
-					var nKey = _v4.b;
-					var nValue = _v4.c;
-					var nLeft = _v4.d;
-					var nRight = _v4.e;
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						$elm$core$Dict$removeMin(nLeft),
-						nRight);
-				} else {
-					return $elm$core$Dict$RBEmpty_elm_builtin;
-				}
-			}
-		} else {
-			return A5(
-				$elm$core$Dict$RBNode_elm_builtin,
-				color,
-				key,
-				value,
-				$elm$core$Dict$removeMin(left),
-				right);
-		}
-	} else {
-		return $elm$core$Dict$RBEmpty_elm_builtin;
-	}
-};
-var $elm$core$Dict$removeHelp = F2(
-	function (targetKey, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return $elm$core$Dict$RBEmpty_elm_builtin;
-		} else {
-			var color = dict.a;
-			var key = dict.b;
-			var value = dict.c;
-			var left = dict.d;
-			var right = dict.e;
-			if (_Utils_cmp(targetKey, key) < 0) {
-				if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Black')) {
-					var _v4 = left.a;
-					var lLeft = left.d;
-					if ((lLeft.$ === 'RBNode_elm_builtin') && (lLeft.a.$ === 'Red')) {
-						var _v6 = lLeft.a;
-						return A5(
-							$elm$core$Dict$RBNode_elm_builtin,
-							color,
-							key,
-							value,
-							A2($elm$core$Dict$removeHelp, targetKey, left),
-							right);
-					} else {
-						var _v7 = $elm$core$Dict$moveRedLeft(dict);
-						if (_v7.$ === 'RBNode_elm_builtin') {
-							var nColor = _v7.a;
-							var nKey = _v7.b;
-							var nValue = _v7.c;
-							var nLeft = _v7.d;
-							var nRight = _v7.e;
-							return A5(
-								$elm$core$Dict$balance,
-								nColor,
-								nKey,
-								nValue,
-								A2($elm$core$Dict$removeHelp, targetKey, nLeft),
-								nRight);
-						} else {
-							return $elm$core$Dict$RBEmpty_elm_builtin;
-						}
-					}
-				} else {
-					return A5(
-						$elm$core$Dict$RBNode_elm_builtin,
-						color,
-						key,
-						value,
-						A2($elm$core$Dict$removeHelp, targetKey, left),
-						right);
-				}
-			} else {
-				return A2(
-					$elm$core$Dict$removeHelpEQGT,
-					targetKey,
-					A7($elm$core$Dict$removeHelpPrepEQGT, targetKey, dict, color, key, value, left, right));
-			}
-		}
-	});
-var $elm$core$Dict$removeHelpEQGT = F2(
-	function (targetKey, dict) {
-		if (dict.$ === 'RBNode_elm_builtin') {
-			var color = dict.a;
-			var key = dict.b;
-			var value = dict.c;
-			var left = dict.d;
-			var right = dict.e;
-			if (_Utils_eq(targetKey, key)) {
-				var _v1 = $elm$core$Dict$getMin(right);
-				if (_v1.$ === 'RBNode_elm_builtin') {
-					var minKey = _v1.b;
-					var minValue = _v1.c;
-					return A5(
-						$elm$core$Dict$balance,
-						color,
-						minKey,
-						minValue,
-						left,
-						$elm$core$Dict$removeMin(right));
-				} else {
-					return $elm$core$Dict$RBEmpty_elm_builtin;
-				}
-			} else {
-				return A5(
-					$elm$core$Dict$balance,
-					color,
-					key,
-					value,
-					left,
-					A2($elm$core$Dict$removeHelp, targetKey, right));
-			}
-		} else {
-			return $elm$core$Dict$RBEmpty_elm_builtin;
-		}
-	});
-var $elm$core$Dict$remove = F2(
-	function (key, dict) {
-		var _v0 = A2($elm$core$Dict$removeHelp, key, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
-			var _v1 = _v0.a;
-			var k = _v0.b;
-			var v = _v0.c;
-			var l = _v0.d;
-			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _v0;
-			return x;
-		}
-	});
-var $elm$core$Set$remove = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return $elm$core$Set$Set_elm_builtin(
-			A2($elm$core$Dict$remove, key, dict));
-	});
-var $elm$core$Dict$sizeHelp = F2(
-	function (n, dict) {
-		sizeHelp:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return n;
-			} else {
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$n = A2($elm$core$Dict$sizeHelp, n + 1, right),
-					$temp$dict = left;
-				n = $temp$n;
-				dict = $temp$dict;
-				continue sizeHelp;
-			}
-		}
-	});
-var $elm$core$Dict$size = function (dict) {
-	return A2($elm$core$Dict$sizeHelp, 0, dict);
-};
-var $elm$core$Set$size = function (_v0) {
-	var dict = _v0.a;
-	return $elm$core$Dict$size(dict);
-};
-var $author$project$MergeSublists$removeIndex = F2(
-	function (i, bounds) {
-		var newBounds = A2($elm$core$Set$remove, i, bounds);
-		return _Utils_Tuple2(
-			newBounds,
-			_Utils_Tuple2(
-				'Select ' + ($elm$core$String$fromInt(
-					3 - $elm$core$Set$size(newBounds)) + ' more index, to perform merge.'),
-				$author$project$Prompt$PromptInfo));
-	});
-var $author$project$MergeSublists$deselect = F2(
-	function (i, model) {
-		var _v0 = A2($author$project$MergeSublists$removeIndex, i, model.bounds);
-		var newBounds = _v0.a;
-		var newprompt = _v0.b;
-		return _Utils_update(
-			model,
-			{bounds: newBounds, prompt: newprompt});
-	});
-var $elm$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
-		} else {
-			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
-		}
-	});
-var $elm$core$List$concat = function (lists) {
-	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
-};
-var $author$project$LMerge$merge = F2(
-	function (a, b) {
-		var _v0 = _Utils_Tuple2(a, b);
-		if (!_v0.a.b) {
-			if (!_v0.b.b) {
-				return _List_Nil;
-			} else {
-				var _v1 = _v0.b;
-				var hb = _v1.a;
-				var tb = _v1.b;
-				return A2($elm$core$List$cons, hb, tb);
-			}
-		} else {
-			if (!_v0.b.b) {
-				var _v2 = _v0.a;
-				var ha = _v2.a;
-				var ta = _v2.b;
-				return A2($elm$core$List$cons, ha, ta);
-			} else {
-				var _v3 = _v0.a;
-				var ha = _v3.a;
-				var ta = _v3.b;
-				var _v4 = _v0.b;
-				var hb = _v4.a;
-				var tb = _v4.b;
-				return (_Utils_cmp(ha, hb) < 0) ? A2(
-					$elm$core$List$cons,
-					ha,
-					A2(
-						$author$project$LMerge$merge,
-						ta,
-						A2($elm$core$List$cons, hb, tb))) : A2(
-					$elm$core$List$cons,
-					hb,
-					A2(
-						$author$project$LMerge$merge,
-						A2($elm$core$List$cons, ha, ta),
-						tb));
-			}
-		}
-	});
-var $elm$core$List$filter = F2(
-	function (isGood, list) {
-		return A3(
-			$elm$core$List$foldr,
-			F2(
-				function (x, xs) {
-					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
-				}),
-			_List_Nil,
-			list);
-	});
-var $elm$core$Basics$ge = _Utils_ge;
-var $author$project$MergeSublists$sublist = F3(
-	function (i, j, l) {
-		return A2(
-			$elm$core$List$map,
-			function (_v1) {
-				var idx = _v1.a;
-				var val = _v1.b;
-				return val;
-			},
-			A2(
-				$elm$core$List$filter,
-				function (_v0) {
-					var idx = _v0.a;
-					var val = _v0.b;
-					return (_Utils_cmp(idx, i) > -1) && (_Utils_cmp(idx, j) < 0);
-				},
-				A2(
-					$elm$core$List$indexedMap,
-					F2(
-						function (idx, val) {
-							return _Utils_Tuple2(idx, val);
-						}),
-					l)));
-	});
-var $author$project$MergeSublists$mergeSublistsAt = F4(
-	function (i, j, k, lst) {
-		return $elm$core$List$concat(
-			_List_fromArray(
-				[
-					A3($author$project$MergeSublists$sublist, 0, i, lst),
-					A2(
-					$author$project$LMerge$merge,
-					A3($author$project$MergeSublists$sublist, i, j, lst),
-					A3($author$project$MergeSublists$sublist, j, k, lst)),
-					A3(
-					$author$project$MergeSublists$sublist,
-					k,
-					$elm$core$List$length(lst),
-					lst)
-				]));
-	});
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$List$sortBy = _List_sortBy;
 var $elm$core$List$sort = function (xs) {
 	return A2($elm$core$List$sortBy, $elm$core$Basics$identity, xs);
 };
-var $author$project$MergeSublists$merge = function (model) {
-	var _v0 = model;
-	var lst = _v0.lst;
-	var bounds = _v0.bounds;
-	var indices = $elm$core$List$sort(
-		$elm$core$Set$toList(bounds));
-	if (((indices.b && indices.b.b) && indices.b.b.b) && (!indices.b.b.b.b)) {
-		var i = indices.a;
-		var _v2 = indices.b;
-		var j = _v2.a;
-		var _v3 = _v2.b;
-		var k = _v3.a;
-		return _Utils_update(
-			model,
-			{
-				bounds: $elm$core$Set$empty,
-				lst: A4($author$project$MergeSublists$mergeSublistsAt, i, j, k, lst),
-				merged: $elm$core$Set$fromList(
-					_List_fromArray(
-						[i, k])),
-				prompt: $author$project$MergeSublists$initPrompt
-			});
-	} else {
-		return model;
-	}
-};
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$MergeSublists$addIndex = F2(
-	function (i, bounds) {
-		return ($elm$core$Set$size(bounds) === 3) ? _Utils_Tuple2(
-			bounds,
-			_Utils_Tuple2('Click Merge to merge the adjacent sublists', $author$project$Prompt$PromptInfo)) : (($elm$core$Set$size(bounds) === 2) ? _Utils_Tuple2(
-			A2($elm$core$Set$insert, i, bounds),
-			_Utils_Tuple2('Click Merge to merge the adjacent sublists', $author$project$Prompt$PromptInfo)) : _Utils_Tuple2(
-			A2($elm$core$Set$insert, i, bounds),
-			_Utils_Tuple2(
-				'Select ' + ($elm$core$String$fromInt(
-					2 - $elm$core$Set$size(bounds)) + ' more index, to perform merge.'),
-				$author$project$Prompt$PromptInfo)));
-	});
-var $author$project$MergeSublists$select = F2(
-	function (i, model) {
-		var _v0 = A2($author$project$MergeSublists$addIndex, i, model.bounds);
-		var newBounds = _v0.a;
-		var newprompt = _v0.b;
-		return _Utils_update(
-			model,
-			{
-				bounds: newBounds,
-				merged: $elm$core$Set$fromList(_List_Nil),
-				prompt: newprompt
-			});
-	});
-var $author$project$MergeSublists$update = F2(
+var $author$project$MergeSorted$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'Select':
-				var i = msg.a;
-				return _Utils_Tuple2(
-					A2($author$project$MergeSublists$select, i, model),
-					$elm$core$Platform$Cmd$none);
-			case 'Deselect':
-				var j = msg.a;
-				return _Utils_Tuple2(
-					A2($author$project$MergeSublists$deselect, j, model),
-					$elm$core$Platform$Cmd$none);
-			case 'Merge':
-				return _Utils_Tuple2(
-					$author$project$MergeSublists$merge(model),
-					$elm$core$Platform$Cmd$none);
+			case 'NoOp':
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			case 'Left':
+				var _v1 = _Utils_Tuple2(model.firstList, model.secondList);
+				if (!_v1.a.b) {
+					if (!_v1.b.b) {
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									prompt: _Utils_Tuple2('The \'left\' list is empty.  Merging is complete.', $author$project$Prompt$PromptSuccess)
+								}),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									prompt: _Utils_Tuple2('The \'left\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise merging is complete.', $author$project$Prompt$PromptInfo)
+								}),
+							$elm$core$Platform$Cmd$none);
+					}
+				} else {
+					if (!_v1.b.b) {
+						var _v2 = _v1.a;
+						var l = _v2.a;
+						var ls = _v2.b;
+						var _v3 = A2($author$project$MergeSorted$move, model.firstList, model.mergedList);
+						var fl = _v3.a;
+						var ml = _v3.b;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									firstList: fl,
+									mergedList: ml,
+									prompt: _Utils_Tuple2(
+										'Moved ' + ($elm$core$String$fromInt(l) + ' from \'left\' list to \'result\' list. Click LEFT/RIGHT to move next element'),
+										$author$project$Prompt$PromptInfo)
+								}),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						var _v4 = _v1.a;
+						var l = _v4.a;
+						var ls = _v4.b;
+						var _v5 = _v1.b;
+						var r = _v5.a;
+						var rs = _v5.b;
+						if (_Utils_cmp(l, r) < 1) {
+							var _v6 = A2($author$project$MergeSorted$move, model.firstList, model.mergedList);
+							var fl = _v6.a;
+							var ml = _v6.b;
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										firstList: fl,
+										mergedList: ml,
+										prompt: _Utils_Tuple2(
+											'Moved ' + ($elm$core$String$fromInt(l) + ' from \'left\' list to \'result\' list. Click LEFT/RIGHT to move next element'),
+											$author$project$Prompt$PromptInfo)
+									}),
+								$elm$core$Platform$Cmd$none);
+						} else {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										prompt: _Utils_Tuple2(
+											'Pick the first element from \'right\' sublist, as ' + ($elm$core$String$fromInt(l) + (' > ' + $elm$core$String$fromInt(r))),
+											$author$project$Prompt$PromptDanger)
+									}),
+								$elm$core$Platform$Cmd$none);
+						}
+					}
+				}
+			case 'Right':
+				var _v7 = _Utils_Tuple2(model.firstList, model.secondList);
+				if (!_v7.b.b) {
+					if (!_v7.a.b) {
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									prompt: _Utils_Tuple2('The \'right\' list is empty.  Merging is complete.', $author$project$Prompt$PromptSuccess)
+								}),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									prompt: _Utils_Tuple2('The \'right\' list is empty.  \n                                          Check if the other list has any elements \n                                          remaining.  Otherwise merging is complete.', $author$project$Prompt$PromptInfo)
+								}),
+							$elm$core$Platform$Cmd$none);
+					}
+				} else {
+					if (!_v7.a.b) {
+						var _v8 = _v7.b;
+						var r = _v8.a;
+						var rs = _v8.b;
+						var _v9 = A2($author$project$MergeSorted$move, model.secondList, model.mergedList);
+						var sl = _v9.a;
+						var ml = _v9.b;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									mergedList: ml,
+									prompt: _Utils_Tuple2(
+										'Moved ' + ($elm$core$String$fromInt(r) + ' from \'right\' list to \'result\' list. Click LEFT/RIGHT to move next element'),
+										$author$project$Prompt$PromptInfo),
+									secondList: sl
+								}),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						var _v10 = _v7.a;
+						var l = _v10.a;
+						var ls = _v10.b;
+						var _v11 = _v7.b;
+						var r = _v11.a;
+						var rs = _v11.b;
+						if (_Utils_cmp(r, l) < 1) {
+							var _v12 = A2($author$project$MergeSorted$move, model.secondList, model.mergedList);
+							var sl = _v12.a;
+							var ml = _v12.b;
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										mergedList: ml,
+										prompt: _Utils_Tuple2(
+											'Moved ' + ($elm$core$String$fromInt(r) + ' from \'right\' list to \'result\' list. Click LEFT/RIGHT to move next element'),
+											$author$project$Prompt$PromptInfo),
+										secondList: sl
+									}),
+								$elm$core$Platform$Cmd$none);
+						} else {
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										prompt: _Utils_Tuple2(
+											'Pick the first element from \'left\' sublist, as ' + ($elm$core$String$fromInt(l) + (' < ' + $elm$core$String$fromInt(r))),
+											$author$project$Prompt$PromptDanger)
+									}),
+								$elm$core$Platform$Cmd$none);
+						}
+					}
+				}
 			default:
-				var a = msg.a;
+				var _v13 = msg.a;
+				var a = _v13.a;
+				var b = _v13.b;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{
-							lst: $elm$core$Array$toList(a)
+							firstList: $elm$core$List$sort(
+								$elm$core$Array$toList(a)),
+							secondList: $elm$core$List$sort(
+								$elm$core$Array$toList(b))
 						}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$MergeSublists$Merge = {$: 'Merge'};
-var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -6238,18 +5733,10 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $author$project$MergeSorted$Left = {$: 'Left'};
+var $author$project$MergeSorted$Right = {$: 'Right'};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$core$String$cons = _String_cons;
-var $elm$core$String$fromChar = function (_char) {
-	return A2($elm$core$String$cons, _char, '');
-};
-var $elm$core$Char$fromCode = _Char_fromCode;
-var $author$project$MergeSublists$Deselect = function (a) {
-	return {$: 'Deselect', a: a};
-};
-var $author$project$MergeSublists$Select = function (a) {
-	return {$: 'Select', a: a};
-};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -6267,272 +5754,244 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$MergeSublists$gridLine = F2(
-	function (position, isSelected) {
+var $author$project$MergeSorted$controls = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('flex-grow'),
+			$elm$html$Html$Attributes$class('flex'),
+			$elm$html$Html$Attributes$class('justify-evenly'),
+			$elm$html$Html$Attributes$class('items-start'),
+			$elm$html$Html$Attributes$class('bg-gray-300'),
+			$elm$html$Html$Attributes$class('py-4')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$button,
+			_List_fromArray(
+				[
+					$elm$html$Html$Events$onClick($author$project$MergeSorted$Left),
+					$elm$html$Html$Attributes$class('bg-gray-600'),
+					$elm$html$Html$Attributes$class('text-gray-100'),
+					$elm$html$Html$Attributes$class('p-2')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('LEFT')
+				])),
+			A2(
+			$elm$html$Html$button,
+			_List_fromArray(
+				[
+					$elm$html$Html$Events$onClick($author$project$MergeSorted$Right),
+					$elm$html$Html$Attributes$class('bg-gray-600'),
+					$elm$html$Html$Attributes$class('text-gray-100'),
+					$elm$html$Html$Attributes$class('p-2')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('RIGHT')
+				]))
+		]));
+var $elm$html$Html$span = _VirtualDom_node('span');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $author$project$MergeSorted$arrayItem = function (v) {
+	return A2(
+		$elm$html$Html$span,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'padding', '1em 0.2em')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text(
+				$elm$core$String$fromInt(v))
+			]));
+};
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $elm$html$Html$Attributes$classList = function (classes) {
+	return $elm$html$Html$Attributes$class(
+		A2(
+			$elm$core$String$join,
+			' ',
+			A2(
+				$elm$core$List$map,
+				$elm$core$Tuple$first,
+				A2($elm$core$List$filter, $elm$core$Tuple$second, classes))));
+};
+var $elm$core$List$intersperse = F2(
+	function (sep, xs) {
+		if (!xs.b) {
+			return _List_Nil;
+		} else {
+			var hd = xs.a;
+			var tl = xs.b;
+			var step = F2(
+				function (x, rest) {
+					return A2(
+						$elm$core$List$cons,
+						sep,
+						A2($elm$core$List$cons, x, rest));
+				});
+			var spersed = A3($elm$core$List$foldr, step, _List_Nil, tl);
+			return A2($elm$core$List$cons, hd, spersed);
+		}
+	});
+var $elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
+var $author$project$MergeSorted$issorted = F2(
+	function (l1, l2) {
+		return A2(
+			$elm$core$List$all,
+			function (x) {
+				return x;
+			},
+			A3(
+				$elm$core$List$map2,
+				F2(
+					function (i1, i2) {
+						return _Utils_eq(i1, i2);
+					}),
+				l1,
+				l2));
+	});
+var $author$project$MergeSorted$listView = F2(
+	function (label, lst) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$elm$html$Html$Attributes$class('flex flex-col')
+					A2($elm$html$Html$Attributes$style, 'flex-grow', '1'),
+					$elm$html$Html$Attributes$class('flex'),
+					$elm$html$Html$Attributes$class('flex-wrap'),
+					$elm$html$Html$Attributes$class('justify-center'),
+					$elm$html$Html$Attributes$class('items-center'),
+					$elm$html$Html$Attributes$class('text-xl'),
+					$elm$html$Html$Attributes$class('py-4')
 				]),
 			_List_fromArray(
 				[
 					A2(
-					$elm$html$Html$div,
+					$elm$html$Html$span,
+					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$Attributes$class('flex-grow cursor-pointer'),
-							A2(
-							$elm$html$Html$Attributes$style,
-							'background',
-							isSelected ? '#FF5722' : '#B2EBF2'),
-							A2($elm$html$Html$Attributes$style, 'padding', '0.5em'),
-							$elm$html$Html$Events$onClick(
-							isSelected ? $author$project$MergeSublists$Deselect(position) : $author$project$MergeSublists$Select(position))
-						]),
-					_List_Nil),
-					A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('text-center')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text(
-							$elm$core$String$fromInt(position))
-						]))
-				]));
-	});
-var $elm$core$List$maximum = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(
-			A3($elm$core$List$foldl, $elm$core$Basics$max, x, xs));
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $elm$core$Basics$min = F2(
-	function (x, y) {
-		return (_Utils_cmp(x, y) < 0) ? x : y;
-	});
-var $elm$core$List$minimum = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(
-			A3($elm$core$List$foldl, $elm$core$Basics$min, x, xs));
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $author$project$MergeSublists$inbound = F2(
-	function (i, bounds) {
-		var blist = $elm$core$Set$toList(bounds);
-		var _v0 = _Utils_Tuple2(
-			$elm$core$List$minimum(blist),
-			$elm$core$List$maximum(blist));
-		_v0$2:
-		while (true) {
-			if (_v0.a.$ === 'Nothing') {
-				if (_v0.b.$ === 'Nothing') {
-					var _v1 = _v0.a;
-					var _v2 = _v0.b;
-					return false;
-				} else {
-					break _v0$2;
-				}
-			} else {
-				if (_v0.b.$ === 'Just') {
-					var mn = _v0.a.a;
-					var mx = _v0.b.a;
-					return (_Utils_cmp(i, mn) > -1) && (_Utils_cmp(i, mx) < 0);
-				} else {
-					break _v0$2;
-				}
-			}
-		}
-		return false;
-	});
-var $elm$core$Dict$get = F2(
-	function (targetKey, dict) {
-		get:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
-						var $temp$targetKey = targetKey,
-							$temp$dict = left;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-					case 'EQ':
-						return $elm$core$Maybe$Just(value);
-					default:
-						var $temp$targetKey = targetKey,
-							$temp$dict = right;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-				}
-			}
-		}
-	});
-var $elm$core$Dict$member = F2(
-	function (key, dict) {
-		var _v0 = A2($elm$core$Dict$get, key, dict);
-		if (_v0.$ === 'Just') {
-			return true;
-		} else {
-			return false;
-		}
-	});
-var $elm$core$Set$member = F2(
-	function (key, _v0) {
-		var dict = _v0.a;
-		return A2($elm$core$Dict$member, key, dict);
-	});
-var $author$project$MergeSublists$selected = F2(
-	function (i, bounds) {
-		return A2($elm$core$Set$member, i, bounds);
-	});
-var $elm$html$Html$span = _VirtualDom_node('span');
-var $author$project$MergeSublists$sublistSorted = F3(
-	function (lst, idx, indices) {
-		var list_idx = $elm$core$Set$toList(indices);
-		_v0$2:
-		while (true) {
-			if (list_idx.b && list_idx.b.b) {
-				if (list_idx.b.b.b) {
-					if (!list_idx.b.b.b.b) {
-						var i = list_idx.a;
-						var _v1 = list_idx.b;
-						var j = _v1.a;
-						var _v2 = _v1.b;
-						var k = _v2.a;
-						var sub_b = A3($author$project$MergeSublists$sublist, j, k, lst);
-						var sub_a = A3($author$project$MergeSublists$sublist, i, j, lst);
-						return (_Utils_cmp(idx, j) < 0) ? _Utils_eq(
-							$elm$core$List$sort(sub_a),
-							sub_a) : _Utils_eq(
-							$elm$core$List$sort(sub_b),
-							sub_b);
-					} else {
-						break _v0$2;
-					}
-				} else {
-					var i = list_idx.a;
-					var _v3 = list_idx.b;
-					var k = _v3.a;
-					var sub_l = A3($author$project$MergeSublists$sublist, i, k, lst);
-					return (_Utils_cmp(idx, k) < 1) ? _Utils_eq(
-						$elm$core$List$sort(sub_l),
-						sub_l) : false;
-				}
-			} else {
-				break _v0$2;
-			}
-		}
-		return false;
-	});
-var $author$project$MergeSublists$itemview = F6(
-	function (val, index, length, indices, merged, lst) {
-		var _v0 = A2($author$project$MergeSublists$inbound, index, indices) ? (A3($author$project$MergeSublists$sublistSorted, lst, index, indices) ? _Utils_Tuple2('#c6f6d5', '1s') : _Utils_Tuple2('#fed7d7', '5s')) : (A2($author$project$MergeSublists$inbound, index, merged) ? (A3($author$project$MergeSublists$sublistSorted, lst, index, merged) ? _Utils_Tuple2('#c6f6d5', '1s') : _Utils_Tuple2('#fed7d7', '5s')) : _Utils_Tuple2('#ffffff', '1s'));
-		var bgClr = _v0.a;
-		var td = _v0.b;
-		return _Utils_eq(index, length - 1) ? A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$author$project$MergeSublists$gridLine,
-					index,
-					A2($author$project$MergeSublists$selected, index, indices)),
-					A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'margin', '0.25em'),
-							A2($elm$html$Html$Attributes$style, 'margin-bottom', '1.5em'),
-							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
-							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-							A2($elm$html$Html$Attributes$style, 'background', bgClr)
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$elm$html$Html$span,
-							_List_fromArray(
-								[
-									A2($elm$html$Html$Attributes$style, 'padding', '0.4em'),
-									$elm$html$Html$Attributes$class('text-2xl')
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text(
-									$elm$core$String$fromInt(val))
-								]))
+							$elm$html$Html$text(label + ':')
 						])),
 					A2(
-					$author$project$MergeSublists$gridLine,
-					index + 1,
-					A2($author$project$MergeSublists$selected, index + 1, indices))
-				])) : A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					A2($elm$html$Html$Attributes$style, 'display', 'flex')
-				]),
-			_List_fromArray(
-				[
-					A2(
-					$author$project$MergeSublists$gridLine,
-					index,
-					A2($author$project$MergeSublists$selected, index, indices)),
-					A2(
 					$elm$html$Html$div,
 					_List_fromArray(
 						[
-							A2($elm$html$Html$Attributes$style, 'margin', '0.25em'),
-							A2($elm$html$Html$Attributes$style, 'margin-bottom', '1.5em'),
-							A2($elm$html$Html$Attributes$style, 'display', 'flex'),
-							A2($elm$html$Html$Attributes$style, 'flex-direction', 'column'),
-							A2($elm$html$Html$Attributes$style, 'align-items', 'center'),
-							A2($elm$html$Html$Attributes$style, 'background', bgClr)
+							$elm$html$Html$Attributes$classList(
+							_List_fromArray(
+								[
+									_Utils_Tuple2(
+									'bg-green-200',
+									A2(
+										$author$project$MergeSorted$issorted,
+										lst,
+										$elm$core$List$sort(lst))),
+									_Utils_Tuple2(
+									'bg-red-200',
+									!A2(
+										$author$project$MergeSorted$issorted,
+										lst,
+										$elm$core$List$sort(lst)))
+								])),
+							$elm$html$Html$Attributes$class('ml-4'),
+							$elm$html$Html$Attributes$class('py-2')
 						]),
-					_List_fromArray(
-						[
+					_Utils_ap(
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('px-2')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('[')
+									]))
+							]),
+						_Utils_ap(
 							A2(
-							$elm$html$Html$span,
+								$elm$core$List$intersperse,
+								A2(
+									$elm$html$Html$span,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('pr-2')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text(',')
+										])),
+								A2($elm$core$List$map, $author$project$MergeSorted$arrayItem, lst)),
 							_List_fromArray(
 								[
-									A2($elm$html$Html$Attributes$style, 'padding', '0.4em'),
-									$elm$html$Html$Attributes$class('text-2xl')
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text(
-									$elm$core$String$fromInt(val))
-								]))
-						]))
+									A2(
+									$elm$html$Html$span,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('px-2')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text(']')
+										]))
+								]))))
 				]));
 	});
 var $author$project$Prompt$colorScheme = function (promptType) {
@@ -6582,12 +6041,13 @@ var $author$project$Prompt$show = function (_v0) {
 				$elm$html$Html$text(prompt_text)
 			]));
 };
-var $author$project$MergeSublists$view = function (model) {
+var $author$project$MergeSorted$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
 				$elm$html$Html$Attributes$class('flex-grow'),
+				$elm$html$Html$Attributes$class('h-full'),
 				$elm$html$Html$Attributes$class('flex'),
 				$elm$html$Html$Attributes$class('flex-col'),
 				$elm$html$Html$Attributes$class('justify-center')
@@ -6599,82 +6059,37 @@ var $author$project$MergeSublists$view = function (model) {
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('flex-grow flex flex-col justify-around py-20')
+						$elm$html$Html$Attributes$class('flex'),
+						$elm$html$Html$Attributes$class('flex-grow'),
+						$elm$html$Html$Attributes$class('flex-wrap'),
+						$elm$html$Html$Attributes$class('items-center')
 					]),
 				_List_fromArray(
 					[
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('flex justify-center')
-							]),
-						A2(
-							$elm$core$List$indexedMap,
-							F2(
-								function (i, v) {
-									return A6(
-										$author$project$MergeSublists$itemview,
-										v,
-										i,
-										$elm$core$List$length(model.lst),
-										model.bounds,
-										model.merged,
-										model.lst);
-								}),
-							model.lst)),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('flex flex-row justify-around h-8')
-							]),
-						A2(
-							$elm$core$List$indexedMap,
-							F2(
-								function (p, e) {
-									return A2(
-										$elm$html$Html$div,
-										_List_Nil,
-										_List_fromArray(
-											[
-												$elm$html$Html$text(
-												$elm$core$String$fromChar(
-													$elm$core$Char$fromCode(105 + p)) + (' = ' + $elm$core$String$fromInt(e)))
-											]));
-								}),
-							$elm$core$Set$toList(model.bounds)))
+						A2($author$project$MergeSorted$listView, 'left', model.firstList),
+						A2($author$project$MergeSorted$listView, 'right', model.secondList)
 					])),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('flex-grow'),
-						$elm$html$Html$Attributes$class('flex'),
-						$elm$html$Html$Attributes$class('justify-evenly'),
-						$elm$html$Html$Attributes$class('items-start'),
-						$elm$html$Html$Attributes$class('bg-gray-300'),
-						$elm$html$Html$Attributes$class('py-4')
+						$elm$html$Html$Attributes$class('flex-grow')
 					]),
 				_List_fromArray(
 					[
-						A2(
-						$elm$html$Html$button,
-						_List_fromArray(
-							[
-								$elm$html$Html$Events$onClick($author$project$MergeSublists$Merge),
-								$elm$html$Html$Attributes$class('bg-gray-600'),
-								$elm$html$Html$Attributes$class('text-gray-100'),
-								$elm$html$Html$Attributes$class('p-2')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('merge')
-							]))
-					]))
+						A2($author$project$MergeSorted$listView, 'result', model.mergedList)
+					])),
+				$author$project$MergeSorted$controls
 			]));
 };
-var $author$project$MergeSublists$main = $elm$browser$Browser$element(
-	{init: $author$project$MergeSublists$init, subscriptions: $author$project$MergeSublists$subscriptions, update: $author$project$MergeSublists$update, view: $author$project$MergeSublists$view});
-_Platform_export({'MergeSublists':{'init':$author$project$MergeSublists$main(
+var $author$project$MergeSorted$main = $elm$browser$Browser$element(
+	{
+		init: $author$project$MergeSorted$init,
+		subscriptions: function (_v0) {
+			return $elm$core$Platform$Sub$none;
+		},
+		update: $author$project$MergeSorted$update,
+		view: $author$project$MergeSorted$view
+	});
+_Platform_export({'MergeSorted':{'init':$author$project$MergeSorted$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
