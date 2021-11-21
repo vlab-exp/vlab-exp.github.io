@@ -1,0 +1,1 @@
+$.get("navBar.html",(function(a){$("#nav-bar").replaceWith(a);const t=window.location.href,e=["bg-gray-400","text-black"],r=["hover:bg-gray-400","hover:text-gray-800"];Array.from(document.getElementsByTagName("nav")[0].children).forEach((a=>{a.href==t?(a.classList.add(e[0]),a.classList.add(e[1])):(a.classList.add(r[0]),a.classList.add(r[1]))}))}));
