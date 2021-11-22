@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> Spanning Tree via DFS </title>
+    <title> Spanning Tree via DFT </title>
     <link href="../css/main.css" rel="stylesheet"/>   
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
 	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      Spanning Tree via DFS
+      Spanning Tree via DFT
     </div>
 	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
@@ -20,7 +20,7 @@
 	  
 	  <p>
 	    Given a connected graph, the objective of this system is to
-	    build a spanning tree of the graph via DFS traversal of the graph.
+	    build a spanning tree of the graph via Depth First traversal of the graph.
 	  </p>
 	  
 	</div>
@@ -123,7 +123,7 @@
 	    <ol class="list-decimal list-inside">
 			  <li>
 				  Select the first node, to start building the spanning tree.The first node will 
-				  be the root node for the DFS.
+				  be the root node for the DFT.
 			  </li>
 		  </ol>
 	  </p>
@@ -148,7 +148,7 @@
 				  You need to remove all the elements from stack by Bactracking to the root.
 			  </li>
 			  <li>
-				  If all the nodes are added to the tree and the stack becomes empty, DFS is finished and the spanning tree is complete and you will not see any candidate edges any more.
+				  If all the nodes are added to the tree and the stack becomes empty, DFT is finished and the spanning tree is complete and you will not see any candidate edges any more.
 				  Otherwise repeat step 1,2,3.
 			  </li>
 		  </ol>

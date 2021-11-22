@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> DFS Algorithm </title>
+    <title> DFT Algorithm </title>
     <link href="../css/main.css" rel="stylesheet"/>  
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
 	<script src="./nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      DFS Algorithm
+      DFT Algorithm
     </div>
 	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
@@ -20,7 +20,7 @@
 	  
 	  <p>
 	    Given a connected graph, the objective of this system is to
-	    build a spanning tree of the graph via DFS traversal of the graph.
+	    build a spanning tree of the graph via Depth First traversal of the graph.
 	  </p>
 	  
 	</div>
@@ -101,7 +101,7 @@
 		  Stack is used as an auxillary data structure.
 		   You can click on any node to select it. Clicking on edges is not 
 		   permitted. Clicking other nodes is not permitted after selecting a node. 
-		   A button called "Next" can be clicked to execute next step of DFS.
+		   A button called "Next" can be clicked to execute next step of DFT.
 	  </p>
   
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
@@ -123,7 +123,7 @@
 	    <ol class="list-decimal list-inside">
 			<li>
 				Select the first node, to start building the spanning tree.The first node will 
-				be the root node for the DFS.
+				be the root node for the DFT.
 			</li>
 		</ol>
 	  </p>
@@ -142,10 +142,10 @@
 				  You can now click on "Next" button and the algorithm will select any of the candidate edges randomly, to add that edge to the spanning tree.	    
 			  </li>
 			  <li>
-				  The simulator will loop through the steps of DFS, printing instructions at every step.  
+				  The simulator will loop through the steps of DFT, printing instructions at every step.  
 			  </li>
 			  <li>
-				  Once all the nodes are added to the tree and stack is empty, the DFS is finished and spanning tree is complete and you will not be able to click on "Next" any more.
+				  Once all the nodes are added to the tree and stack is empty, the DFT is finished and spanning tree is complete and you will not be able to click on "Next" any more.
 			  </li>
 		  </ol>
 	  </p>
