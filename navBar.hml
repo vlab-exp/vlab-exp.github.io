@@ -1,0 +1,9 @@
+<div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+    <nav class="flex text-gray-200 ">
+            <a class="py-1 px-2 " href="./index.html">Home</a>
+            <a class="py-1 px-2 " href="./labs.html">Labs</a>
+            <a class="py-1 px-2 " href="./experiments.html">Experiments</a>
+            <a class="py-1 px-2 " href="./faq.html">FAQs</a>
+            <a class="py-1 px-2 " href="./contact.html">Contact</a>
+    </nav>
+</div>

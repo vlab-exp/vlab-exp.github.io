@@ -1,0 +1,83 @@
+
+* Images
+  We are using graphviz to generate general data structures that will
+  be used as card images for labs. 
+
+  
+   #+BEGIN_SRC emacs-lisp
+       (org-babel-do-load-languages
+        'org-babel-load-languages
+        '((dot . t))) ; this line activates dot
+   #+END_SRC
+
+   #+RESULTS:
+
+  
+** Graph (using neato)
+
+#+BEGIN_SRC dot :results output silent :file ./images/graph.svg :cmdline -Kneato -Tsvg
+graph G {
+    splines="false"
+    node [style=filled, fillcolor="#CCCEFC", shape="circle", label=""];
+    A -- {B,C,D}
+    B -- {C,E}
+    D -- {E,F}
+}
+#+END_SRC
+
+
+** Tree (using dot)
+
+#+BEGIN_SRC dot :results output silent :file ./images/tree.svg :cmdline -Kdot -Tsvg
+graph G {
+    splines="false"
+    node [style=filled, fillcolor="#CCCEFC", shape="circle", label=""];
+    1 -- {2,3,4}
+    2 -- 5
+    3 -- 6
+    4 -- {7,8}
+    5 -- {9,10}
+    8 -- 11
+
+}
+#+END_SRC
+
+** Array (using dot)
+#+BEGIN_SRC dot :results output silent :file ./images/array.svg :cmdline -Kdot -Tsvg
+graph G {
+    splines="false"
+    node [style=filled, fillcolor="#CCCEFC", shape="circle", label = "", xlabel="\N"];
+    0,1,2,3,4 
+}
+#+END_SRC
+
+** Linked List (using dot)
+   
+#+BEGIN_SRC dot :results output silent :file ./images/linked_list.svg :cmdline -Kdot -Tsvg
+digraph G {
+    splines="false"
+    rankdir = "LR"
+    node [style=filled, fillcolor="#CCCEFC", shape="square", label = ""];
+    0 -> 1 -> 2 -> 3 -> 4 
+}
+#+END_SRC
+
+** COMMENT Stack
+
+#+BEGIN_SRC dot
+digraph G {
+    rankdir=LR
+    nodesep=0.05
+    edge [style=invis]
+    5 [style=filled, fillcolor="#CCCEFC", shape="rectangle", label = ""];
+    6 [style=invis]
+    6 -> 4
+    subgraph cluster_1 {
+        style=filled
+        color=lightgrey
+        3,4 [style=invis]
+        0,1,2 [style=filled, fillcolor="#CCCEFC", shape="rectangle", label = "" ];
+        4 -> 3 -> 2 -> 1 -> 0 [minlen=0]
+    }
+}
+#+END_SRC
