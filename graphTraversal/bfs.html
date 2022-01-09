@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title> DFT Algorithm </title>
-    <link href="../css/main.css" rel="stylesheet"/>  
+    <title> Spanning Tree via BFS </title>
+    <link href="./css/main.css" rel="stylesheet"/>   
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script>
+	<script src="./js/nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
-      DFT Algorithm
+      Spanning Tree via BFS
     </div>
 	<div id="nav-bar"></div>
     <div class="flex-grow flex overflow-hidden">
@@ -20,7 +20,7 @@
 	  
 	  <p>
 	    Given a connected graph, the objective of this system is to
-	    build a spanning tree of the graph via Depth First traversal of the graph.
+	    build a spanning tree of the graph via BFS traversal of the graph.
 	  </p>
 	  
 	</div>
@@ -50,6 +50,13 @@
 		<td class="p-2"> Unselected Node </td>
 	      </tr>
 	      
+		  <tr class="">
+		<td class="flex items-stretch justify-center p-2">
+		  <span style="background: #FFC0CB;"
+			class="h-0.5 w-0.5 p-2"> </span>
+		</td>
+		<td class="p-2"> Discovered Node </td>
+		  </tr>
 	      
 	      <tr class="">
 		<td class="flex items-stretch justify-center p-2">
@@ -59,14 +66,6 @@
 		<td class="p-2"> Selected Node </td>
 	      </tr>
 	      
-		  <tr class="">
-		<td class="flex items-stretch justify-center p-2">
-		  <span style="background: #A5D6A7;"
-			class="h-0.5 w-0.5 p-2 border-2 border-black"> </span>
-		</td>
-		<td class="p-2"> Active Node </td>
-		  </tr>
-
 	      <tr class="">
 		<td class="flex items-stretch justify-center p-2">
 		  <span style="background: #E0E0E0;"
@@ -98,24 +97,27 @@
   
 	  <p class="mb-2">
 		  In this system, you are provided with a connected graph.
-		  Stack is used as an auxillary data structure.
-		   You can click on any node to select it. Clicking on edges is not 
-		   permitted. Clicking other nodes is not permitted after selecting a node. 
-		   A button called "Next" can be clicked to execute next step of DFT.
+		  Queue is used as an auxillary data structure. Each element of Queue is set of all 
+		  the unexplored children.
+		   You can click on any node to select it. Candidate Edges can be clicked, to add 
+		   those edge to the sub-graph. Clicking other nodes is not permitted after selecting 
+		   a node.
 	  </p>
   
-	  <h2 class="py-1 text-lg text-gray-800 underline"> Depth First Traversal </h2>
-		
+	  <h2 class="py-1 text-lg text-gray-800 underline"> Breadth First Traversal </h2>
+	  
 	  <p class="mb-2">
-		  This traversal process traverses deeper into the graph, 
-		  by exploring unvisited edges leaving out from the most recently 
-		  visited vertex. When there is no deeper level to go in the graph, 
-		  the algorithm moves back (backtrack) to the vertex from which current
-		  vertex was discovered,.
-	  </p>	
+	    This traversal process traverses graph level by level, 
+		by exploring all unvisited edges leaving out from the most recently 
+		visited vertex. It explores the children's children only after exploring all 
+		the childrens.It discovers the nodes at the next level, and keeps track of them using Queue.
+	  </p>
+
 	</div>
 	<div class="my-2 text-gray-700">
 	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+
+	  	
 
 	  <h2 class="py-1 text-lg text-gray-800 underline"> Initial: Selecting the first node </h2>
 	  
@@ -123,7 +125,7 @@
 	    <ol class="list-decimal list-inside">
 			<li>
 				Select the first node, to start building the spanning tree.The first node will 
-				be the root node for the DFT.
+				be the root node for the BFS.
 			</li>
 		</ol>
 	  </p>
@@ -133,31 +135,36 @@
 	  </h2>
 
 	  <p class="mb-2">
-	    After selecting the first node, you will see spanning tree beside the graph.  At this point the tree has just the one selected node, which is also the active node.  Now, you will observe that the edges connected to the active node are marked as "candidates" (See the color codes table).
+	    After selecting the first node, you will see spanning tree beside the graph.  At this point the tree has just the one selected node.  Now, you will observe that the edges connected to the active node are marked as "candidates" (See the color codes table).
 	  </p>
-	  
+	 
+	  <p class="mb-2">
+		All the unexplored nodes reachable from current level are marked as "discovered"(See Color Code), and are pushed into the Queue.
+	  </p>
+
 	  <p class="mb-2">
 		  <ol class="list-decimal list-inside">
 			  <li>
-				  You can now click on "Next" button and the algorithm will select any of the candidate edges randomly, to add that edge to the spanning tree.	    
+				  Select any of the candidate edges to visit that node, and add that edge to the spanning tree. The newly visited node will be removed from the Queue. 	    
 			  </li>
 			  <li>
-				  The simulator will loop through the steps of DFT, printing instructions at every step.  
+				  Visit all the unexplored nodes at a level to start visiting the discovered nodes at the next level.
 			  </li>
 			  <li>
-				  Once all the nodes are added to the tree and stack is empty, the DFT is finished and spanning tree is complete and you will not be able to click on "Next" any more.
+				  If all the nodes are added to the tree and the Queue is empty, the BFS is finished and spanning tree is complete and you will not see any candidate edges any more.
+					Otherwise repeat step 1,2.
 			  </li>
 		  </ol>
 	  </p>
+
 
 	</div>
 	  
       </div>
       <div class="flex-grow w-2/3 flex flex-col overflow-y-scroll">
 	
-	<div class="flex bg-gray-100 justify-center p-4 m-1 
-		    rounded shadow" id="prompt">
-	  <p class="p-2">
+	<div id="prompt">
+	  <p>
 	    <!-- Messages go here. -->
 	    Select any node to add it to the tree.
 	  </p>
@@ -181,20 +188,15 @@
 	    
 	</div>
     <div class="flex-grow flex text-2xl flex-row">
-        <div class="flex-grow w-1/4 flex items-center justify-center">
-            <button class="bg-blue-500 text-white text-sm font-bold py-2 px-4 rounded-md disabled:opacity-50 " id="next">
-                Next
-            </button>
-        </div>
-		<div class="flex-grow w-3/4 flex flex-col" >
-			<div class="flex-grow flex flex-row">
+        <div class="flex-grow flex px-20 flex-col" >
+			<div class="flex-grow flex  flex-row">
 				<div>
-					<span class="px-2 mx-2">Stack : </span>
+					<span class="px-2 mx-2">Queue : </span>
 				</div>
-				<div class="" id="stack">
+				<div class="" id="queue">
 				</div>
 			</div>
-			<div class="flex-grow flex flex-row">
+			<div class="flex-grow flex  flex-row">
 				<div >
 					<span class="px-2 mx-2 ">Visited : </span>
 				</div>
@@ -206,6 +208,11 @@
 	</div>
       </div>      
     </div>
-    <script src="dfsAutomated.js"></script>
+	<div id=" footer" class="flex bg-gray-500 justify-center">
+		<h3>
+		  Copyright © 2022, algodynamics.io | Development partly supported by <a href="https://www.cemca.org" target="_blank" class="text-blue-800"> CEMCA </a>
+		</h3> 
+	</div>
+    <script src="./js/bfsAlgo.js"></script>
   </body>
 </html>

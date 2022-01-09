@@ -3,29 +3,33 @@
 
   <head>
     <meta charset="UTF-8"/>
-    <link href="../css/main.css" rel="stylesheet"/> 
+    <link href="./css/main.css" rel="stylesheet"/> 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script>   
-    <title> Minimum Spanning Tree </title>
+	<script src="./js/nav.js"></script>   
+    <title> Spanning Tree </title>
   </head>
 
   <body class="flex h-screen flex-col">
     <div class="bg-gray-800 py-4 px-2 text-xl text-gray-100 font-bold">
-      Minimum Spanning Tree
+      Spanning Tree
     </div>
 	<div id="nav-bar"></div>
     <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900 text-xl">
 
       <p class="py-3">
 	This page lists the transition systems that lead to the
-	Minimum Spanning Tree algorithm through successive refinement of systems
-	starting with Arbitrary Strategy.
+	Minimum Spanning Tree algorithm through successive refinement of systems.
       </p>
 
       <ol class="list-decimal 
 		 list-inside text-2xl 
 		 text-blue-600 bg-gray-100
 		 p-10 rounded-lg shadow-md">
+	<li>
+	  <a href="./mst.html">
+	    Minimum Spanning Tree (Arbitrary)
+	  </a>
+	</li>
 	<li>
 	  <a href="./prims.html">
 	    Minimum Spanning Tree Via Prim's Algorithm
@@ -37,8 +41,16 @@
 	  </a>
 	</li>
       </ol>
-      
+	<div class="flex flex-row">
+		<h2>The developement of these experiments was partly supported by <a href="https://www.cemca.org" target="_blank" class="text-blue-800"> CEMCA </a></h2> 
+		<img src="./logo_cemca.png" title="Development partly supported by CEMCA" class="px-2 h-16 inline"> 
+	</div>
     </div>
+	<div id=" footer" class="flex bg-gray-500 justify-center">
+		<h3>
+		  Copyright © 2022, algodynamics.io
+		</h3> 
+	</div>
   </body>
 
 </html>

@@ -18,9 +18,9 @@ stack of commands
   <head>
     <meta charset="UTF-8"/>
     <title> Spanning Tree Construction </title>
-    <link href="../css/main.css" rel="stylesheet"/>    
+    <link href="./css/main.css" rel="stylesheet"/>    
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script>
+	<script src="./js/nav.js"></script>
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
@@ -132,9 +132,8 @@ stack of commands
       </div>
       <div class="flex-grow w-2/3 flex flex-col">
 	
-	<div class="flex bg-gray-100 justify-center p-4 m-2 
-		    rounded shadow" id="prompt">
-	  <p class="p-2">
+	<div id="prompt">
+	  <p>
 	    <!-- Messages go here. -->
 	  </p>
 	</div>
@@ -159,6 +158,11 @@ stack of commands
 	
       </div>      
     </div>
-    <script src="spanningTree.js"></script>
+	<div id=" footer" class="flex bg-gray-500 justify-center">
+		<h3>
+		  Copyright © 2022, algodynamics.io | Development partly supported by <a href="https://www.cemca.org" target="_blank" class="text-blue-800"> CEMCA </a>
+		</h3> 
+	</div>
+    <script src="./js/spanningTree.js"></script>
   </body>
 </html>
