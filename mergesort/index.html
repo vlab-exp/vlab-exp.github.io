@@ -6,23 +6,33 @@
     <link href="./css/main.css" rel="stylesheet"/>    
     <title> Mergesort </title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
-	<script src="./nav.js"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-83QNS9V0VK"></script>
-	<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83QNS9V0VK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-	gtag('config', 'G-83QNS9V0VK');
-	</script>
+    gtag('config', 'G-83QNS9V0VK');
+    </script>
   </head>
 
   <body class="flex h-screen flex-col">
     <div class="bg-gray-800 py-4 px-2 text-xl text-gray-100 font-bold">
       Mergesort
     </div>
-    <div id="nav-bar"></div>
+    <div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+		<nav class="flex text-gray-200 ">
+				<a class="py-1 px-2 bg-gray-400 text-black" href="./index.html">Home</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./merge/mergesystem.html">Shuffle</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./merge/msStrategy.html">Merge Strategy</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./merge/mergeSorted.html">Merge (Sorted)</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./merge/msAlgo.html">Merge Algorithm</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./merge.html">Merge Sublists</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./recursive.html">MergeSort (Recursive)</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./msarbitrary.html">MergeSort (Arbitrary)</a>
+		</nav>
+	</div>
     <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900 text-xl">
 
       <p class="py-3">
