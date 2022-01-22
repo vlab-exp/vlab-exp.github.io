@@ -1,1 +1,75 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><title>search</title><meta name="description" content=""/><link href="app.5e42377d.css" rel="stylesheet"><!-- Global site tag (gtag.js) - Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-83QNS9V0VK"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-83QNS9V0VK'); </script></head><body><div id="app"></div><script>!function(e){function r(r){for(var n,l,f=r[0],i=r[1],a=r[2],c=0,s=[];c<f.length;c++)l=f[c],Object.prototype.hasOwnProperty.call(o,l)&&o[l]&&s.push(o[l][0]),o[l]=0;for(n in i)Object.prototype.hasOwnProperty.call(i,n)&&(e[n]=i[n]);for(p&&p(r);s.length;)s.shift()();return u.push.apply(u,a||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,f=1;f<t.length;f++){var i=t[f];0!==o[i]&&(n=!1)}n&&(u.splice(r--,1),e=l(l.s=t[0]))}return e}var n={},o={1:0},u=[];function l(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,l),t.l=!0,t.exports}l.m=e,l.c=n,l.d=function(e,r,t){l.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,r){if(1&r&&(e=l(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(l.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)l.d(t,n,function(r){return e[r]}.bind(null,n));return t},l.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(r,"a",r),r},l.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},l.p="";var f=window.webpackJsonp=window.webpackJsonp||[],i=f.push.bind(f);f.push=r,f=f.slice();for(var a=0;a<f.length;a++)r(f[a]);var p=i;t()}([]);</script><script src="vendor.0225d5ee.js"></script><script src="app.7eecf307.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+	<title> Search </title>
+  </head>
+
+  <body class="flex h-screen flex-col">
+    <div class="bg-gray-800 py-4 px-2 text-xl text-gray-100 font-bold">
+      Search
+    </div>
+	<div class="flex bg-gray-700 px-2 flex justify-start items-center ">
+		<nav class="flex text-gray-200 ">
+				<a class="py-1 px-2 bg-gray-400 text-black" href="../index.html">Home</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./RandomWithReplacement.html">Random Search(Memoryless)</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./RandomWithoutReplacement.html">Random Search(with Memory)</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./LinearSearch.html">Linear Search</a>
+				<a class="py-1 px-2 hover:bg-gray-400 hover:text-gray-800" href="./BinarySearch.html">Binary Search</a>
+		</nav>
+	  </div>
+	  <div class="container flex-grow flex flex-col justify-evenly p-10 text-gray-900">
+	  <h1 class="text-2xl">Introduction</h1>
+      <p class="py-3">
+		Understanding algorithms, even simple ones, can be challenging. Reading through the pseudo-code or actual code written in some programming language and tracing the execution line-by-line makes it difficult to grasp the core concepts of the algorithm.
+	  </p>
+      <p class="py-3">
+		Therefore, we are presenting an alternate way to learn algorithms. Using the example of Search, we will demonstrate a systematic way of learning algorithms using transition systems.
+	  </p>
+      <p class="py-3">
+		The Binary Search algorithm is introduced gradually through four different experiments. Each experiment introduces just one new concept, and lets you interactively learn that concept while performing the given task. By the time you reach the final stage, you will be presented with the final algorithm, which you can step through at your own pace, visualising each every step involved.
+	  </p>
+      <h1 class="text-2xl">Interactive Abstract Machines for Search</h1>
+
+      <ol class="list-decimal 
+		 list-inside text-lg 
+		 text-blue-600 bg-gray-100
+		 p-4 rounded-lg shadow-md">
+	<li>
+	  <a href="./RandomWithReplacement.html">
+	    Random Search With Replacement
+	  </a>
+	</li>
+	<li>
+		<a href="./RandomWithoutReplacement.html">
+			Random Search Without Replacement
+		</a>
+	  </li>
+	<li>
+	  <a href="./LinearSearch.html">
+	    Linear Search
+	  </a>
+	</li>
+	<li>
+	  <a href="./BinarySearch.html">
+	    Binary Search
+	  </a>
+	</li>
+      </ol>
+	  <div class="flex flex-row text-xl">
+		<h2>The development of these experiments has been supported by <a href="https://www.cemca.org" target="_blank" class="text-blue-800"> CEMCA </a></h2> 
+		<img src="./logo_cemca.png" title="Development supported by CEMCA" class="px-2 h-24 inline"> 
+	  </div>
+  
+    </div>
+	<div id=" footer" class="flex bg-gray-500 justify-center">
+		<h3>
+		  Copyright © 2021, algodynamics.io
+		</h3> 
+	</div>
+
+  </body>
+
+</html>
