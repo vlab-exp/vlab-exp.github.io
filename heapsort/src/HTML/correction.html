@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="../JS/correction.js"></script>
+    <title> Correction </title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+    <script src="./nav.js"></script>
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Correction
+    </div>
+    <div id="nav-bar"></div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment is to Convert the given Complete Binary Tree into a Max Heap.
+	  </p>
+    <h1 class="py-2 text-xl text-gray-800 font-semibold"> Definitions </h1>
+    <p>
+	    Let P be the value of a node, C1 be the value of left child(if any), C2 be the value of right child(in any).
+    </p>
+    <h1 class="py-2 text-l text-gray-800 font-semibold"> Correct Value of a Node</h1>
+	 
+    <p>Correct value of a node is P, if no child node exists.</p>
+	  <p>Correct value of a node is max(P,C1), if one child node exists. By definition of a Complete Binary Tree, 
+      if only one child exists then it will be the left child.</p>
+    <p>Correct value of a node is max(P,C1,C2), if two child node exists.</p>
+	  <h1 class="py-2 text-l text-gray-800 font-semibold"> Correct Node </h1>
+	  <p>
+	    A Node is said to be a "Correct" node if its value is greater than or equal to its children(if they exist).
+      A Leaf node is also a "Correct" node. In other words, if P is equal to the "Correct value of the node" then the node is "Correct".
+	  </p>
+    <h1 class="py-2 text-l text-gray-800 font-semibold"> Incorrect Node </h1>
+	  <p>
+	    A Node which is not correct is called an "Incorrect" Node. 
+      In other words, if P is not equal to the "Correct value of the node" then the node is "Incorrect".
+	  </p>
+    
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+      The Correction Machine experiment consists of a Complete Binary Tree. 
+      You can click on any node to select it. 
+      You can select only one node at a time. 
+      Selecting any node will deselect a previously selected node(if any).
+
+        
+	  </p>
+
+    <p class="py-1">
+      On selecting an Incorrect node, you can correct it by clicking on "Correct" button. 
+       This operation will swap the selected node with the node which has the "Correct value" of Selected Node. 
+       For example, if P = 64, C1 = 49 and C2 = 100. The correct value of the node is C2(100). 
+       After the operation, P and C2 will be swapped. Hence,P = 100, C1 = 49, C2 = 64.
+    </p>
+
+	  
+
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+	  <ol class="list-decimal list-inside">
+	    <li class="py-1">
+            Select an Incorrect node.
+	    </li>
+	    
+       
+        <li class="py-1">
+            Correct the selected node.
+        </li>
+        <li class="py-1">
+            Check if the Complete Binary Tree is also a Max Heap. If not, Repeat steps 1 to 2. 
+        </li>
+
+	  </ol>
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow flex w-2/3">
+	<div id="elm-app-is-loaded-here"></div>
+      </div>
+    </div>      
+</div>
+    <script>
+      var app = Elm.Correction.init({
+	  node: document.getElementById('elm-app-is-loaded-here'),
+      });
+    </script>
+  </body>
+</html>

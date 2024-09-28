@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    
+    <title> Home </title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+    <script src="./nav.js"></script>
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Home
+    </div>
+    <div id="nav-bar"></div>
+    <div class="flex-grow flex overflow-hidden">
+        <div class="w-full bg-gray-200 p-4 overflow-scroll">
+
+            <div class="my-2 text-gray-700">
+                <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+                <p>
+                    Objective of these series of experiments is to understand Heap Sort.
+                    Heap Sort is a Sorting Algorithm which sorts a list of numbers using a Max Heap. 
+                    Each experiment will introduce you to a new concept on top of all previously learned concepts.
+                    Before we start, we will review some key concepts which are essential to understand Heap Sort.
+                </p>
+        
+                <h1 class="py-2 text-xl text-gray-800 font-semibold"> Key Concepts </h1>
+                <h1 class="py-2 text-l text-gray-800 font-semibold"> Complete Binary Tree </h1>
+                <p class="py-1">
+                    A complete binary tree(CBT) is a binary tree in which every level, 
+                    except possibly the last, is completely filled, and all nodes are as far left as possible.
+                </p>
+                <h1 class="py-2 text-l text-gray-800 font-semibold"> Array Representation of CBT </h1>
+                <p class="py-1">
+                    A complete binary tree can be represented as an list. If parent node is at index i, 
+                    left child node will be at index 2*i+1 and right child node will be at index 2*i+2.
+                </p>
+                <h1 class="py-2 text-l text-gray-800 font-semibold"> Binary Heap </h1>
+                <p class="py-1">
+                    A Binary heap is a CBT such that value in parent node are greater(smaller) than values in the child node. 
+                    If it's greater than it is called Max heap and if it's smaller than it is called Min heap.
+                    In a Max-heap the root node or 0<sup>th</sup> index is largest among all elements.
+                </p>
+
+                
+
+        
+
+                <h1 class="py-2 text-xl text-gray-800 font-semibold"> Overall Description </h1>
+                <p class="py-1">
+                    Since a list of numbers can be represented as a Complete Binary Tree, first seven experiments deal with 
+                    converting a CBT into a Max Heap. In last two experiments, you will learn about how to sort a list of numbers
+                    using the Max Heap.
+                </p>
+        
+            </div>
+	
+        </div>
+      
+    </div>      
+</div>
+    
+  </body>
+</html>

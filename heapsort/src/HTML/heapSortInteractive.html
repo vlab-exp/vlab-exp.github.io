@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="../JS/heapSortInteractive.js"></script>
+    <title> HeapSort Interactive </title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+    <script src="./nav.js"></script>
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      HeapSort Interactive
+    </div>
+    <div id="nav-bar"></div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment is to generate a sorted list of numbers in ascending order from a Max Heap.
+	  </p>
+	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+        The HeapSort Interactive experiment consists of a Max Heap. 
+        Using the insight that the root node of a Max heap has the the greatest value, 
+        generate a sorted list of numbers from the nodes of Max heap in ascending order by continously 
+        performing one of the three operations.
+    </p>
+
+    <p class="py-1">
+      Clicking on "Swap" button swaps the value of the first and the last node which are highlighted in red color.
+      
+    </p>
+    <p class="py-1">
+        Clicking on "Pop and Append" button removes the last node from the tree and adds it to the front of the generated list.
+    </p>
+    <p class="py-1">
+        Clicking on "Heapify Root" button performs heapify subtree procedure at the root node(As in Experiment "Heapify Subtree").
+        
+    </p>
+    <p class="py-1">Sorted list appears in green background while unsorted list appears in red background.</p>
+    
+
+	  
+
+	  
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow flex w-2/3">
+	<div id="elm-app-is-loaded-here"></div>
+      </div>
+    </div>      
+</div>
+    <script>
+      var app = Elm.HeapSortInteractive.init({
+	  node: document.getElementById('elm-app-is-loaded-here'),
+      });
+    </script>
+  </body>
+</html>

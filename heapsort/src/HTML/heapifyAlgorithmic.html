@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="../JS/heapifyAlgorithmic.js"></script>
+    <title> Heapify Algorithmic </title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+    <script src="./nav.js"></script>
+  </head>
+  <body class="flex flex-col h-screen overflow-hidden">
+    <div class="bg-gray-800 text-white text-xl font-medium py-4 px-2">
+      Heapify Algorithmic
+    </div>
+    <div id="nav-bar"></div>
+    <div class="flex-grow flex overflow-hidden">
+      <div class="w-1/3 bg-gray-200 p-4 overflow-scroll">
+
+	<div class="my-2 text-gray-700">
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Objective </h1>
+	  <p>
+	    The objective of this experiment is to Convert the given Complete Binary Tree into a Max Heap.
+	  </p>
+	  
+	  <h1 class="py-2 text-xl text-gray-800 font-semibold"> Experiment Setup </h1>
+	  <p class="py-1">
+      In this experiment, we convert a Complete Binary Tree into a Max Heap by processing one sub-tree at a time.
+      We begin with sub-tree rooted at last parent node. 
+      While processing a sub-tree if we reach a leaf node or a correct node, 
+      we mark the node just before the current root as the new root node. 
+      We continue this entire process till no previous node exists.
+      At the end, we have a Max-heap. 
+
+     </p>
+     <p class="py-1">Root is highlighted in red color and subsequent child nodes in green color.</p>
+     
+     <h1 class="py-2 text-xl text-gray-800 font-semibold"> Procedure </h1>
+     <ol class="list-decimal list-inside">
+       <li class="py-1">
+           Click on "Next" button and follow the Heapify Algorithm.
+       </li>
+       
+
+     </ol>
+
+	  
+	  
+	</div>
+	
+      </div>
+      <div class="flex-grow flex w-2/3">
+	<div id="elm-app-is-loaded-here"></div>
+      </div>
+    </div>      
+</div>
+    <script>
+      var app = Elm.HeapifyAlgorithmic.init({
+	  node: document.getElementById('elm-app-is-loaded-here'),
+      });
+    </script>
+  </body>
+</html>
